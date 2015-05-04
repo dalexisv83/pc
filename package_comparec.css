@@ -1,0 +1,302 @@
+body
+{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:11px;
+	background-image:url('%%pub%%system/img/package_comp_back.jpg');
+	background-repeat:no-repeat;
+	background-color:#cccccc;
+                scrollbar-arrow-color: #31517c; 
+	scrollbar-3dlight-color: #fff; 
+	scrollbar-darkshadow-color: #fff; 
+	scrollbar-face-color: #31517c; 
+	scrollbar-highlight-color: #fff; 
+	scrollbar-shadow-color: #fff; 
+	scrollbar-track-color: #fff;
+	
+}
+
+.sort_radio{
+	position:absolute;
+	text-align:center;
+	top:110px;
+	left:290px;	
+	display:none;
+}
+
+.even {
+background-color: #fff;
+
+}
+
+.odd {
+background-color: #cce3f3;
+}
+
+.rows {
+	margin:2px;                
+                padding-top:1px;
+                padding-bottom:1px;
+}
+
+.rows th {
+	font-size:11px;
+}
+
+.warning_box
+{
+	
+	position:absolute;
+	top:0px;
+	left:465px;
+	width:410px;
+	height:80px;
+	border-color:#000;
+	border:double;
+	background-color:#134896;
+	opacity:0.2;
+	filter:Alpha(opacity=50); /* IE8 and earlier */
+	border-radius: 10px;
+	z-index:3;
+                display:none;
+}
+
+.COMevo
+{
+	position:absolute;
+	top:15px;
+	left:510px;
+	display:none;
+}
+
+.premier_text, .choice_ultimate_text, .choice_xtra_text, .choice_text, .lo_maximo_text, .mas_ultra_text, .optimo_mas_text, .mas_latino_text
+
+{
+	color: #fff;
+                font-weight:bold;
+	position:absolute;
+	top:7px;
+	left:475px;
+	width:390px;
+	height:55px;
+	z-index:4;
+	display:none;
+}
+
+		
+.currentPackage
+{
+	position:absolute;
+	top:110px;
+	left:40px;
+	display:none;
+}
+
+.requestedPackage
+{
+	position:absolute;
+	top:110px;
+	left:670px;
+	display:none;
+}
+
+.COMcurrentPackage
+{
+	position:absolute;
+	top:110px;
+	left:20px;
+	display:none;
+}
+
+.COMrequestedPackage
+{
+	position:absolute;
+	top:112px;
+	left:675px;
+	display:none;
+}
+
+#current_plus{ position:absolute; top:73px; left:90px; z-index:10; display:none; }
+#gained_plus{ position:absolute; top:73px; left:314px; z-index:10; display:none; }
+#lost_plus{ position:absolute; top:73px; left:543px; z-index:10; display:none; }
+#requested_plus{ position:absolute; top:73px; left:779px; z-index:10; display:none; }
+
+
+
+/* CONTAINER for all of the channel results  */
+#results
+{
+	position:relative;
+	top:98px;
+	left:10px;
+	height:200px;
+	width:924px;
+	background-image:url('%%pub%%system/img/channels_back.png');
+	background-repeat:no-repeat;
+	display:none;
+}
+
+#current_channels
+{
+	position:absolute;
+	top:20px;
+	left:-15px;	
+	font:Arial, Helvetica, sans-serif;
+	text-align:center;
+	height:380px;
+	width:220px;
+}
+#current_channels a
+{
+	text-decoration:none;
+	color:#31517c;
+	font-size:40px;
+	font-weight:bold;
+}
+
+
+#gained_channels
+{
+	position:absolute;
+	top:20px;
+	left:210px;	
+	font:Arial, Helvetica, sans-serif;
+	text-align:center;
+	height:380px;
+	width:220px;
+}
+#gained_channels a
+{
+	text-decoration:none;
+	color:#337c31;
+	font-size:40px;
+	font-weight:bold;
+}
+
+
+#lost_channels
+{
+	position:absolute;
+	top:20px;
+	left:440px;
+	font:Arial, Helvetica, sans-serif;
+	text-align:center;
+	height:380px;
+	width:220px;	
+}
+#lost_channels a
+{
+	text-decoration:none;
+	color:#d00404;
+	font-size:40px;
+	font-weight:bold;
+}
+
+
+#requested_channels
+{
+	position:absolute;
+	top:20px;
+	left:672px;
+	text-align:center;
+	height:380px;
+	width:220px;
+}
+#requested_channels a
+{
+	text-decoration:none;
+	color:#31517c;
+	font-size:40px;
+	font-weight:bold;
+}
+
+#current_channels_package, #requested_channels_package
+{	
+	position:relative;
+	top:3px;
+	width:200px;
+	display:none;
+	font-size:11px;
+}
+
+#gained_channels_package, #lost_channels_package
+{	
+	position:relative;
+	top:33px;
+	width:200px;
+	display:none;
+	font-size:11px;
+}
+
+
+#current_channels_package a, #requested_channels_package a
+{
+	color:#31517c;
+	font-size:11px;
+	font:Arial, Helvetica, sans-serif;
+	text-align:center;
+}
+
+
+#requested_channels_list, #current_channels_list
+{
+	height:375px;
+	width:210px;
+	overflow-x:hidden;
+	overflow-y:auto;
+	display:none;
+}
+
+#lost_channels_list, #gained_channels_list
+{
+	position:relative;
+	top:31px;
+	height:375px;
+	width:210px;
+	overflow-x:hidden;
+	overflow-y:auto;
+	display:none;
+	
+}
+
+#requested_channels_list td, #lost_channels_list td, #gained_channels_list td, #current_channels_list td
+{
+	font-size:11px;
+}
+
+#current_channels_list a, #gained_channels_list a, #lost_channels_list a, #requested_channels_list a
+{
+	color:black;
+	font-size:11px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+
+/* controls basic open/close buttons on WHY popups */
+.why_button{
+	cursor:pointer;
+                color: #FFFFFF;
+}
+
+/* controls the display container for WHY popups  */
+.why_box{
+	display:none;
+	position:absolute;
+	top:50px;
+	left:0px;
+	border:1px solid #ccc;
+	background-color:#FFF;
+	z-index:499;
+	
+}
+
+#why_text {
+	text-align:left;
+	overflow:auto;
+    height: 220px;
+	z-index:500;
+}
+
+#why{
+	font-size:9px;
+}
+

@@ -1,0 +1,317 @@
+<html>
+<head>
+<title>Package Compare Tool</title>
+<script src="%%pub%%system/js/webtrends_cookie_tracking.js"></script>
+<link rel="stylesheet" href="package_comparec.css">
+<script language="JavaScript" src="%%pub%%system/js/jquery-aacDev.js"></script>
+<script language="JavaScript" src="package_comparej.js"></script>
+
+<script>
+$(document).ready(function(){
+	site = window.location.pathname;
+	if (site.match(/s\/com/)!=null)
+	{
+		site = "com"
+		$('.COMevo').show();
+	}
+	else 
+	{
+		site = "res"
+		$('.currentPackage').show();
+		$('.requestedPackage').show();
+	}
+});
+
+</script>
+
+<!-- TOOL FEEDBACK -->
+<script type="text/javascript" src="%%pub%%system/js/site-plugins.js"></script>
+<script type="text/javascript" src="%%pub%%system/js/tool-feedback.js"></script>
+<link rel="stylesheet" href="%%pub%%system/css/feedback-tool.css" type="text/css">
+<input type="hidden" id="tool-author-id" value="Jason McKenney"/>
+
+
+
+</head>
+<body onkeypress="return event.keyCode!=13;">
+<object  id = "Channels" classid = "CLSID:333C7BC4-460F-11D0-BC04-0080C7055A83">
+    <param name = "DataURL" value = "%%pub%%rover_tools/channel_list/channelst.txt">
+    <param name = "UseHeader" value = "TRUE">
+    <param name = "TextQualifier" value = "@">
+    <param name = "FieldDelim" value = " | ">
+    <param name= "Sort" value="+ChannelNumber">
+</object>
+
+
+<object  id = "COMChannels" classid = "CLSID:333C7BC4-460F-11D0-BC04-0080C7055A83">
+    <param name = "DataURL" value = "%%pub%%rover_tools/channel_list/c_channelst.txt">
+    <param name = "UseHeader" value = "TRUE">
+    <param name = "TextQualifier" value = "@">
+    <param name = "FieldDelim" value = ",">
+    <param name= "Sort" value="+ChannelNumber">
+    <param name="CaseSensitive" value="false">
+</object>
+
+
+<span class="sort_radio">
+<strong>Sort channels by:</strong> <input type="radio" name="sort" value="number" onClick="javascript:reSort('+ChannelNumber')" />Number  &nbsp;
+<input type="radio" name="sort" value="name" onClick="javascript:reSort('+ChannelName')" />Name  &nbsp;
+<input type="radio" name="sort" value="genre" onClick="javascript:reSort('+Genre')" />Genre  <a onclick="why('legend')" class="why_button" id="legend"><img src="%%pub%%system/img/why-icon.png" width="14" height="15" align="absmiddle" /></a>
+</span>
+
+<!--
+<span class="sort_radio_com">
+<strong>Sort channels by:</strong> <input type="radio" name="sort" value="number" onClick="javascript:reSort('+ChannelNumber')" />Number  &nbsp;<input type="radio" name="sort" value="name" onClick="javascript:reSort('+ChannelName')" />Name  
+</span>
+-->
+
+
+<form name="frmCompareInfo">
+    		<div class="currentPackage">
+              <select id="currentPackage" onChange="setCurrentValue(this.value)">
+                      <option value="" selected>Select one</option>
+    		      <option value="Americas_Plus">Americas Plus ($7.99)</option>
+                      <option value="Basic">Basic ($20.99)</option>
+                      <option value="Basic_Choice">Basic Choice (Int'l) ($17.99)</option>
+                      <option value="Basico">Basico ($42.49)</option>
+                      <option value="Choice">Choice ($70.99)</option>
+                      <option value="Choice_Xtra_Classic">Choice Xtra Classic ($79.49)</option>
+                      <option value="En_Espanol">En Espanol ($14.99)</option>
+                      <option value="Entertainment">Entertainment ($59.99)</option>
+                      <option value="Entertainment_Classic">Entertainment Classic ($59.99)</option>
+                      <option value="Familiar">Familiar ($60.99)</option>
+                      <option value="Familiar_Ultra">Familiar Ultra ($72.99)</option>
+                      <option value="Family">Family ($29.99)</option>
+                      <option value="Lo_Maximo">Lo Maximo ($136.99)</option>
+                      <option value="Mas_Mexico">Mas Mexico ($35.99)</option>
+                      <option value="Mas_Latino">Mas Latino ($36.99)</option>
+                      <option value="Mas_Ultra">Mas Ultra ($71.99)</option>
+                      <option value="Mas_Ultra_Original">Mas Ultra Original ($69.99)</option>
+                      <option value="Mexico_Plus">Mexico Plus ($7.99)</option>
+                      <option value="Opcion_Especial">Opcion Especial ($45.49)</option>
+                      <option value="Opcion_Extra_Especial">Opcion Extra Especial ($65.49)</option>
+                      <option value="Opcion_Premier">Opcion Premier ($132.99)</option>
+                      <option value="Opcion_Ultra_Especial">Opcion Ultra Especial ($67.49)</option>
+                      <option value="Optimo_Mas">Optimo Mas ($54.99)</option>
+                      <option value="Preferred_Choice">Preferred Choice (Int'l) ($48.99)</option>
+                      <option value="Preferred_Xtra">Preferred Xtra ($75.99)</option>
+                      <option value="Premier">Premier ($136.99)</option>
+                      <option value="Select">Select ($49.99)</option>
+                      <option value="Select_Classic">Select Classic ($48.49)</option>
+                      <option value="Select_Choice">Select Choice ($51.99)</option>
+                      <option value="Total_Choice">Total Choice ($72.99)</option>
+                      <option value="Total_Choice_Limited">Total Choice Limited ($62.49)</option>   		
+                      <option value="Ultimate">Ultimate ($86.99)</option>
+		                  <option value="Xtra">Xtra ($77.99)</option>
+              </select>
+            </div>
+
+            <div class="requestedPackage">
+    			<select id="requestedPackage" onChange="setRequestedValue(this.value)">
+                      <option value="" selected>Select one</option>
+                      <option value="Americas_Plus">Americas Plus ($7.99)</option>
+                      <option value="Basic_Choice">Basic Choice (Int'l) ($17.99)</option>
+                      <option value="Basico">Basico ($42.49)</option>
+                      <option value="Choice">Choice ($70.99)</option>
+                      <option value="En_Espanol">En Espanol ($14.99)</option>
+                      <option value="Entertainment">Entertainment ($59.99)</option>
+                      <option value="Family">Family ($29.99)</option>
+                      <option value="Lo_Maximo">Lo Maximo ($136.99)</option>
+                      <option value="Mas_Latino">Mas Latino ($36.99)</option>
+                      <option value="Mas_Ultra">Mas Ultra ($71.99)</option>
+                      <option value="Mexico_Plus">Mexico Plus ($7.99)</option>
+                      <option value="Optimo_Mas">Optimo Mas ($54.99)</option>
+                      <option value="Preferred_Choice">Preferred Choice (Int'l) ($48.99)</option>
+                      <option value="Preferred_Xtra">Preferred Xtra ($75.99)</option>
+                      <option value="Premier">Premier ($136.99)</option>
+                      <option value="Select">Select ($49.99)</option>
+                      <option value="Ultimate">Ultimate ($86.99)</option>
+                      <option value="Xtra">Xtra ($77.99)</option>
+   				</select>
+            </div>
+            
+            <div class="COMevo">
+            	<select id="COMevoRange" onChange="setEVOrange(this.value)">
+                      <option value="" selected>Select EVO To Begin . . .</option>
+                      <option value="0-50">0-50</option>  
+                      <option value="51-100">51-100</option>  
+                      <option value="101-150">101-150</option>
+                      <option value="151-200">151-200</option>
+                      <option value="201-500">201-500</option>
+                      <option value="501-1000">501-1000</option>
+                      <option value="1001-2000">1001-2000</option>
+                      <option value="2000+">2000+</option>        
+   				</select>
+            </div>
+            
+            <div class="COMcurrentPackage">
+    			<select id="COMcurrentPackage" onChange="setCurrentValue(this.value)">
+                      <option value="" selected>Select one</option>
+                      <option value="Airborne Office Choice">Airborne Office Choice ($93.99)</option>  
+                      <option value="Business Choice">Business Choice ($92.99)</option>  
+                      <option value="Business Entertainment">Business Entertainment ($69.99)</option>
+                      <option value="Business Entertainment Pack">Business Entertainment Pack ($74.99)</option>
+                      <option value="Business Information">Business Information ($43.99)</option>
+                      <option value="Business Select Pack">Business Select Pack ($54.99)</option>
+                      <option value="Business Xtra Pack">Business Xtra Pack ($92.99)</option>
+                      <option value="Commercial Basic">Com Basic</option>                      
+                      <option value="Commercial Choice">Com Choice</option>
+                      <option value="Commercial Choice Plus">Com Choice Plus</option>
+                      <option value="Commercial Entertainment Pack">Com Entertainment Pack ($89.99)</option>
+                      <option value="Comercial Mas Ultra">Com Mas Ultra ($64.99)</option>
+                      <option value="Comercial Mas Ultra Pack">Com Mas Ultra Pack ($99.99)</option>
+                      <option value="Commercial Xtra Pack">Com Xtra Pack ($133.99)</option>   
+                      <option value="Entertainment">Entertainment</option>
+                       <option value="Entertainment Unlimited">Entertainment Unlimited ($50.99)</option> 
+                       <option value="Family">Family</option> 
+                        <option value="Fundamentals">Fundamentals</option> 
+                        <option value="In Room Choice">In Room Choice</option>  
+                       <option value="Office Choice">Office Choice ($92.99)</option>  
+                        <option value="Office Entertainment">Office Entertainment ($69.99)</option>  
+                        <option value="Office Information">Office Information ($43.99)</option>  
+                        <option value="Sonic Tap">Sonic Tap ($35.99)</option>  
+                        <option value="Sports Choice">Sports Choice ($19.99)</option>  
+                        <option value="Ultimate">Ultimate</option>              
+   				</select>
+            </div>
+            
+            
+
+            <div class="COMrequestedPackage">
+    			<select id="COMrequestedPackage" onChange="setRequestedValue(this.value)">
+                      <option value="" selected>Select one</option>
+                      <option value="Airborne Office Choice">Airborne Office Choice ($93.99)</option>   
+                      <option value="Business Entertainment Pack">Business Entertainment Pack ($74.99)</option>
+                      <option value="Business Select Pack">Business Select Pack ($54.99)</option>
+                      <option value="Business Xtra Pack">Business Xtra Pack ($92.99)</option>
+                      <option value="Commercial Basic">Com Basic</option>
+                      <option value="Commercial Choice">Com Choice</option>
+                      <option value="Commercial Choice Plus">Com Choice Plus</option>
+                      <option value="Commercial Entertainment Pack">Com Entertainment Pack ($89.99)</option>
+                      <option value="Comercial Mas Ultra">Com Mas Ultra ($64.99)</option>
+                      <option value="Comercial Mas Ultra Pack">Com Mas Ultra Pack ($99.99)</option>
+                      <option value="Commercial Xtra Pack">Com Xtra Pack ($133.99)</option>   
+                      <option value="Entertainment">Entertainment</option>  
+                      <option value="Entertainment Unlimited">Entertainment Unlimited ($50.99)</option>  
+                      <option value="Family">Family</option>  
+                      <option value="Office Choice">Office Choice ($92.99)</option>  
+                      <option value="Office Entertainment">Office Entertainment ($69.99)</option>  
+                      <option value="Office Information">Office Information ($43.99)</option>  
+                      <option value="Sonic Tap">Sonic Tap ($35.99)</option>  
+                      <option value="Sports Choice">Sports Choice ($19.99)</option>            
+   						 <option value="Ultimate">Ultimate</option>  
+                </select>
+   <!--<div style="font-size:11px; color:yellow; position:absolute; top:-60px; left:5px;"><strong>*CCP is a 100+ EVO Package</strong></div>-->
+            </div>
+</form>           
+        
+<div id="results">
+    <div id="current_holder"><div id="current_channels"></div><img onClick="show_channels('current_plus',1)" id="current_plus" src='%%pub%%system/img/chan_plus.png'></div>
+    <div id="gained_holder"><div id="gained_channels"></div><img onClick="show_channels('gained_plus',2)" id="gained_plus" src='%%pub%%system/img/chan_plus.png'></div>
+    <div id="lost_holder"><div id="lost_channels"></div><img onClick="show_channels('lost_plus',3)" id="lost_plus" src='%%pub%%system/img/chan_plus.png'></div>
+    <div id="requested_holder"><div id="requested_channels"></div> <img onClick="show_channels('requested_plus',4)" id="requested_plus" src='%%pub%%system/img/chan_plus.png'></div>    
+<div style="font-size:11px; color:white; position:absolute; top:-85px; left:260px; z-index:10;">(*) DIRECTV On Demand <br> (&#171;) Rewind & Restart</div>
+</div>
+
+
+<p class="premier_text all_text">PREMIER is our best package!  Premier includes all of the premium programming, such as HBO, STARZ, SHOWTIME, CINEMAX, and SPORTS PACK. You can be assured that the PREMIER package offers programming for everyone in your household!</p>
+
+<p class="choice_ultimate_text all_text">ULTIMATE offers the best sports, movies, and family programming, and entertainment, including A&E, Encore Movie Channels, FX Movie, National Geographic, and Disney Channel with many available in HD.</p>
+
+<p class="choice_xtra_text all_text">XTRA has the best sports, movies and entertainment, including NatGeo WILD, Discovery Fit, Oxygen, and FX Movie. XTRA has over 60 HD channels, including Biography, NBC Sports Network, FOX Sports 2, Golf Channel and more!</p>
+
+<p class="choice_text all_text">CHOICE offers over 150 channels of the best sports, movies and entertainment, including the Cooking Channel, Science, ESPNU, MLB Network, Fuse, IFC, ESPNEWS, NFL Network, BTN, and much more with many available in HD.</p>
+
+
+
+<p class="lo_maximo_text all_text">LO M&Aacute;XIMO is our best Spanish package!  It includes all of the premium programming such as HBO, STARZ, SHOWTIME, CINEMAX, and the best overall channels. LO M&Aacute;XIMO offers programming for everyone in your household!</p>
+
+<p class="mas_ultra_text all_text">M&Aacute;S ULTRA offers the widest array of sports, movies, and entertainment, including ESPN, Fox soccer, SYFY, TLC, Azteca Am&eacute;rica, Telefe, History en Espa&ntilde;ol, Discovery Familia, and many more. M&Aacute;S ULTRA has 45+ HD channels!</p>
+
+<p class="optimo_mas_text all_text">&Oacute;PTIMO M&Aacute;S has the best English and Spanish channels with movies, sports, and entertainment, including USA, Discovery, TNT, Univision, Mun2, Cine Latino, Fox Deportes, beIN, Mega, and Utilisima. &Oacute;PTIMO M&Aacute;S has 30+ HD channels!</p>
+
+<p class="mas_latino_text all_text">M&Aacute;S LATINO offers the right combination of Spanish and English programming for today's bilingual household. You will enjoy many family and movie options including Disney, Nickelodeon, Discovery en Espa&ntilde;ol, Univision, and others.</p>
+
+
+<div class="warning_box"></div>
+
+
+
+<!-- our WHY popup DIV    -->
+<div id="why" class="why_box">
+	<table cellpadding="2" border="0">
+    	<thead>
+    	<tr bgcolor="#408ebf">
+        	<th colspan="2" align="left"><a onClick="$('.why_box').toggle()" class="why_button"><strong>CLOSE</strong></a></th>
+        </tr>
+      	</thead>
+        <tbody>
+  <tr>
+    <td>FAM</td><td>Family</td>
+    
+  </tr>
+  <tr>
+    <td>INT</td><td>International</td>
+    
+  </tr>
+  <tr>
+    <td>LIF</td><td>Lifestyle</td>
+    
+  </tr>
+  <tr>
+    <td>MOV</td><td>Movie</td>
+    
+  </tr>
+  <tr>
+    <td>NEW</td><td>News</td>
+    
+  </tr>
+  <tr>
+    <td>SNC</td><td>Sonic</td>
+    
+  </tr>
+  <tr>
+    <td>SPA</td><td>Spanish</td>
+    
+  </tr>
+  <tr>
+    <td>SPT</td><td>Sports</td>
+    
+  </tr>     
+  </tbody>   
+    </table>
+</div>
+
+
+
+
+<!-- START OF SmartSource Data Collector TAG -->
+<!-- Copyright (c) 1996-2011 WebTrends Inc.  All rights reserved. -->
+<!-- Version: 9.3.0 -->
+<!-- Tag Builder Version: 3.1  -->
+<!-- Created: 2/15/2011 6:47:20 PM -->
+<script src="%%pub%%system/js/webtrends.js" type="text/javascript"></script>
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- Warning: The two script blocks below must remain inline. Moving them to an external -->
+<!-- JavaScript include file can cause serious problems with cross-domain tracking.      -->
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<script type="text/javascript">
+//<![CDATA[
+var _tag=new WebTrends();
+_tag.dcsGetId();
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+_tag.dcsCustom=function(){
+// Add custom parameters here.
+//_tag.DCSext.param_name=param_value;
+}
+_tag.dcsCollect();
+//]]>
+</script>
+<!-- END OF SmartSource Data Collector TAG -->
+
+
+</body>
+</html>
