@@ -1,0 +1,10 @@
+body{
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 11px;
+  background-color: transparent;
+}
+.full{
+  background-image: url('%%pub%%system/img/package_comp_back.jpg');
+  background-repeat: no-repeat; 
+  background-position: center center fixed;
+}

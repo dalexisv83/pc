@@ -1,0 +1,51 @@
+<!doctype html>
+<html class="full" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="App">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />   
+    <title>Package Compare V2</title>
+    <link rel="stylesheet" href="%%pub%%system/css/bootstrap.3.1.1.css">  
+    <link rel="stylesheet" href="%%pub%%system/css/jquery.qtip.min.css"> 
+    <link rel="stylesheet" href="style/style.css">
+    <!--[if IE]>
+     <link rel="stylesheet" href="style/ie.css">
+    <![endif]--> 
+</head>
+<body>
+    
+    <div class="container" ng-controller="AppController" ng-init="init()">
+        <div class="row">          
+            <label>Current Packages</label>
+            <select ng-model="current_pkg" ng-options="current_pkg.name for current_pkg in current_pkgs" ng-change="selectPackage(current_pkg,true)">
+                       <option value="">-- Select Package --</option>
+            </select>
+            <br /><br />
+            <label>Requested Packages</label>
+            <select ng-model="requested_pkg" ng-options="requested_pkg.name for requested_pkg in requested_pkgs" ng-change="selectPackage(requested_pkg,false)">
+                       <option value="">-- Select Package --</option>
+            </select>
+        </div>
+        <div class="row">
+            <p>Count: {{requested_channels.length}}</p>
+            <label>{{requested_pkg.name}}</label>
+            <table style="width:200px">
+                <tr><th>#</th><th>Channel Name</th></tr>
+                <tr ng-repeat="channel in requested_channels">
+                    <td ng-bind-html-unsafe="channel.channelnumber"></td>
+                    <td ng-bind-html-unsafe="channel.channelname"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="script/underscore.js"></script>
+    <script type="text/javascript" src="%%pub%%system/js/angular.js"></script>    
+    <script type="text/javascript" src="%%pub%%system/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="%%pub%%system/js/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="script/app.js"></script>
+    <script type="text/javascript" src="data/channels.js"></script>
+    <script type="text/javascript" src="script/class.js"></script>
+    <script type="text/javascript" src="controller/app_controller.js"></script> 
+    
+</body>
+</html>
