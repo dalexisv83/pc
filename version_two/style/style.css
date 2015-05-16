@@ -3,8 +3,319 @@ body{
   font-size: 11px;
   background-color: transparent;
 }
+
 .full{
-  background-image: url('%%pub%%system/img/package_comp_back.jpg');
+  background-image: url('http://agentanswercenterstg.directv.com/en-us/res/system/img/package_comp_back.jpg');
   background-repeat: no-repeat; 
   background-position: center center fixed;
 }
+
+.clearfix{
+  clear: both;
+}
+
+select{
+  width:250px;
+}
+
+.wrapper{
+ width:920px;
+}
+
+table{
+  width:100%;
+  border: 1px solid #ccc;
+}
+
+.current-pkg-holder,
+.requested-pkg-holder{
+  width:50%;
+}
+
+/**
+ * Anything wrap with row class will align to the left
+ */
+.row{
+  padding-left:23px;
+}
+
+.requested-pkg-holder select,
+.requested-pkg-holder .chosen-container
+{
+  margin-left: 149px;
+}
+
+.current-pkg-holder select,
+.current-pkg-holder .chosen-container
+{
+  margin-left: 33px;
+}
+
+.row.pkgs-holder{
+  margin-top:110px;
+}
+
+.channels-count-holder .pull-left{
+  width:25%;
+  height:89px;  
+}
+
+.count{
+  color:#337c31; /*default*/
+  font-size: 40px;
+  font-weight:bold;
+  font-family: Verdana, Geneva, sans-serif;
+  width:100px;
+  height:50px;
+  text-align: center;
+  margin-left: 52px; /*default*/
+  padding-top: 17px;
+  cursor:pointer;
+}
+
+.channels-count-holder{  
+  width:915px;
+  background-image: url(http://agentanswercenterstg.directv.com/en-us/res/system/img/channels_back.png);
+  background-position: 10px 0;
+  background-repeat: no-repeat;  
+}
+
+.current.count{
+  margin-left: 55px;
+  color:#31517c;
+}
+
+.lost.count{
+  margin-left: 50px;
+  color:#d00404;
+}
+
+.requested.count{
+  margin-left: 56px;
+  color: #31517c; 
+}
+
+.table-header,
+.channels-table-holder{
+  width:23%;
+  margin-left: 12px;
+}
+
+.channels-table-holder{
+  height:370px;
+}
+
+.table-header a{
+  color: #fff;
+}
+
+.table-header .label-holder a{
+  color:#000;
+}
+
+.table-header{
+  height:17px;
+}
+
+.table-header .pull-left{
+  width:22%;  
+}
+
+.table-header .pull-left.channel-name{
+  width:55%;
+}
+
+.table-header a,
+.channels-table-holder a
+{
+  text-decoration: underline;
+}
+
+.table-wrapper{
+  height:370px;
+  overflow-y:auto;
+  overflow-x: hidden;  
+}
+
+.lost-channels .table-wrapper{
+  width:214px;
+}
+
+.table-header.label{
+  color:#000;
+  font-size:13px;
+}
+
+
+.odd{
+  background: #cce3f3;
+}
+
+.even{
+  background: #fff;
+}
+
+.table-header-inner{
+  height:20px;
+  width:100%;
+}
+
+.table-header.requested .table-header-inner,
+.table-header.current .table-header-inner{
+  background: #31517c;
+}
+
+.table-header .channel-number{
+  padding-left:3px;
+}
+
+
+.table-header.lost .table-header-inner{
+  background: #d00404;
+}
+
+.table-header.gained .table-header-inner{
+  background: #337c31;
+}
+
+.table-header-inner a{
+  display: block;
+  background-repeat: no-repeat;
+  background-position: 13px center; 
+}
+
+.genre a, .channel-name a{
+  margin-left:-7px;
+}
+
+
+.sort-false,
+.sort-true
+{
+  background-image:none;
+}
+
+.channel-name .sort-false,
+.channel-name .sort-true
+{
+  background-position: 88px center;
+}
+
+.genre .sort-false,
+.genre .sort-true
+{
+  background-position: 41px center;
+}
+
+.sort-true.sorted
+{
+  background-image:url(data:image/gif;base64,R0lGODlhCgAKALMAAHFxcYKCgp2dnaampq+vr83NzeHh4f///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAAAgAIf/8SUNDUkdCRzEwMTIAAAUwYXBwbAIgAABtbnRyUkdCIFhZWiAH2QACABkACwAaAAthY3NwQVBQTAAAAABhcHBsAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWFwcGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtkc2NtAAABCAAAAvJkZXNjAAAD/AAAAG9nWFlaAAAEbAAAABR3dHB0AAAEgAAAABRyWFlaAAAElAAAABRiWFlaAAAEqAAAABRyVFJDAAAEvAAAAA5jcHJ0AAAEzAAAADhjaGFkAAAFBAAAACxn/1RSQwAABLwAAAAOYlRSQwAABLwAAAAObWx1YwAAAAAAAAARAAAADGVuVVMAAAAmAAACfmVzRVMAAAAmAAABgmRhREsAAAAuAAAB6mRlREUAAAAsAAABqGZpRkkAAAAoAAAA3GZyRlUAAAAoAAABKml0SVQAAAAoAAACVm5sTkwAAAAoAAACGG5iTk8AAAAmAAABBHB0QlIAAAAmAAABgnN2U0UAAAAmAAABBGphSlAAAAAaAAABUmtvS1IAAAAWAAACQHpoVFcAAAAWAAABbHpoQ04AAAAWAAAB1HJ1UlUAAAAiAAACpHBsUEwAAAAsAAACxgBZAGwAZQBpAG4AZf8AbgAgAFIARwBCAC0AcAByAG8AZgBpAGkAbABpAEcAZQBuAGUAcgBpAHMAawAgAFIARwBCAC0AcAByAG8AZgBpAGwAUAByAG8AZgBpAGwAIABHAOkAbgDpAHIAaQBxAHUAZQAgAFIAVgBCTgCCLAAgAFIARwBCACAw1zDtMNUwoTCkMOuQGnUoACAAUgBHAEIAIIJyX2ljz4/wAFAAZQByAGYAaQBsACAAUgBHAEIAIABHAGUAbgDpAHIAaQBjAG8AQQBsAGwAZwBlAG0AZQBpAG4AZQBzACAAUgBHAEIALQBQAHIAbwBmAGkAbGZukBoAIABSAEcAQgAgY8+P8GX/h072AEcAZQBuAGUAcgBlAGwAIABSAEcAQgAtAGIAZQBzAGsAcgBpAHYAZQBsAHMAZQBBAGwAZwBlAG0AZQBlAG4AIABSAEcAQgAtAHAAcgBvAGYAaQBlAGzHfLwYACAAUgBHAEIAINUEuFzTDMd8AFAAcgBvAGYAaQBsAG8AIABSAEcAQgAgAEcAZQBuAGUAcgBpAGMAbwBHAGUAbgBlAHIAaQBjACAAUgBHAEIAIABQAHIAbwBmAGkAbABlBB4EMQRJBDgEOQAgBD8EQAQ+BEQEOAQ7BEwAIABSAEcAQgBVAG4AaQB3AGUAcgBzAGEAbABuAHkAIABwAHIAbwBm/wBpAGwAIABSAEcAQgAAZGVzYwAAAAAAAAAUR2VuZXJpYyBSR0IgUHJvZmlsZQAAAAAAAAAAAAAAFEdlbmVyaWMgUkdCIFByb2ZpbGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAABadQAArHMAABc0WFlaIAAAAAAAAPNSAAEAAAABFs9YWVogAAAAAAAAdE0AAD3uAAAD0FhZWiAAAAAAAAAoGgAAFZ8AALg2Y3VydgAAAAAAAAABAc0AAHRleHQAAAAAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLkMsIGFsbCByaWdodHMgcmVzZXJ2ZWQuAHNmMzIAAAAAAAEMQgAABd7///MmAAAHkgAA/ZH///ui///9owAAA9wAAMBsACwAAAAACgAKAAAEJZAMIcakQZjNtyhFxwEIIRofAookUnapu26t+6KFLYe1TgQ5VwQAOw%3D%3D);
+}
+
+.sort-false.sorted
+{
+   background-image:url(data:image/gif;base64,R0lGODlhCgAKALMAAHFxcYKCgp2dnaampq+vr83NzeHh4f///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAAAgAIf/8SUNDUkdCRzEwMTIAAAUwYXBwbAIgAABtbnRyUkdCIFhZWiAH2QACABkACwAaAAthY3NwQVBQTAAAAABhcHBsAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWFwcGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtkc2NtAAABCAAAAvJkZXNjAAAD/AAAAG9nWFlaAAAEbAAAABR3dHB0AAAEgAAAABRyWFlaAAAElAAAABRiWFlaAAAEqAAAABRyVFJDAAAEvAAAAA5jcHJ0AAAEzAAAADhjaGFkAAAFBAAAACxn/1RSQwAABLwAAAAOYlRSQwAABLwAAAAObWx1YwAAAAAAAAARAAAADGVuVVMAAAAmAAACfmVzRVMAAAAmAAABgmRhREsAAAAuAAAB6mRlREUAAAAsAAABqGZpRkkAAAAoAAAA3GZyRlUAAAAoAAABKml0SVQAAAAoAAACVm5sTkwAAAAoAAACGG5iTk8AAAAmAAABBHB0QlIAAAAmAAABgnN2U0UAAAAmAAABBGphSlAAAAAaAAABUmtvS1IAAAAWAAACQHpoVFcAAAAWAAABbHpoQ04AAAAWAAAB1HJ1UlUAAAAiAAACpHBsUEwAAAAsAAACxgBZAGwAZQBpAG4AZf8AbgAgAFIARwBCAC0AcAByAG8AZgBpAGkAbABpAEcAZQBuAGUAcgBpAHMAawAgAFIARwBCAC0AcAByAG8AZgBpAGwAUAByAG8AZgBpAGwAIABHAOkAbgDpAHIAaQBxAHUAZQAgAFIAVgBCTgCCLAAgAFIARwBCACAw1zDtMNUwoTCkMOuQGnUoACAAUgBHAEIAIIJyX2ljz4/wAFAAZQByAGYAaQBsACAAUgBHAEIAIABHAGUAbgDpAHIAaQBjAG8AQQBsAGwAZwBlAG0AZQBpAG4AZQBzACAAUgBHAEIALQBQAHIAbwBmAGkAbGZukBoAIABSAEcAQgAgY8+P8GX/h072AEcAZQBuAGUAcgBlAGwAIABSAEcAQgAtAGIAZQBzAGsAcgBpAHYAZQBsAHMAZQBBAGwAZwBlAG0AZQBlAG4AIABSAEcAQgAtAHAAcgBvAGYAaQBlAGzHfLwYACAAUgBHAEIAINUEuFzTDMd8AFAAcgBvAGYAaQBsAG8AIABSAEcAQgAgAEcAZQBuAGUAcgBpAGMAbwBHAGUAbgBlAHIAaQBjACAAUgBHAEIAIABQAHIAbwBmAGkAbABlBB4EMQRJBDgEOQAgBD8EQAQ+BEQEOAQ7BEwAIABSAEcAQgBVAG4AaQB3AGUAcgBzAGEAbABuAHkAIABwAHIAbwBm/wBpAGwAIABSAEcAQgAAZGVzYwAAAAAAAAAUR2VuZXJpYyBSR0IgUHJvZmlsZQAAAAAAAAAAAAAAFEdlbmVyaWMgUkdCIFByb2ZpbGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAABadQAArHMAABc0WFlaIAAAAAAAAPNSAAEAAAABFs9YWVogAAAAAAAAdE0AAD3uAAAD0FhZWiAAAAAAAAAoGgAAFZ8AALg2Y3VydgAAAAAAAAABAc0AAHRleHQAAAAAQ29weXJpZ2h0IDIwMDcgQXBwbGUgSW5jLkMsIGFsbCByaWdodHMgcmVzZXJ2ZWQuAHNmMzIAAAAAAAEMQgAABd7///MmAAAHkgAA/ZH///ui///9owAAA9wAAMBsACwAAAAACgAKAAAEJRBJREKZsxQDsCSGIVzZFnYTGIqktp7fG46uzAn2TAyCMPC9QAQAOw%3D%3D);
+}
+
+table td.genre{
+  text-align: right;
+  padding-right:5px;
+}
+
+table td.channel-number{ 
+  padding-left:2px;
+}
+
+.pkg-name-holder{
+  margin-bottom:6px;  
+}
+
+.label-holder{
+  height:17px;
+}
+
+.show-btn{ 
+  background-image: url(http://agentanswercenterstg.directv.com/en-us/res/system/img/chan_plus.png);
+  background-position: center center;
+  background-repeat: no-repeat;  
+}
+
+
+.show-btn-holder .pull-left,
+.show-btn
+{
+  width:14px;
+  height:13px;
+  cursor:pointer;
+}
+
+.open{
+  background-image: url(http://agentanswercenterstg.directv.com/en-us/res/system/img/chan_minus.png);
+}
+
+.show-btn-holder .current{
+  margin-left:99px;
+}
+
+.show-btn-holder .gained{
+  margin-left:211px;
+}
+
+.show-btn-holder  .lost{
+  margin-left:215px;
+}
+
+.show-btn-holder  .requested{
+  margin-left:221px;
+}
+
+.show-btn{
+  margin-top:-16px;
+}
+
+.table-header{
+  margin-top:-5px;
+}
+
+.pkg-name-holder .label-holder{
+  margin-top:-7px;
+}
+
+.why {
+  background-image: url(http://agentanswercenterstg.directv.com/en-us/res/system/img/why-icon.png);
+  background-repeat: no-repeat;
+  background-position: 104px 2px;
+  width: 200px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 89px;
+  left: 393px;
+  font-size: 14px;
+  display:none;
+}
+
+.qtip-content .wrapper .code{
+  width:120px;
+  font-weight:bold;
+}
+.qtip-content .wrapper{
+  margin-bottom: 7px;
+}
+
+.qtip-content .wrapper.last{
+  margin-bottom: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

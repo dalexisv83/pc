@@ -4,48 +4,267 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />   
     <title>Package Compare V2</title>
-    <link rel="stylesheet" href="%%pub%%system/css/bootstrap.3.1.1.css">  
-    <link rel="stylesheet" href="%%pub%%system/css/jquery.qtip.min.css"> 
+    <link rel="stylesheet" href="http://agentanswercenterstg.directv.com/en-us/res/system/css/bootstrap.3.1.1.css">  
+    <link rel="stylesheet" href="http://agentanswercenterstg.directv.com/en-us/res/system/css/jquery.qtip.min.css"> 
+    <link rel="stylesheet" href="style/chosen.css"> 
     <link rel="stylesheet" href="style/style.css">
     <!--[if IE]>
      <link rel="stylesheet" href="style/ie.css">
-    <![endif]--> 
+    <![endif]-->
+    
+    <!--intentionally placed in the head so ng-cloak will work.... please refer to https://docs.angularjs.org/api/ng/directive/ngCloak-->
+    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/res/system/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="script/chosen.jquery.js"></script>
+    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/res/system/js/angular.js"></script>  
 </head>
 <body>
     
-    <div class="container" ng-controller="AppController" ng-init="init()">
-        <div class="row">          
-            <label>Current Packages</label>
-            <select ng-model="current_pkg" ng-options="current_pkg.name for current_pkg in current_pkgs" ng-change="selectPackage(current_pkg,true)">
-                       <option value="">-- Select Package --</option>
-            </select>
-            <br /><br />
-            <label>Requested Packages</label>
-            <select ng-model="requested_pkg" ng-options="requested_pkg.name for requested_pkg in requested_pkgs" ng-change="selectPackage(requested_pkg,false)">
-                       <option value="">-- Select Package --</option>
-            </select>
+    <div class="wrapper" ng-controller="AppController" ng-init="init()">
+        
+        <span class="why" id="genreLegend">Genre Legend</span>
+        
+        <!--start row for package dropdowns-->
+        <div class="row pkgs-holder">
+            <div class="current-pkg-holder pull-left">
+                <select data-placeholder="Select current package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.name + ' - $' + current_pkg.price)  for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
+                </select>
+            </div>
+            <div class="requested-pkg-holder pull-left">
+                <select data-placeholder="Select requested package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.name + ' - $' + requested_pkg.price)  for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
+                </select>
+            </div>
+            <div class="clearfix"></div>
         </div>
+        <!--ends row for package dropdowns-->
+       
+        <!--start row for channels count-->
         <div class="row">
-            <p>Count: {{requested_channels.length}}</p>
-            <label>{{requested_pkg.name}}</label>
-            <table style="width:200px">
-                <tr><th>#</th><th>Channel Name</th></tr>
-                <tr ng-repeat="channel in requested_channels">
-                    <td ng-bind-html-unsafe="channel.channelnumber"></td>
-                    <td ng-bind-html-unsafe="channel.channelname"></td>
-                </tr>
-            </table>
+            <div class="channels-count-holder" ng-cloak ng-show="current_channels.length > 0 || gained_channels.length > 0 || lost_channels.length > 0 || requested_channels.length > 0">
+                <div class="pull-left">
+                    <div class="current count" ng-click="show_current_channels = Utility.show(show_current_channels)" ng-cloak>{{current_channels.length}}</div>
+                </div>
+                <div class="pull-left">
+                    <div class="gained count" ng-click="show_gained_channels = Utility.show(show_gained_channels)" ng-cloak>{{gained_channels.length}}</div>
+                </div>
+                <div class="pull-left">
+                    <div class="lost count" ng-click="show_lost_channels = Utility.show(show_lost_channels)" ng-cloak>{{lost_channels.length}}</div>
+                </div>
+                <div class="pull-left">
+                    <div class="requested count" ng-click="show_requested_channels = Utility.show(show_requested_channels)" ng-cloak>{{requested_channels.length}}</div>
+                </div>
+                <div class="clearfix"></div> 
+            </div>           
         </div>
+        <!--end row for channels count-->
+        
+        <!--start of row for show-btn-->
+        <div class="row show-btn-holder">
+            <div class="current pull-left">
+                <div class="show-btn" ng-click="show_current_channels = Utility.show(show_current_channels)" ng-class="{'open':show_current_channels}" ng-show="current_channels.length > 0" ng-cloak></div>
+            </div>
+            <div class="gained pull-left">
+                <div class="show-btn" ng-click="show_gained_channels = Utility.show(show_gained_channels)" ng-class="{'open':show_gained_channels}" ng-show="gained_channels.length > 0" ng-cloak></div>
+            </div>
+            <div class="lost pull-left">
+                <div class="show-btn" ng-click="show_lost_channels = Utility.show(show_lost_channels)" ng-class="{'open':show_lost_channels}" ng-show="lost_channels.length > 0" ng-cloak></div>
+            </div>
+            <div class="requested pull-left">
+                <div class="show-btn" ng-click="show_requested_channels = Utility.show(show_requested_channels)" ng-class="{'open':show_requested_channels}" ng-show="requested_channels.length > 0" ng-cloak></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!--end of row for show-btn-->
+        
+        <!--start row for package labels-->        
+        <div class="row pkg-name-holder">
+            <div class="table-header label pull-left" ng-cloak>
+                <div class="current label-holder" ng-show="show_current_channels">
+                    {{current_pkg.name}}
+                </div>               
+            </div>
+            <div class="table-header label pull-left">
+                <div class="label-holder">
+                </div>
+            </div>
+            <div class="table-header label pull-left">
+                <div class="label-holder">
+                </div>
+            </div>
+            <div class="table-header label pull-left">
+                <div class="label-holder" ng-cloak ng-show="show_requested_channels">
+                    {{requested_pkg.name}}
+                </div>                
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!--end row for package labels-->
+        
+        <!--start row for table headers-->
+        <div class="row" ng-cloak ng-show="current_channels.length > 0 || gained_channels.length > 0 || lost_channels.length > 0 || requested_channels.length > 0">
+            <div class="table-header current pull-left">
+                <div class="table-header-inner" ng-cloak ng-show="current_channels.length > 0 && show_current_channels">
+                    <div class="channel-number pull-left" >
+                       <a ng-class="{'current channelnumber sort-true sorted': sorted_column == 'current channelnumber sort-true', 'current channelnumber sort-false sorted': sorted_column == 'current channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;current_channels = sort('current', current_channels, 'channelnumber', reverse)">#</a> 
+                    </div>
+                    <div class="channel-name pull-left">
+                        <a ng-class="{'current channelname sort-true sorted': sorted_column == 'current channelname sort-true', 'current channelname sort-false sorted': sorted_column == 'current channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;current_channels = sort('current', current_channels, 'channelname',reverse)">Channel Name</a>
+                    </div>
+                    <div class="genre pull-left">
+                        <a ng-class="{'current genre sort-true sorted': sorted_column == 'current genre sort-true', 'current genre sort-false sorted': sorted_column == 'current genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;current_channels = sort('current', current_channels, 'genre',reverse)">Genre</a>
+                    </div>
+                    <div class="clearfix">                        
+                    </div>
+                </div>
+            </div>
+            <div class="table-header gained pull-left">
+                <div class="table-header-inner" ng-cloak ng-show="gained_channels.length > 0 && show_gained_channels">
+                    <div class="channel-number pull-left">
+                       <a ng-class="{'sort-true sorted': sorted_column == 'gained channelnumber sort-true', 'sort-false sorted': sorted_column == 'gained channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;gained_channels = sort('gained', gained_channels, 'channelnumber', reverse)">#</a>
+                    </div>
+                    <div class="channel-name pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'gained channelname sort-true', 'sort-false sorted': sorted_column == 'gained channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;gained_channels = sort('gained', gained_channels, 'channelname',reverse)">Channel Name</a>
+                    </div>
+                    <div class="genre pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'gained genre sort-true', 'sort-false sorted': sorted_column == 'gained genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;gained_channels = sort('gained', gained_channels, 'genre',reverse)">Genre</a>
+                    </div>
+                    <div class="clearfix">                        
+                    </div>
+                </div>
+            </div>
+            <div class="table-header lost pull-left">
+                <div class="table-header-inner" ng-cloak ng-show="lost_channels.length > 0  && show_lost_channels">
+                    <div class="channel-number pull-left">
+                       <a ng-class="{'sort-true sorted': sorted_column == 'lost channelnumber sort-true', 'sort-false sorted': sorted_column == 'lost channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;lost_channels = sort('lost', lost_channels, 'channelnumber', reverse)">#</a>
+                    </div>
+                    <div class="channel-name pull-left">
+                       <a ng-class="{'sort-true sorted': sorted_column == 'lost channelname sort-true', 'sort-false sorted': sorted_column == 'lost channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;lost_channels = sort('lost', lost_channels, 'channelname',reverse)">Channel Name</a>
+                    </div>
+                    <div class="genre pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'lost genre sort-true', 'sort-false sorted': sorted_column == 'lost genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;lost_channels = sort('lost', lost_channels, 'genre',reverse)">Genre</a>
+                    </div>
+                    <div class="clearfix">                        
+                    </div>
+                </div>
+            </div>
+             <div class="table-header requested pull-left">
+                <div class="table-header-inner" ng-cloak ng-show="requested_channels.length > 0  && show_requested_channels">
+                    <div class="channel-number pull-left">
+                       <a ng-class="{'sort-true sorted': sorted_column == 'requested channelnumber sort-true', 'sort-false sorted': sorted_column == 'requested channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;requested_channels = sort('requested', requested_channels, 'channelnumber', reverse)">#</a>
+                    </div>
+                    <div class="channel-name pull-left">
+                       <a ng-class="{'sort-true sorted': sorted_column == 'requested channelname sort-true', 'sort-false sorted': sorted_column == 'requested channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;requested_channels = sort('requested', requested_channels, 'channelname',reverse)">Channel Name</a>
+                    </div>
+                    <div class="genre pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'requested genre sort-true', 'sort-false sorted': sorted_column == 'requested genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;requested_channels = sort('requested', requested_channels, 'genre',reverse)">Genre</a>
+                    </div>
+                    <div class="clearfix">                        
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!--end row for table headers-->
+        
+        <!--start row for channel tables-->
+        <div class="row">
+            <div class="pull-left channels-table-holder current-channels">
+                <div class="table-wrapper" ng-cloak ng-show="current_channels.length > 0  && show_current_channels">
+                    <table>
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels">
+                            <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td width="60"><a href="{{UrlFormatter.formatUrl(channel.url)}}" target="_blank"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="pull-left channels-table-holder gained-channels">
+                <div class="table-wrapper" ng-cloak  ng-show="gained_channels.length > 0 && show_gained_channels">
+                    <table>
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels">
+                            <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td width="60"><a href="{{UrlFormatter.formatUrl(channel.url)}}" target="_blank"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="pull-left channels-table-holder lost-channels">
+                <div class="table-wrapper" ng-cloak  ng-show="lost_channels.length > 0  && show_lost_channels">
+                    <table>                    
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels">
+                            <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td width="60"><a href="{{UrlFormatter.formatUrl(channel.url)}}" target="_blank"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="pull-left channels-table-holder requested-channels">
+                <div class="table-wrapper" ng-cloak  ng-show="requested_channels.length > 0 && show_requested_channels">
+                    <table>                  
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels">
+                            <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td width="60"><a href="{{UrlFormatter.formatUrl(channel.url)}}" target="_blank"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix"></div> 
+        </div>      
+        <!--end row for channel tables-->
+        
+        <div id="genreCodes" style="display:none">      
+            <div class="wrapper">
+               <div class="pull-left code">FAM</div>
+               <div class="pull-left title">Family</div>
+               <div style="clear:both"></div>
+            </div>
+            <div class="wrapper">
+               <div class="pull-left code">INT</div>
+               <div class="pull-left title">International</div>
+               <div style="clear:both"></div>
+            </div>
+            <div class="wrapper">
+               <div class="pull-left code">LIF</div>
+               <div class="pull-left title">Lifestyle</div>
+               <div style="clear:both"></div>
+            </div>
+            <div class="wrapper">
+               <div class="pull-left code">MOV</div>
+               <div class="pull-left title">Movie</div>
+               <div style="clear:both"></div>
+            </div>
+            <div class="wrapper">
+               <div class="pull-left code">NEW</div>
+               <div class="pull-left title">News</div>
+               <div style="clear:both"></div>
+            </div>
+            <div class="wrapper">
+               <div class="pull-left code">SNC</div>
+               <div class="pull-left title">Sonic</div>
+               <div style="clear:both"></div>
+            </div>
+            <div class="wrapper">
+               <div class="pull-left code">SPA</div>
+               <div class="pull-left title">Spanish</div>
+               <div style="clear:both"></div>
+            </div>
+            <div class="wrapper last">
+               <div class="pull-left code">SPT</div>
+               <div class="pull-left title">Sports</div>
+               <div style="clear:both"></div>
+            </div>     
+        </div><!--end of div#genreCodes-->
+       
     </div>
     
-    <script type="text/javascript" src="script/underscore.js"></script>
-    <script type="text/javascript" src="%%pub%%system/js/angular.js"></script>    
-    <script type="text/javascript" src="%%pub%%system/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="%%pub%%system/js/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="script/underscore.js"></script>     
+    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/res/system/js/jquery.qtip.min.js"></script>
     <script type="text/javascript" src="script/app.js"></script>
     <script type="text/javascript" src="data/channels.js"></script>
     <script type="text/javascript" src="script/class.js"></script>
-    <script type="text/javascript" src="controller/app_controller.js"></script> 
-    
+    <script type="text/javascript" src="controller/app_controller.js"></script>   
 </body>
 </html>

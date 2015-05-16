@@ -1,26 +1,9 @@
     /**
-    * Initiate inheritance Functions
-    */
-    if (typeof Object.create !== 'function') {
-        Object.create = function (o) {
-            function F() {
-            }
-            F.prototype = o;
-            return new F();
-        };
-    }
-    
-    var inheritPrototype = function(childObject, parentObject) {
-        var copyOfParent = Object.create(parentObject.prototype);
-        copyOfParent.constructor = childObject;
-        childObject.prototype = copyOfParent;
-    };
-    /**
-    * End of inheritance Functions
-    */
-    
+     * Initiate the main class to interact with datasource
+     * @param {object} data the main data source
+     */    
     var dataStore = function(data){
-        this.data = data;
+        this.data = data;       
     };
     
     /**
@@ -53,6 +36,7 @@
     dataStore.prototype.getChannelById = function(id){
         var match_channel = false;
         var channels = this.data.channels;
+    
         var util = new Utility();
         if (!util.isInteger(id))
            throw new Error('Invalid channel id.');
@@ -62,6 +46,7 @@
                 return;
             }
         });
+        
         return match_channel;
     };
     
@@ -100,12 +85,12 @@
     /**
      * Computes the difference between the current package to requested package
      * @param {object} current_pkg the current package of the customer
-     * @param {object} requested_pkg the requested package of the customer 
+     * @param {object} requested_pkg the requested package of the customer
+     * @return {object} diff
      */
     dataStore.prototype.getPackageDiff = function(current_pkg, requested_pkg){
-       
        var diff = {};
-      
+       
        if (current_pkg && requested_pkg) {
           var current_channels = _.map(current_pkg.channels, _.iteratee('channel_id'));
           var requested_channels = _.map(requested_pkg.channels, _.iteratee('channel_id'));
@@ -133,6 +118,83 @@
     
     
     /**
+     * Start for tooltip class
+     *
+     * @param {object} obj the DOM object element to attach tooltip
+     */
+    var toolTip = function(obj){
+        this.self = obj;
+        /**
+         * activates genre codes tool tip
+         * @param {object} data_temp_holder the object that holds the tooltip content
+         */
+        this.genreToolTip = function(data_temp_holder){
+            var html = data_temp_holder.html();       
+            this.self.qtip({
+                content: {
+                  text: html
+                },
+                position:{
+                  my: 'left top',  
+                  at: 'bottom left',
+                  target: this
+                },
+                style: {
+                  classes: 'qtip-bootstrap'
+                }
+            });
+            this.self.show()
+        };        
+    };
+    /**
+     * End for Genre tooltip class 
+     */
+
+    
+   
+  
+    /**
+     * Helper class that contains some url formatting functions
+     *
+     * @param {boolean} localhost determines if we're running on localhost or on actual remote server
+     */
+    var UrlFormatter = function(localhost){
+        this.localhost = localhost;
+        this.getServerPath = function(){
+            if (!this.localhost) {
+                return '%%pub%%';
+            }
+            else
+                return 'http://agentanswercenterstg.directv.com/en-us/res/';
+        };
+        this.formatUrl = function(url){
+            if (typeof url != 'string')
+                throw new Error('Enter a valid url.');
+            url = url.replace(/\s/g, ''); //remove spaces
+            var base = "href='";
+            var index = url.indexOf(base);
+            if (-1 === index)
+               return this.adjustUrl(url.replace(/["']/g, ""));
+    
+            url = url.replace(/http:\/\/agentanswercenterstg.directv.com/g, "");
+            url = url.substring(index + base.length,url.length - 1);
+            return this.adjustUrl(url.replace(/["']/g, ""));
+        };
+        /**
+         * Adjust url to relative server location
+         */
+        this.adjustUrl = function(url){
+                if (this.localhost && url)
+                   //replace %%pub%% to \/en-us\/res\/ on actual server
+                   url = url.replace(/%%pub%%/g, this.getServerPath(true)); 
+                return url;
+        };       
+    };
+    
+    
+   
+    
+    /**
      * Helper class that contains some clean-up functions
      */
     var Utility = function(){
@@ -148,7 +210,18 @@
                 return true;
             else
               return false;
-        };    
+        };
+        this.show = function(is_visible){
+             return ((is_visible) ? false : true);
+        };
+        /**
+        * Returns the proper selected class name for the targeted column
+        * @param {string} key_str the key string that identifies the particular column
+        * @param {boolean} reverse returns the sort direction
+        */
+        this.selectedClass = function(key_str, reverse) {
+           return  key_str + ' sort-' + reverse;
+        }; 
     };
 
     

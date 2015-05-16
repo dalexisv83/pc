@@ -83,6 +83,7 @@ QUnit.test( "Testing the \"getChannels\" function.", function( assert ) {
     var pkg = store_ctrl.getPackageById(id);
    
     var channels = store_ctrl.getChannels(pkg.channels);
+    console.log(channels);
     assert.ok( channels.length === pkg.channels.length, 'Asserting that function returns correct count of channels for package "'+pkg.name+'".' );
     
     $.each(channels, function(i, v) {
@@ -102,75 +103,6 @@ QUnit.test( "Testing the \"getChannels\" function.", function( assert ) {
     });   
     
 });
-
-
-
-QUnit.test( "Testing the \"selectPackage\" function.", function( assert ) {
-    //initialize
-    ctrlScope.init();
-    
-    var current_pkgs = ctrlScope.current_pkgs;
-    var requested_pkgs = ctrlScope.requested_pkgs;
-    
-    var util = new Utility();    
-    if (!util.isIE()) {        
-        $.each(current_pkgs, function(i, v) {
-            var pkg = current_pkgs[i];
-            ctrlScope.current_pkg = pkg;
-            //fire the selectPackage on the current package dropdown
-            ctrlScope.selectPackage(pkg,true);
-            assert.deepEqual( ctrlScope.current_channels.length, pkg.channel_count, "Asserted that scope \"current_channels\" contains correct count of "+pkg.channel_count+" channels when current package \""+pkg.name+"\" is selected.");
-            
-            var channels = ctrlScope.current_channels;
-            $.each(channels, function(i, v) {
-                var channel = channels[i];            
-                var property = 'channelname';
-                assert.contains( property, Object.keys(channel), "Asserted that channel \""+channel.channelname+"\" contains "+property+" key." );
-            });       
-        });
-        
-        $.each(requested_pkgs, function(i, v) {
-            var pkg = requested_pkgs[i];
-            ctrlScope.requested_pkg = pkg;
-            //fire the selectPackage on the current package dropdown
-            ctrlScope.selectPackage(pkg,false);
-            assert.deepEqual( ctrlScope.requested_channels.length, pkg.channel_count, "Asserted that scope \"requested_channels\" contains correct count of "+pkg.channel_count+" channels when requested package \""+pkg.name+"\" is selected.");
-            
-            var channels = ctrlScope.requested_channels;
-            $.each(channels, function(i, v) {
-                var channel = channels[i];            
-                var property = 'channelname';
-                assert.contains( property, Object.keys(channel), "Asserted that channel \""+channel.channelname+"\" contains "+property+" key." );
-            });
-        });
-    }
-    else{
-            var pkg = current_pkgs[0];
-            //fire the selectPackage on the current package dropdown
-            ctrlScope.current_pkg = pkg;
-            ctrlScope.selectPackage(pkg,true);
-            assert.deepEqual( ctrlScope.current_channels.length, pkg.channel_count, "Asserted that scope \"current_channels\" contains correct count of "+pkg.channel_count+" channels when current package \""+pkg.name+"\" is selected.");
-            
-            pkg = requested_pkgs[2];
-            ctrlScope.requested_pkg = pkg;
-            //fire the selectPackage on the current package dropdown
-            ctrlScope.selectPackage(pkg,false);
-           
-            assert.deepEqual( ctrlScope.requested_channels.length, pkg.channel_count, "Asserted that scope \"requested_channels\" contains correct count of "+pkg.channel_count+" channels when requested package \""+pkg.name+"\" is selected.");
-    }
-    
-    assert.ok( ctrlScope.current_pkg != null && ctrlScope.requested_pkg != null, 'Asserting that there is a selected current '+ctrlScope.current_pkg.name+' and requested pkg '+ctrlScope.requested_pkg.name+'.' );
-    
-    if (ctrlScope.current_pkg.package_id !== ctrlScope.requested_pkg.package_id) {
-       assert.ok( ctrlScope.gained_channels.length > 0, 'Asserting that gained channel is > 0 and gained count is '+ctrlScope.gained_channels.length+'.' );
-       assert.ok( ctrlScope.lost_channels.length > 0, 'Asserting that lost channel is > 0 and lost count is '+ctrlScope.lost_channels.length+'.' );
-    }
-    else{
-        assert.ok( ctrlScope.gained_channels.length === 0, 'Asserting that gained channel is equal to 0 and gained count is '+ctrlScope.gained_channels.length+'.' );
-        assert.ok( ctrlScope.lost_channels.length === 0, 'Asserting that lost channel is equal to 0 and lost count is '+ctrlScope.lost_channels.length+'.' );
-    }
-});
-
   
 QUnit.test( "Testing the \"getPackageDiff\" function.", function( assert ) {
     
@@ -183,7 +115,7 @@ QUnit.test( "Testing the \"getPackageDiff\" function.", function( assert ) {
     var requested_pkg = store_ctrl.getPackageById(id);
     
     var diff = store_ctrl.getPackageDiff(current_pkg,requested_pkg);
-    
+   
     assert.ok( jQuery.isEmptyObject(diff) === false, 'Asserting that function returns an object and not empty.' );
     assert.ok( diff.gained_channels.length === 196, 'Asserting that function returns a correct gained channel count of '+diff.gained_channels.length+'.' );
     assert.ok( diff.lost_channels.length === 10, 'Asserting that function returns a correct lost channel count of '+diff.lost_channels.length+'.' );
