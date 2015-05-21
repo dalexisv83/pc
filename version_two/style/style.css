@@ -296,7 +296,7 @@ table td.channel-number{
 }
 
 .qtip-content .wrapper .code{
-  width:120px;
+  width:50px;
   font-weight:bold;
 }
 .qtip-content .wrapper{
@@ -305,6 +305,10 @@ table td.channel-number{
 
 .qtip-content .wrapper.last{
   margin-bottom: 0;
+}
+
+.qtip-content .wrapper{
+  width:100%;
 }
 
 

@@ -1,5 +1,5 @@
 
-app.controller('AppController', function ($scope, $filter) {
+app.controller('AppController', function ($scope, $filter, growl) {
     
     var orderBy = $filter('orderBy');
     var localhost = true; //change to false on production
@@ -37,7 +37,11 @@ app.controller('AppController', function ($scope, $filter) {
        var current_pkg_ids = data.package_compare.current;
        //fill the packages dropdowns
        $scope.requested_pkgs = $scope.dataStore.getPackages(requested_pkg_ids); 
-       $scope.current_pkgs = $scope.dataStore.getPackages(current_pkg_ids);
+       $scope.current_pkgs = $scope.dataStore.getPackages(current_pkg_ids);       
+    };
+    
+    $scope.addSpecialWarnMessage = function(msg) {
+        growl.addWarnMessage(msg);
     };
     
     /**
@@ -61,10 +65,8 @@ app.controller('AppController', function ($scope, $filter) {
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
             if (!jQuery.isEmptyObject(diff)) {
-                $scope.gained_channels = []; //reset the old gained channels
-                $scope.lost_channels = []; //reset the old lost channels
-                $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels);
-                $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels);
+                $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
+                $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);
             }
         }       
     });
@@ -77,10 +79,8 @@ app.controller('AppController', function ($scope, $filter) {
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
             if (!jQuery.isEmptyObject(diff)) {
-                $scope.gained_channels = []; //reset the old gained channels
-                $scope.lost_channels = []; //reset the old lost channels
-                $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels);
-                $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels);                
+                $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
+                $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);                
             }
         }        
     });
@@ -93,7 +93,7 @@ app.controller('AppController', function ($scope, $filter) {
      * @param {boolean} reverse 
      */
     $scope.sort = function(data_set ,channels, predicate, reverse) {
-        channels = orderBy(channels, predicate, reverse);
+        channels = orderBy(channels, predicate, reverse);        
         //assign the selected class to the scope
         $scope.sorted_column = $scope.Utility.selectedClass(data_set + ' ' + predicate,reverse);       
         return channels;

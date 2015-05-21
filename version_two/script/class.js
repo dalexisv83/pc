@@ -3,7 +3,8 @@
      * @param {object} data the main data source
      */    
     var dataStore = function(data){
-        this.data = data;       
+        this.data = data;
+        this.util = new Utility();
     };
     
     /**
@@ -14,39 +15,37 @@
      */
     dataStore.prototype.getPackageById = function(id){
         var match_pkg = false;
-        var pkgs = this.data.package_compare.datasource;
-        var util = new Utility();
-        if (!util.isInteger(id))
-           throw new Error('Invalid package id.');
-        angular.forEach(pkgs, function(pkg,index){
+        var pkgs = this.data.package_compare.datasource;        
+        if (!this.util.isInteger(id))
+           throw new Error('Invalid package id.');       
+        for (var i = 0; i < pkgs.length; i++) {
+            var pkg = pkgs[i];
             if (parseInt(pkg.package_id) === id){
                 match_pkg = pkg;
-                return;
+                break;
             }
-        });
+        }
         return match_pkg;
     };
     
     /**
      * This will find the channel by channel id from
-     * the channels data source     * 
+     * the channels data source
      * @param {integer} id the id of the channel to retrieve
      * @returns {Boolean|pkg}
      */
     dataStore.prototype.getChannelById = function(id){
         var match_channel = false;
         var channels = this.data.channels;
-    
-        var util = new Utility();
-        if (!util.isInteger(id))
+        if (!this.util.isInteger(id))
            throw new Error('Invalid channel id.');
-        angular.forEach(channels, function(channel,index){
+        for (var i = 0; i < channels.length; i++) {
+            var channel = channels[i];
             if (parseInt(channel.id) === id){
                 match_channel = channel;
-                return;
+                break;
             }
-        });
-        
+        }
         return match_channel;
     };
     
@@ -58,7 +57,7 @@
     dataStore.prototype.getPackages = function(pkg_ids){
         var pkgs = [];
         var that = this;
-        angular.forEach(pkg_ids, function(pkg_id,index){
+        $.each(pkg_ids, function (index, pkg_id) {
             var pkg = that.getPackageById(parseInt(pkg_id.package_id));
             if (pkg)
                pkgs.push(pkg);
@@ -69,13 +68,17 @@
      /**
      * Returns a collection of channels
      * @param {mixed} channel_ids collection of channel id objects
+     * @param {boolean} are_objects determines if the parameter channel_ids are collection of objects or not
      * @return {mixed} channels collection of channel objects
      */
-    dataStore.prototype.getChannels = function(channel_ids){
+    dataStore.prototype.getChannels = function(channel_ids,are_objects){
         var channels = [];
-        var that = this;
-        angular.forEach(channel_ids, function(channel_id,index){
-            var channel = that.getChannelById(parseInt(channel_id.channel_id));           
+        var that = this;       
+        if (undefined === are_objects) //if are_objects param is not provided then assume true
+           are_objects = true;
+        $.each(channel_ids, function (index, channel_id) {
+            var id = (are_objects) ? channel_id.channel_id : channel_id;
+            var channel = that.getChannelById(parseInt(id));           
             if (channel)
                channels.push(channel);
         });
@@ -89,9 +92,8 @@
      * @return {object} diff
      */
     dataStore.prototype.getPackageDiff = function(current_pkg, requested_pkg){
-       var diff = {};
-       
-       if (current_pkg && requested_pkg) {
+        var diff = {};       
+        if (current_pkg && requested_pkg) {
           var current_channels = _.map(current_pkg.channels, _.iteratee('channel_id'));
           var requested_channels = _.map(requested_pkg.channels, _.iteratee('channel_id'));
           
@@ -99,21 +101,33 @@
           var unique = _([current_channels,requested_channels]).chain().flatten().unique().value();
           
           //channels not found on current channels        
-          diff.gained_channels = _.map(_.difference(unique, current_channels), function(channel_id){
-                var obj = {};
-                obj.channel_id = channel_id;
-                return obj;
-          });
-          
+          diff.gained_channels = _.difference(unique, current_channels); //collection of gained channel ids
           //channels not found on the requested(new package)
-          diff.lost_channels = _.map(_.difference(unique, requested_channels), function(channel_id){
-                var obj = {};
-                obj.channel_id = channel_id;
-                return obj;
-          });
-       }
+          diff.lost_channels = _.difference(unique, requested_channels); //collection of lost channel ids          
+        }
        
-       return diff;       
+        return diff;       
+    };
+    
+    dataStore.prototype.getPriceDiff = function(current_pkg, requested_pkg){
+        
+        var diff = {};       
+        
+        if (current_pkg && requested_pkg) {
+          var current_package_price = parseFloat(current_pkg.price);
+          var requested_package_price = parseFloat(requested_pkg.price);
+          if ( current_package_price > requested_package_price ) { //saving money
+            diff.saved_amt = current_package_price - requested_package_price;
+            diff.lost_amt = 0;
+          }
+          else{
+            diff.saved_amt = 0;
+            diff.lost_amt = requested_package_price - current_package_price
+          }
+        }
+       
+        return diff;
+    
     };
     
     
