@@ -106,7 +106,7 @@ app.controller('AppController', function ($scope, $filter, growl) {
             if (!jQuery.isEmptyObject(price_diff)) {
                 $scope.saved_amt = price_diff.saved_amt;
                 $scope.pay_more_amt = price_diff.pay_more_amt;
-            }            
+            }           
         }        
     });
    
