@@ -1,4 +1,3 @@
-
 app.controller('AppController', function ($scope, $filter, growl) {
     
     var orderBy = $filter('orderBy');

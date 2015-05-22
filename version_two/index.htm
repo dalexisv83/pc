@@ -173,7 +173,7 @@
                     <table>
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a href="{{UrlFormatter.formatUrl(channel.url)}}" target="_blank"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -184,7 +184,7 @@
                     <table>
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a href="{{UrlFormatter.formatUrl(channel.url)}}" target="_blank"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -195,7 +195,7 @@
                     <table>                    
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a href="{{UrlFormatter.formatUrl(channel.url)}}" target="_blank"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -206,7 +206,7 @@
                     <table>                  
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a href="{{UrlFormatter.formatUrl(channel.url)}}" target="_blank"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>

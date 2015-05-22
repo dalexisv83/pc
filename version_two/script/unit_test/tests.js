@@ -37,6 +37,7 @@ QUnit.test( "Testing the \"getPackageById\" function.", function( assert ) {
    assert.deepEqual(store_ctrl.getPackageById(id), false, 'Testing with a valid non-existing id ' + id +'.' + ' Asserted that function return false.');
 });
 
+
 QUnit.test( "Testing the \"getChannelById\" function.", function( assert ) {
    var store_ctrl = ctrlScope.dataStore;
    var id = 21;
@@ -49,6 +50,7 @@ QUnit.test( "Testing the \"getChannelById\" function.", function( assert ) {
    id = 2100;
    assert.deepEqual(store_ctrl.getChannelById(id), false, 'Testing with a valid non-existing id ' + id +'.' + ' Asserted that function return false.');
 });
+
 
 QUnit.test( "Testing the \"getPackages\" function.", function( assert ) {
     var store_ctrl = ctrlScope.dataStore;
@@ -82,8 +84,7 @@ QUnit.test( "Testing the \"getChannels\" function.", function( assert ) {
     var id = 21;
     var pkg = store_ctrl.getPackageById(id);
    
-    var channels = store_ctrl.getChannels(pkg.channels);
-    console.log(channels);
+    var channels = store_ctrl.getChannels(pkg.channels);   
     assert.ok( channels.length === pkg.channels.length, 'Asserting that function returns correct count of channels for package "'+pkg.name+'".' );
     
     $.each(channels, function(i, v) {
@@ -123,4 +124,34 @@ QUnit.test( "Testing the \"getPackageDiff\" function.", function( assert ) {
     diff = store_ctrl.getPackageDiff(current_pkg,null);
     assert.ok( jQuery.isEmptyObject(diff) === true, 'Asserting that function returns an empty object if one of the package is null.' );
     
+});
+
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+QUnit.test( "Testing the \"getPriceDiff\" function.", function( assert ) {
+    
+    var store_ctrl = ctrlScope.dataStore;
+    
+    var id = 2;
+    var current_pkg = store_ctrl.getPackageById(id);
+    
+    id = 23;
+    var requested_pkg = store_ctrl.getPackageById(id);
+    
+    var diff = store_ctrl.getPriceDiff(current_pkg,requested_pkg);
+   
+    assert.ok( jQuery.isEmptyObject(diff) === false, 'Asserting that function returns an object and not empty.' );
+    
+    if (diff.saved_amt !== 0 && !jQuery.isEmptyObject(diff)) {
+       assert.ok( isNumeric(diff.saved_amt), 'Asserting that function returns a correct saved amount of '+diff.saved_amt+' in dollars.' );
+       assert.ok( diff.pay_more_amt === 0, 'Asserting that function returns a correct pay more amount of '+diff.pay_more_amt+' in dollars.' );
+    }
+    
+    if (diff.pay_more_amt !== 0 && !jQuery.isEmptyObject(diff)) {
+       assert.ok( isNumeric(diff.pay_more_amt), 'Asserting that function returns a correct pay more amount of '+diff.pay_more_amt+' in dollars.' );
+       assert.ok( diff.saved_amt === 0, 'Asserting that function returns a correct saved amount of '+diff.saved_amt+' in dollars.' );
+    }
+   
 });
