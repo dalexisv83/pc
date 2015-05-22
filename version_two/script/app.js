@@ -2,8 +2,7 @@ var app = angular.module('App', ['angular-growl','ngSanitize']);
 
 //global configuration for growl
 app.config(['growlProvider', function(growlProvider) {
-    growlProvider.globalEnableHtml(true);
-    //growlProvider.globalTimeToLive(5000);
+    growlProvider.globalEnableHtml(true);    
 }]);
 
 /**

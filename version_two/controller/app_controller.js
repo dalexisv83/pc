@@ -27,6 +27,10 @@ app.controller('AppController', function ($scope, $filter, growl) {
     $scope.show_gained_channels = true; //determine to show/hide the gained channels
     $scope.show_lost_channels = true; //determine to show/hide the lost channels
     
+    $scope.saved_amt = 0; //amount being saved
+    $scope.pay_more_amt = 0; //amount that will pay more
+   
+    
     /**
      * Called on page load
      */
@@ -39,10 +43,7 @@ app.controller('AppController', function ($scope, $filter, growl) {
        $scope.requested_pkgs = $scope.dataStore.getPackages(requested_pkg_ids); 
        $scope.current_pkgs = $scope.dataStore.getPackages(current_pkg_ids);       
     };
-    
-    $scope.addSpecialWarnMessage = function(msg) {
-        growl.addWarnMessage(msg);
-    };
+   
     
     /**
      * Call your jquery functionality here 
@@ -60,28 +61,52 @@ app.controller('AppController', function ($scope, $filter, growl) {
     //watch for a change in current package
     $scope.$watchCollection('current_pkg', function() {        
         if ($scope.current_pkg) {
+            $scope.saved_amt = 0;
+            $scope.pay_more_amt = 0;
+            
             //get the current channels out of the selected current package of the customer 
             $scope.current_channels = $scope.dataStore.getChannels($scope.current_pkg.channels);
+           
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
             if (!jQuery.isEmptyObject(diff)) {
                 $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
                 $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);
             }
+            
+            //get the price diff. to determine if customer will save or pay more
+            var price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg);
+            if (!jQuery.isEmptyObject(price_diff)) {
+                $scope.saved_amt = price_diff.saved_amt;
+                $scope.pay_more_amt = price_diff.pay_more_amt;
+            }
+            //show package tip
+            growl.addInfoMessage($scope.current_pkg.tip);   
         }       
     });
     
     //watch for a change in requested package
     $scope.$watchCollection('requested_pkg', function() {        
-        if ($scope.requested_pkg) {           
+        if ($scope.requested_pkg) {            
+            $scope.saved_amt = 0;
+            $scope.pay_more_amt = 0;
+            
             //get the requested channels out of the selected requested package of the customer
             $scope.requested_channels = $scope.dataStore.getChannels($scope.requested_pkg.channels);
+            
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
             if (!jQuery.isEmptyObject(diff)) {
                 $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
                 $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);                
             }
+            
+             //get the price diff. to determine if customer will save or pay more
+            var price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg);
+            if (!jQuery.isEmptyObject(price_diff)) {
+                $scope.saved_amt = price_diff.saved_amt;
+                $scope.pay_more_amt = price_diff.pay_more_amt;
+            }            
         }        
     });
    

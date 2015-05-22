@@ -101,6 +101,10 @@ table{
   margin-left: 12px;
 }
 
+.table-header.double{
+  width:46%;
+}
+
 .channels-table-holder{
   height:370px;
 }
@@ -309,6 +313,40 @@ table td.channel-number{
 
 .qtip-content .wrapper{
   width:100%;
+}
+
+.label-holder span.price{
+  font-weight:bold;
+  text-decoration:underline;
+}
+
+.saved-amt,
+.pay-more-amt{
+  font-weight:normal;
+  font-style:italic;
+  font-size:12px;
+}
+
+.saved-amt{
+  color:#337c31;  
+}
+
+.pay-more-amt{
+  color:#d00404;  
+}
+
+.growl{
+  top: 0;
+  right: 80px;
+  width: 490px;
+}
+
+.growl .alert{
+  padding: 7px;
+}
+
+.growl-item button{
+  display:none;
 }
 
 

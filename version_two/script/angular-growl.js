@@ -21,6 +21,11 @@ angular.module('angular-growl').directive('growl', [
           var onlyUnique = growl.onlyUnique();
           $scope.messages = [];
           function addMessage(message) {
+            $scope.messages = [];
+            if (message.text.length === 0) {             
+              $scope.deleteMessage(message);
+              return false;
+            }
             $scope.messages.push(message);
             if (message.ttl && message.ttl !== -1) {
               $timeout(function () {

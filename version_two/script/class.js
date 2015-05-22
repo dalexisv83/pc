@@ -109,25 +109,30 @@
         return diff;       
     };
     
+    
+    /**
+     * This will calculate the price difference either the customer saved money or pay more money
+     * @param {object} current_pkg the current package of the customer
+     * @param {object} requested_pkg the requested package of the customer
+     * @return {object} diff
+     */
     dataStore.prototype.getPriceDiff = function(current_pkg, requested_pkg){
-        
         var diff = {};       
-        
         if (current_pkg && requested_pkg) {
           var current_package_price = parseFloat(current_pkg.price);
           var requested_package_price = parseFloat(requested_pkg.price);
           if ( current_package_price > requested_package_price ) { //saving money
             diff.saved_amt = current_package_price - requested_package_price;
-            diff.lost_amt = 0;
+            diff.saved_amt = Math.round(diff.saved_amt * 100) / 100
+            diff.pay_more_amt = 0;
           }
           else{
             diff.saved_amt = 0;
-            diff.lost_amt = requested_package_price - current_package_price
+            diff.pay_more_amt = requested_package_price - current_package_price //paying more money
+            diff.pay_more_amt = Math.round(diff.pay_more_amt * 100) / 100
           }
-        }
-       
-        return diff;
-    
+        }       
+        return diff;    
     };
     
     
@@ -200,7 +205,7 @@
         this.adjustUrl = function(url){
                 if (this.localhost && url)
                    //replace %%pub%% to \/en-us\/res\/ on actual server
-                   url = url.replace(/%%pub%%/g, this.getServerPath(true)); 
+                   url = url.replace(/\/en-us\/res\//g, this.getServerPath(true)); 
                 return url;
         };       
     };

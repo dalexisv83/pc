@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />   
     <title>Package Compare V2</title>
-    <link rel="stylesheet" href="http://agentanswercenterstg.directv.com/en-us/res/system/css/bootstrap.3.1.1.css">  
-    <link rel="stylesheet" href="http://agentanswercenterstg.directv.com/en-us/res/system/css/jquery.qtip.min.css"> 
+    <link rel="stylesheet" href="%%pub%%system/css/bootstrap.3.1.1.css">  
+    <link rel="stylesheet" href="%%pub%%system/css/jquery.qtip.min.css"> 
     <link rel="stylesheet" href="style/chosen.css"> 
     <link rel="stylesheet" href="style/growl.css"> 
     <link rel="stylesheet" href="style/style.css">
@@ -14,9 +14,9 @@
     <![endif]-->
     
     <!--intentionally placed in the head so ng-cloak will work.... please refer to https://docs.angularjs.org/api/ng/directive/ngCloak-->
-    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/res/system/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="%%pub%%system/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="script/chosen.jquery.js"></script>
-    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/res/system/js/angular.js"></script>  
+    <script type="text/javascript" src="%%pub%%system/js/angular.js"></script>  
 </head>
 <body>
     <div growl></div>
@@ -83,14 +83,14 @@
                     {{current_pkg.name}}
                 </div>               
             </div>
-            <div class="table-header label pull-left">
-                <div class="label-holder">
+            <div class="table-header label double pull-left">
+                <div class="label-holder saved-amt" ng-show="saved_amt > 0" ng-cloak>
+                    Note: Customer will save <span class="price">${{saved_amt}}</span>.
                 </div>
-            </div>
-            <div class="table-header label pull-left">
-                <div class="label-holder">
+                <div class="label-holder pay-more-amt" ng-show="pay_more_amt > 0" ng-cloak>
+                    Note: Customer will pay <span class="price">${{pay_more_amt}}</span> more.
                 </div>
-            </div>
+            </div>          
             <div class="table-header label pull-left">
                 <div class="label-holder" ng-cloak ng-show="show_requested_channels">
                     {{requested_pkg.name}}
@@ -262,10 +262,10 @@
     </div>
     
     <script src="script/angular-sanitize.js"></script>
-    <script src="http://agentanswercenterstg.directv.com/en-us/res/rover_tools/channel_list/version_two/js/unit_test/polyfills.js"></script>
+    <script src="%%pub%%rover_tools/channel_list/version_two/js/unit_test/polyfills.js"></script>
     <script type="text/javascript" src="script/angular-growl.js"></script>
     <script type="text/javascript" src="script/underscore.js"></script>     
-    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/res/system/js/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="%%pub%%system/js/jquery.qtip.min.js"></script>
     <script type="text/javascript" src="script/app.js"></script>
     <script type="text/javascript" src="data/channels.js"></script>
     <script type="text/javascript" src="script/class.js"></script>
