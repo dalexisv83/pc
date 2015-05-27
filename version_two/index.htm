@@ -19,8 +19,26 @@
     <script type="text/javascript" src="%%pub%%system/js/angular.js"></script>  
 </head>
 <body>
-    <div growl></div>
-    <div class="wrapper" ng-controller="AppController" ng-init="init()">       
+    
+    <!--comment button-->
+    <div id="comment_btn" class="pull-right" >                
+    </div>
+    <!--comment button-->
+    
+    <!--growl notifier-->
+    <div growl>
+    </div>
+    <!--growl notifier-->   
+    
+    <div class="wrapper" ng-controller="AppController" ng-init="init()">
+        
+        <!--reset button-->
+        <div class="reset">
+            <button class="btn btn-danger reset" type="reset" ng-click="reset();">
+               Reset
+            </button>
+        </div>
+        <!--reset button-->
         
         <span class="why" id="genreLegend">Genre Legend</span>
         

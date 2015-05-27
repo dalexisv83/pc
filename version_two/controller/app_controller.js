@@ -53,7 +53,14 @@ app.controller('AppController', function ($scope, $filter, growl) {
         var tooltip = new toolTip(tool_tip_btn);
         //activate the genre codes tooltip
         var genre_codes_container = $('#genreCodes');
-        tooltip.genreToolTip(genre_codes_container);    
+        tooltip.genreToolTip(genre_codes_container);
+        
+        //initiate the comment btn
+        var btn = $('#comment_btn');
+        var root_url = '%%pub%%';
+        var class_name = 'comment-btn'; //add a class of comment-btn
+        var comment_btn = new commentBtn(btn,class_name,root_url);
+        comment_btn.init();
     });
     
     
@@ -121,7 +128,41 @@ app.controller('AppController', function ($scope, $filter, growl) {
         //assign the selected class to the scope
         $scope.sorted_column = $scope.Utility.selectedClass(data_set + ' ' + predicate,reverse);       
         return channels;
-    };    
+    };
+    
+    
+    /**
+     * Resets the whole datascopes as if the page just loaded
+     */
+    $scope.reset = function(){
+        //reset current package
+        $scope.current_pkg = null; 
+        $scope.requested_pkg = null;   
+    
+        //reset the collection of current and requested packages's channels
+        $scope.current_channels = [];  
+        $scope.requested_channels = []; 
+        
+        //reset the gained and lost channels
+        $scope.gained_channels = []; 
+        $scope.lost_channels = []; 
+        
+        //reset the sorted column
+        $scope.sorted_column = '';
+        
+        //reset all the show/hide pointers back to original values
+        $scope.show_current_channels = true; 
+        $scope.show_requested_channels = true; 
+        $scope.show_gained_channels = true; 
+        $scope.show_lost_channels = true;
+        
+        //reset the saved and pay more amts
+        $scope.saved_amt = 0; 
+        $scope.pay_more_amt = 0; 
+        
+        //remove the growl message
+        growl.addInfoMessage(''); 
+    };
     
    
 });
