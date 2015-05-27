@@ -341,12 +341,13 @@ table td.channel-number{
 
 .growl{
   top: 0;
-  right: 80px;
-  width: 490px;
+  right: 73px;
+  width: 513px;
+  font-size:12px;
 }
 
 .growl .alert{
-  padding: 7px;
+  padding:3px 2px 3px 4px;
 }
 
 .growl-item button{
