@@ -5,7 +5,7 @@ body{
 }
 
 .full{
-  background-image: url('http://agentanswercenterstg.directv.com/en-us/res/system/img/package_comp_back.jpg');
+  background-image: url(%%pub%%system/img/package_comp_back.jpg);
   background-repeat: no-repeat; 
   background-position: center center fixed;
 }
@@ -79,7 +79,7 @@ table{
 
 .channels-count-holder{  
   width:915px;
-  background-image: url(http://agentanswercenterstg.directv.com/en-us/res/system/img/channels_back.png);
+  background-image: url(%%pub%%system/img/channels_back.png);
   background-position: 10px 0;
   background-repeat: no-repeat;  
 }
@@ -243,7 +243,7 @@ table td.channel-number{
 }
 
 .show-btn{ 
-  background-image: url(http://agentanswercenterstg.directv.com/en-us/res/system/img/chan_plus.png);
+  background-image: url(%%pub%%system/img/chan_plus.png);
   background-position: center center;
   background-repeat: no-repeat;  
 }
@@ -258,7 +258,7 @@ table td.channel-number{
 }
 
 .open{
-  background-image: url(http://agentanswercenterstg.directv.com/en-us/res/system/img/chan_minus.png);
+  background-image: url(%%pub%%system/img/chan_minus.png);
 }
 
 .show-btn-holder .current{
@@ -290,7 +290,7 @@ table td.channel-number{
 }
 
 .why {
-  background-image: url(http://agentanswercenterstg.directv.com/en-us/res/system/img/why-icon.png);
+  background-image: url(%%pub%%system/img/why-icon.png);
   background-repeat: no-repeat;
   background-position: 104px 2px;
   width: 200px;
