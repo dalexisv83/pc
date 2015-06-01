@@ -79,16 +79,16 @@
         <!--start of row for show-btn-->
         <div class="row show-btn-holder">
             <div class="current pull-left">
-                <div class="show-btn" ng-click="show_current_channels = Utility.show(show_current_channels)" ng-class="{'open':show_current_channels}" ng-show="current_channels.length > 0" ng-cloak></div>
+                <div class="show-btn" ng-click="show_current_channels = Utility.show(show_current_channels)" ng-class="{open: show_current_channels}" ng-show="current_channels.length > 0" ng-cloak></div>
             </div>
             <div class="gained pull-left">
-                <div class="show-btn" ng-click="show_gained_channels = Utility.show(show_gained_channels)" ng-class="{'open':show_gained_channels}" ng-show="gained_channels.length > 0" ng-cloak></div>
+                <div class="show-btn" ng-click="show_gained_channels = Utility.show(show_gained_channels)" ng-class="{open: show_gained_channels}" ng-show="gained_channels.length > 0" ng-cloak></div>
             </div>
             <div class="lost pull-left">
-                <div class="show-btn" ng-click="show_lost_channels = Utility.show(show_lost_channels)" ng-class="{'open':show_lost_channels}" ng-show="lost_channels.length > 0" ng-cloak></div>
+                <div class="show-btn" ng-click="show_lost_channels = Utility.show(show_lost_channels)" ng-class="{open: show_lost_channels}" ng-show="lost_channels.length > 0" ng-cloak></div>
             </div>
             <div class="requested pull-left">
-                <div class="show-btn" ng-click="show_requested_channels = Utility.show(show_requested_channels)" ng-class="{'open':show_requested_channels}" ng-show="requested_channels.length > 0" ng-cloak></div>
+                <div class="show-btn" ng-click="show_requested_channels = Utility.show(show_requested_channels)" ng-class="{open: show_requested_channels}" ng-show="requested_channels.length > 0" ng-cloak></div>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -103,10 +103,10 @@
             </div>
             <div class="table-header label double pull-left">
                 <div class="label-holder saved-amt" ng-show="saved_amt > 0" ng-cloak>
-                    Note: Customer will save <span class="price">${{saved_amt}}</span>.
+                    Note: Customer will save <span class="price">&#36;{{saved_amt}}</span>.
                 </div>
                 <div class="label-holder pay-more-amt" ng-show="pay_more_amt > 0" ng-cloak>
-                    Note: Customer will pay <span class="price">${{pay_more_amt}}</span> more.
+                    Note: Customer will pay <span class="price">&#36;{{pay_more_amt}}</span> more.
                 </div>
             </div>          
             <div class="table-header label pull-left">
@@ -279,8 +279,8 @@
        
     </div>
     
-    <script src="%%pub%%system/js/angular-sanitize.js"></script>
-    <script src="%%pub%%rover_tools/channel_list/version_two/js/unit_test/polyfills.js"></script>
+    <script type="text/javascript" src="%%pub%%system/js/angular-sanitize.js"></script>
+    <script type="text/javascript" src="%%pub%%rover_tools/channel_list/version_two/js/unit_test/polyfills.js"></script>
     <script type="text/javascript" src="%%pub%%system/js/angular-growl.js"></script>
     <script type="text/javascript" src="%%pub%%system/js/underscore.js"></script>     
     <script type="text/javascript" src="%%pub%%system/js/jquery.qtip.min.js"></script>
