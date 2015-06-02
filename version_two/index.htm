@@ -98,20 +98,20 @@
         <div class="row pkg-name-holder">
             <div class="table-header label pull-left" ng-cloak>
                 <div class="current label-holder" ng-show="show_current_channels">
-                    {{current_pkg.name}}
+                    <a onClick="window.open('{{current_pkg.url}}', '_blank');" href="#">{{current_pkg.name}}</a>
                 </div>               
             </div>
             <div class="table-header label double pull-left">
                 <div class="label-holder saved-amt" ng-show="saved_amt > 0" ng-cloak>
-                    Note: Customer will save <span class="price">&#36;{{saved_amt}}</span>.
+                    Note: Customer will save <span class="price">&#36;<span ng-bind-html-unsafe="saved_amt"></span></span>.
                 </div>
                 <div class="label-holder pay-more-amt" ng-show="pay_more_amt > 0" ng-cloak>
-                    Note: Customer will pay <span class="price">&#36;{{pay_more_amt}}</span> more.
+                    Note: Customer will pay <span class="price">&#36;<span ng-bind-html-unsafe="pay_more_amt"></span></span> more.
                 </div>
             </div>          
             <div class="table-header label pull-left">
                 <div class="label-holder" ng-cloak ng-show="show_requested_channels">
-                    {{requested_pkg.name}}
+                    <a onClick="window.open('{{requested_pkg.url}}', '_blank');" href="#">{{requested_pkg.name}}</a>
                 </div>                
             </div>
             <div class="clearfix"></div>
