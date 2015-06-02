@@ -57,11 +57,12 @@
     dataStore.prototype.getPackages = function(pkg_ids){
         var pkgs = [];
         var that = this;
-        $.each(pkg_ids, function (index, pkg_id) {
+        for (var i = 0; i < pkg_ids.length; i++) {
+            var pkg_id = pkg_ids[i];
             var pkg = that.getPackageById(parseInt(pkg_id.package_id));
             if (pkg)
                pkgs.push(pkg);
-        });
+        }
         return pkgs;
     };
     
@@ -75,13 +76,14 @@
         var channels = [];
         var that = this;       
         if (undefined === are_objects) //if are_objects param is not provided then assume true
-           are_objects = true;
-        $.each(channel_ids, function (index, channel_id) {
+           are_objects = true;       
+        for (var i = 0; i < channel_ids.length; i++) {
+            var channel_id = channel_ids[i];
             var id = (are_objects) ? channel_id.channel_id : channel_id;
             var channel = that.getChannelById(parseInt(id));           
             if (channel)
                channels.push(channel);
-        });
+        }
         return channels;
     };
     
@@ -105,7 +107,6 @@
           //channels not found on the requested(new package)
           diff.lost_channels = _.difference(unique, requested_channels); //collection of lost channel ids          
         }
-       
         return diff;       
     };
     
