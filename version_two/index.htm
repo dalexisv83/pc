@@ -103,10 +103,10 @@
             </div>
             <div class="table-header label double pull-left">
                 <div class="label-holder saved-amt" ng-show="saved_amt > 0" ng-cloak>
-                    $$$: Customer will save <span class="price">&#36;<span ng-bind-html-unsafe="saved_amt"></span></span>
+                    Customer will save <span class="price">&#36;<span ng-bind-html-unsafe="saved_amt"></span></span>
                 </div>
                 <div class="label-holder pay-more-amt" ng-show="pay_more_amt > 0" ng-cloak>
-                    $$$: Customer will pay <span class="price">&#36;<span ng-bind-html-unsafe="pay_more_amt"></span></span> more
+                    Customer will pay <span class="price">&#36;<span ng-bind-html-unsafe="pay_more_amt"></span></span> more
                 </div>
             </div>          
             <div class="table-header label pull-left">
@@ -226,7 +226,17 @@
         </div>      
         <!--end row for channel tables-->
         
-        <div id="genreCodes" style="display:none">      
+        <div id="genreCodes" style="display:none">
+            <div class="wrapper last">
+               <div class="pull-left code">*</div>
+               <div class="pull-left title">DIRECTV On Demand</div>
+               <div style="clear:both"></div>
+            </div>
+            <div class="wrapper last">
+               <div class="pull-left code">&#171;</div>
+               <div class="pull-left title">Rewind & Restart</div>
+               <div style="clear:both"></div>
+            </div>     
             <div class="wrapper">
                <div class="pull-left code">FAM</div>
                <div class="pull-left title">Family</div>
@@ -266,17 +276,7 @@
                <div class="pull-left code">SPT</div>
                <div class="pull-left title">Sports</div>
                <div style="clear:both"></div>
-            </div>
-            <div class="wrapper last">
-               <div class="pull-left code">*</div>
-               <div class="pull-left title">DIRECTV On Demand</div>
-               <div style="clear:both"></div>
-            </div>
-            <div class="wrapper last">
-               <div class="pull-left code">&#171;</div>
-               <div class="pull-left title">Rewind & Restart</div>
-               <div style="clear:both"></div>
-            </div>     
+            </div>          
         </div><!--end of div#genreCodes-->
        
     </div>

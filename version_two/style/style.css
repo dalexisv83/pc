@@ -289,14 +289,14 @@ table td.channel-number{
 .why {
   background-image: url(%%pub%%system/img/why-icon.png);
   background-repeat: no-repeat;
-  background-position: 57px 2px;
+  background-position: 49px 1px;
   width: 120px;
   height: 20px;
   cursor: pointer;
   position: absolute;
   top: 113px;
-  left: 419px;
-  font-size: 14px;
+  left: 423px;
+  font-size: 12px;
   display: none;
 }
 
@@ -314,6 +314,10 @@ table td.channel-number{
 
 .qtip-content .wrapper{
   width:100%;
+}
+
+.qtip-content{
+  font-size:12px;
 }
 
 .saved-amt,
