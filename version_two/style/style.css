@@ -174,11 +174,9 @@ table{
 .table-header-inner{
   height:20px;
   width:100%;
+  background-color:#E0E0E0;
 }
 
-.table-header-inner{
-  background-color:#ccc;
-}
 
 .table-header .channel-number{
   padding-left:3px;
@@ -297,7 +295,7 @@ table td.channel-number{
   cursor: pointer;
   position: absolute;
   top: 113px;
-  left: 550px;
+  left: 419px;
   font-size: 14px;
   display: none;
 }
@@ -322,7 +320,7 @@ table td.channel-number{
 .pay-more-amt{
   font-weight:normal;
   font-style:italic;
-  font-size:15px;
+  font-size:13px;
 }
 
 .saved-amt{
@@ -337,7 +335,7 @@ table td.channel-number{
   top: 0;
   right: 67px;
   width: 513px;
-  font-size:12px;
+  font-size:11px;
 }
 
 .growl .alert{
@@ -391,14 +389,6 @@ span.btn-feedback:hover {
      cursor: pointer;
 }
 
-.on-demand-symbol{
-  font-size: 11px;
-  color: white;
-  position: absolute;
-  top: 43px;
-  left: 200px;
-}
-
 .chosen-container-single .chosen-default,
 .chosen-container-active .chosen-single,
 .chosen-container-single .chosen-single
@@ -418,6 +408,11 @@ span.btn-feedback:hover {
   border-color: #134896;  
   color: #fff;
   font-family:  Verdana, Geneva, sans-serif;
+}
+
+.pkg-name-holder .label-holder a{
+  color:#31517c;
+  text-decoration:none;
 }
 
 
