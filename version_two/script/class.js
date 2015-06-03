@@ -124,13 +124,19 @@
           var requested_package_price = parseFloat(requested_pkg.price);
           if ( current_package_price > requested_package_price ) { //saving money
             diff.saved_amt = current_package_price - requested_package_price;
-            diff.saved_amt = Math.round(diff.saved_amt * 100) / 100
+            diff.saved_amt = Math.round(diff.saved_amt * 100) / 100;
+            var saved_amt_str = diff.saved_amt.toString();
+            if(saved_amt_str.length >= 3 && saved_amt_str.indexOf('.') !== -1)
+                diff.saved_amt = parseFloat(Math.round(diff.saved_amt * 100) / 100).toFixed(2);             
             diff.pay_more_amt = 0;
           }
           else{
             diff.saved_amt = 0;
             diff.pay_more_amt = requested_package_price - current_package_price //paying more money
-            diff.pay_more_amt = Math.round(diff.pay_more_amt * 100) / 100
+            diff.pay_more_amt = Math.round(diff.pay_more_amt * 100) / 100;
+            var pay_more_amt_str = diff.pay_more_amt.toString();
+            if(pay_more_amt_str.length >= 3 && pay_more_amt_str.indexOf('.') !== -1)
+                diff.pay_more_amt = parseFloat(Math.round(diff.pay_more_amt * 100) / 100).toFixed(2);  
           }
         }       
         return diff;    

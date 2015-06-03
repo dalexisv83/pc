@@ -15,7 +15,7 @@ body{
 }
 
 select{
-  width:280px;
+  width:240px;
 }
 
 .wrapper{
@@ -40,13 +40,13 @@ table{
 }
 
 .chosen-container{
-  font-size:15px;
+  font-size:12px;
 }
 
 .requested-pkg-holder select,
 .requested-pkg-holder .chosen-container
 {
-  margin-left: 120px;
+  margin-left: 160px;
 }
 
 .current-pkg-holder select,
@@ -111,10 +111,18 @@ table{
 
 .channels-table-holder{
   height:370px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:11px;
+}
+
+.channels-table-holder a{
+  color: #000;
+  font-weight:bold;
+  text-decoration:none;
 }
 
 .table-header a{
-  color: #fff;
+  color: #000;
 }
 
 .table-header .label-holder a{
@@ -168,22 +176,12 @@ table{
   width:100%;
 }
 
-.table-header.requested .table-header-inner,
-.table-header.current .table-header-inner{
-  background: #31517c;
+.table-header-inner{
+  background-color:#ccc;
 }
 
 .table-header .channel-number{
   padding-left:3px;
-}
-
-
-.table-header.lost .table-header-inner{
-  background: #d00404;
-}
-
-.table-header.gained .table-header-inner{
-  background: #337c31;
 }
 
 .table-header-inner a{
@@ -286,21 +284,22 @@ table td.channel-number{
 }
 
 .pkg-name-holder .label-holder{
-  margin-top:-7px;
+  margin-top:-9px;
+  font-weight:bold;
 }
 
 .why {
   background-image: url(%%pub%%system/img/why-icon.png);
   background-repeat: no-repeat;
-  background-position: 104px 2px;
-  width: 200px;
+  background-position: 57px 2px;
+  width: 120px;
   height: 20px;
   cursor: pointer;
   position: absolute;
-  top: 89px;
-  left: 393px;
+  top: 113px;
+  left: 550px;
   font-size: 14px;
-  display:none;
+  display: none;
 }
 
 .qtip-content .wrapper .code{
@@ -317,11 +316,6 @@ table td.channel-number{
 
 .qtip-content .wrapper{
   width:100%;
-}
-
-.label-holder span.price{
-  font-weight:bold;
-  text-decoration:underline;
 }
 
 .saved-amt,
@@ -341,7 +335,7 @@ table td.channel-number{
 
 .growl{
   top: 0;
-  right: 73px;
+  right: 67px;
   width: 513px;
   font-size:12px;
 }
@@ -357,9 +351,10 @@ table td.channel-number{
 /**reset button**/
 .reset {
   padding: 3px 6px;
-  position:absolute;
-  top:17px;
-  right:6px;
+  position: absolute;
+  top: 10px;
+  right: 6px;
+  font-size: 11px;
 }
 /**reset button**/
 
@@ -369,6 +364,7 @@ table td.channel-number{
   position: absolute;
   top: 10px;
   right: 13px;
+  display:none;
 }
 
 a.btn-feedback.btns,
@@ -394,6 +390,36 @@ span.btn-feedback:hover {
 .comment-btn span:hover{
      cursor: pointer;
 }
+
+.on-demand-symbol{
+  font-size: 11px;
+  color: white;
+  position: absolute;
+  top: 43px;
+  left: 200px;
+}
+
+.chosen-container-single .chosen-default,
+.chosen-container-active .chosen-single,
+.chosen-container-single .chosen-single
+{
+    background-color: #fff;
+    color:#000;
+}
+
+.current .channel-number,
+.requested .channel-number
+{
+  width:28.5%;
+}
+
+.alert-info{
+  background-color: #134896;
+  border-color: #134896;  
+  color: #fff;
+  font-family:  Verdana, Geneva, sans-serif;
+}
+
 
 /**comment button**/
 

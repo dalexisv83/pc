@@ -1,7 +1,7 @@
 app.controller('AppController', function ($scope, $filter, growl) {
     
     var orderBy = $filter('orderBy');
-    var localhost = true; //change to false on production
+    var localhost = false; //change to false on production
     
     $scope.current_pkg = null; //holds the selected current package object
     $scope.requested_pkg = null; //holds the selected requested package object    
@@ -23,8 +23,8 @@ app.controller('AppController', function ($scope, $filter, growl) {
     
     $scope.show_current_channels = true; //determine to show/hide the current channels
     $scope.show_requested_channels = true; //determine to show/hide the requested channels
-    $scope.show_gained_channels = true; //determine to show/hide the gained channels
-    $scope.show_lost_channels = true; //determine to show/hide the lost channels
+    $scope.show_gained_channels = false; //determine to show/hide the gained channels
+    $scope.show_lost_channels = false; //determine to show/hide the lost channels
     
     $scope.saved_amt = 0; //amount being saved
     $scope.pay_more_amt = 0; //amount that will pay more
@@ -153,8 +153,8 @@ app.controller('AppController', function ($scope, $filter, growl) {
         //reset all the show/hide pointers back to original values
         $scope.show_current_channels = true; 
         $scope.show_requested_channels = true; 
-        $scope.show_gained_channels = true; 
-        $scope.show_lost_channels = true;
+        $scope.show_gained_channels = false; 
+        $scope.show_lost_channels = false;
         
         //reset the saved and pay more amts
         $scope.saved_amt = 0; 
