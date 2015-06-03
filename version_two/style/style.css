@@ -115,7 +115,7 @@ table{
   font-size:11px;
 }
 
-.channels-table-holder a{
+.channels-table-holder .table-wrapper a{
   color: #000;
   font-weight:bold;
   text-decoration:none;
