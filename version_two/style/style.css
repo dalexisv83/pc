@@ -419,6 +419,14 @@ span.btn-feedback:hover {
   text-decoration:none;
 }
 
+.expired{
+  color:#ff0000;
+}
+
+.chosen-container-single .chosen-single span{
+  margin-top:-2px;
+}
+
 
 /**comment button**/
 

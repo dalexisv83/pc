@@ -98,7 +98,10 @@
         <div class="row pkg-name-holder">
             <div class="table-header label pull-left" ng-cloak>
                 <div class="current label-holder" ng-show="show_current_channels">
-                    <a onClick="window.open('{{current_pkg.url}}', '_blank');" href="#">{{current_pkg.name}}</a>
+                    <a title="Click to open this package main page." onClick="window.open('{{current_pkg.url}}', '_blank');" href="#">
+                        {{current_pkg.name}}
+                        <span class="expired" ng-show="current_pkg.status == 'Expired'"> - Expired</span>
+                    </a>
                 </div>               
             </div>
             <div class="table-header label double pull-left">
@@ -111,7 +114,10 @@
             </div>          
             <div class="table-header label pull-left">
                 <div class="label-holder" ng-cloak ng-show="show_requested_channels">
-                    <a onClick="window.open('{{requested_pkg.url}}', '_blank');" href="#">{{requested_pkg.name}}</a>
+                    <a title="Click to open this package main page." onClick="window.open('{{requested_pkg.url}}', '_blank');" href="#">
+                        {{requested_pkg.name}}
+                        <span class="expired" ng-show="requested_pkg.status == 'Expired'"> - Expired</span>
+                    </a>
                 </div>                
             </div>
             <div class="clearfix"></div>
