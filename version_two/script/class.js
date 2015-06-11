@@ -18,7 +18,7 @@
         var pkgs = this.data.package_compare.datasource;        
         if (!this.util.isInteger(id))
            throw new Error('Invalid package id.');       
-        for (var i = 0; len = pkgs.length; i < len; i++) {
+        for (var i = 0, len = pkgs.length; i < len; i++) {
             var pkg = pkgs[i];
             if (parseInt(pkg.package_id) === id){
                 match_pkg = pkg;
@@ -39,7 +39,7 @@
         var channels = this.data.channels;
         if (!this.util.isInteger(id))
            throw new Error('Invalid channel id.');
-        for (var i = 0; len = channels.length; i < len; i++) {
+        for (var i = 0, len = channels.length; i < len; i++) {
             var channel = channels[i];
             if (parseInt(channel.id) === id){
                 match_channel = channel;
@@ -57,7 +57,7 @@
     dataStore.prototype.getPackages = function(pkg_ids){
         var pkgs = [];
         var that = this;
-        for (var i = 0; max = pkg_ids.length; i < max; i++) {
+        for (var i = 0, max = pkg_ids.length; i < max; i++) {
             var pkg_id = pkg_ids[i];
             var pkg = that.getPackageById(parseInt(pkg_id.package_id));
             if (pkg)
@@ -77,9 +77,9 @@
         var that = this;       
         if (undefined === are_objects) //if are_objects param is not provided then assume true
            are_objects = true;       
-        for (var i = 0; max = channel_ids.length;  i < max; i++) {
+        for (var i = 0, max = channel_ids.length;  i < max; i++) {
             var channel_id = channel_ids[i];
-            var id = (are_objects) ? channel_id.channel_id : channel_id;
+            var id = (are_objects) ? channel_id.id : channel_id;
             var channel = that.getChannelById(parseInt(id));           
             if (channel)
                channels.push(channel);
@@ -96,8 +96,8 @@
     dataStore.prototype.getPackageDiff = function(current_pkg, requested_pkg){
         var diff = {};       
         if (current_pkg && requested_pkg) {
-          var current_channels = _.map(current_pkg.channels, _.iteratee('channel_id'));
-          var requested_channels = _.map(requested_pkg.channels, _.iteratee('channel_id'));
+          var current_channels = _.map(current_pkg.channels, _.iteratee('id'));
+          var requested_channels = _.map(requested_pkg.channels, _.iteratee('id'));
           
           //combine and get the unique ids for both collections
           var unique = _([current_channels,requested_channels]).chain().flatten().unique().value();
