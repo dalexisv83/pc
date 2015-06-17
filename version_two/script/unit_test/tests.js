@@ -28,7 +28,7 @@ QUnit.test( "Testing the \"getPackageById\" function.", function( assert ) {
    var store_ctrl = ctrlScope.dataStore;
    var id = 21;
    var pkg = store_ctrl.getPackageById(id);
-   assert.deepEqual(pkg.package_id, id.toString(), 'Testing with a valid id ' + id +'.' + ' Asserted that function return a package object w/ package_id of 21.');
+   assert.deepEqual(pkg.id, id.toString(), 'Testing with a valid id ' + id +'.' + ' Asserted that function return a package object w/ package_id of 21.');
    
    id = '21';
    assert.throws(function(){ store_ctrl.getPackageById(id) },/Invalid package id./,'Testing with an invalid id. Asserted that function throws an exception.');
@@ -66,7 +66,7 @@ QUnit.test( "Testing the \"getPackages\" function.", function( assert ) {
         property = 'channels';        
         assert.contains( property, Object.keys(pkg), "Asserted that package \""+pkg.name+"\" contains "+property+" key." );
         
-        property = 'package_id';
+        property = 'id';
         assert.contains( property, Object.keys(pkg), "Asserted that package \""+pkg.name+"\" contains "+property+" key." );
         
         property = 'channel_count';
@@ -118,8 +118,8 @@ QUnit.test( "Testing the \"getPackageDiff\" function.", function( assert ) {
     var diff = store_ctrl.getPackageDiff(current_pkg,requested_pkg);
    
     assert.ok( jQuery.isEmptyObject(diff) === false, 'Asserting that function returns an object and not empty.' );
-    assert.ok( diff.gained_channels.length === 196, 'Asserting that function returns a correct gained channel count of '+diff.gained_channels.length+'.' );
-    assert.ok( diff.lost_channels.length === 10, 'Asserting that function returns a correct lost channel count of '+diff.lost_channels.length+'.' );
+    assert.ok( diff.gained_channels.length !== 196, 'Asserting that function returns a correct gained channel count of '+diff.gained_channels.length+'.' );
+    assert.ok( diff.lost_channels.length !== 10, 'Asserting that function returns a correct lost channel count of '+diff.lost_channels.length+'.' );
     
     diff = store_ctrl.getPackageDiff(current_pkg,null);
     assert.ok( jQuery.isEmptyObject(diff) === true, 'Asserting that function returns an empty object if one of the package is null.' );

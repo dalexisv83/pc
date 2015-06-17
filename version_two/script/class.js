@@ -20,7 +20,7 @@
            throw new Error('Invalid package id.');       
         for (var i = 0, len = pkgs.length; i < len; i++) {
             var pkg = pkgs[i];
-            if (parseInt(pkg.package_id) === id){
+            if (parseInt(pkg.id) === id){
                 match_pkg = pkg;
                 break;
             }
@@ -59,7 +59,7 @@
         var that = this;
         for (var i = 0, max = pkg_ids.length; i < max; i++) {
             var pkg_id = pkg_ids[i];
-            var pkg = that.getPackageById(parseInt(pkg_id.package_id));
+            var pkg = that.getPackageById(parseInt(pkg_id.id));
             if (pkg)
                pkgs.push(pkg);
         }
