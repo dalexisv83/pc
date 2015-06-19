@@ -1,3 +1,14 @@
+    /**************************************************************
+    *               Package Compare Library                       *
+    *                                                             *
+    *               Contains functions to query a                 *
+    *               package by id, a channel by id,               *
+    *               compare two packages by price, etc.           *
+    *                                                             *
+    *               @author: jcapillo@directv.com                 *
+    **************************************************************/
+    
+    
     /**
      * Initiate the main class to interact with datasource
      * @param {object} data the main data source
