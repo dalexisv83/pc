@@ -18,6 +18,11 @@ select{
   width:240px;
 }
 
+.com select{
+  width:275px;
+}
+
+
 .wrapper{
  width:920px;
 }
@@ -47,6 +52,12 @@ table{
 .requested-pkg-holder .chosen-container
 {
   margin-left: 160px;
+}
+
+.requested-pkg-holder.com select,
+.requested-pkg-holder.com .chosen-container
+{
+  margin-left:125px;
 }
 
 .current-pkg-holder select,

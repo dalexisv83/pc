@@ -44,17 +44,17 @@
         
         <div class="volumes">
             <select ng-model="volume" ng-options="volume for volume in volumes" name="volume">
-                <option value="">Select a volume:</option>
+                <option value="">Select EVO:</option>
             </select>
         </div>
         
         <!--start row for package dropdowns-->
         <div class="row pkgs-holder">
-            <div class="current-pkg-holder pull-left">
+            <div class="current-pkg-holder pull-left com">
                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' ' + dataStore.getDisplayPrice(current_pkg.price,volume))  for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
                 </select>
             </div>
-            <div class="requested-pkg-holder pull-left">
+            <div class="requested-pkg-holder pull-left com">
                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' ' + dataStore.getDisplayPrice(requested_pkg.price,volume))  for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
                 </select>
             </div>
