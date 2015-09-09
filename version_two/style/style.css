@@ -19,7 +19,7 @@ select{
 }
 
 .com select{
-  width:275px;
+  width:280px;
 }
 
 
@@ -57,7 +57,7 @@ table{
 .requested-pkg-holder.com select,
 .requested-pkg-holder.com .chosen-container
 {
-  margin-left:125px;
+  margin-left:120px;
 }
 
 .current-pkg-holder select,
