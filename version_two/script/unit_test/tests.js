@@ -17,6 +17,11 @@ module("Testing controller", {
     }
 });
 
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 //customized assertion
 QUnit.assert.contains = function( needle, haystack, message ) {
   var actual = haystack.indexOf(needle) > -1;
@@ -127,9 +132,7 @@ QUnit.test( "Testing the \"getPackageDiff\" function.", function( assert ) {
 });
 
 
-function isNumeric(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-}
+
 QUnit.test( "Testing the \"getPriceDiff\" function.", function( assert ) {
     
     var store_ctrl = ctrlScope.dataStore;
@@ -144,14 +147,182 @@ QUnit.test( "Testing the \"getPriceDiff\" function.", function( assert ) {
    
     assert.ok( jQuery.isEmptyObject(diff) === false, 'Asserting that function returns an object and not empty.' );
     
-    if (diff.saved_amt !== 0 && !jQuery.isEmptyObject(diff)) {
-       assert.ok( isNumeric(diff.saved_amt), 'Asserting that function returns a correct saved amount of '+diff.saved_amt+' in dollars.' );
-       assert.ok( diff.pay_more_amt === 0, 'Asserting that function returns a correct pay more amount of '+diff.pay_more_amt+' in dollars.' );
-    }
-    
-    if (diff.pay_more_amt !== 0 && !jQuery.isEmptyObject(diff)) {
-       assert.ok( isNumeric(diff.pay_more_amt), 'Asserting that function returns a correct pay more amount of '+diff.pay_more_amt+' in dollars.' );
-       assert.ok( diff.saved_amt === 0, 'Asserting that function returns a correct saved amount of '+diff.saved_amt+' in dollars.' );
-    }
+    //make sure we're only testing packages with available price
+    if (current_pkg.price && requested_pkg.price) {
+        if (diff.saved_amt !== 0 && !jQuery.isEmptyObject(diff)) {
+           assert.ok( isNumeric(diff.saved_amt), 'Asserting that function returns a correct saved amount of '+diff.saved_amt+' in dollars.' );
+           assert.ok( diff.pay_more_amt === 0, 'Asserting that function returns a correct pay more amount of '+diff.pay_more_amt+' in dollars.' );
+        }
+        
+        if (diff.pay_more_amt !== 0 && !jQuery.isEmptyObject(diff)) {
+           assert.ok( isNumeric(diff.pay_more_amt), 'Asserting that function returns a correct pay more amount of '+diff.pay_more_amt+' in dollars.' );
+           assert.ok( diff.saved_amt === 0, 'Asserting that function returns a correct saved amount of '+diff.saved_amt+' in dollars.' );
+        }
+    }    
    
 });
+
+
+QUnit.test( "Testing the \"getVolumes\" function.", function( assert ) {
+    
+    var store_ctrl = ctrlScope.dataStore;
+    var volumes;
+    
+    //commercial version test
+    if (store_ctrl.data.package_compare.volumes) {
+       volumes = store_ctrl.data.package_compare.volumes;
+       
+        //check volumes property
+       $.each(volumes, function(i, v) {
+           property = 'v';
+           assert.contains( property, Object.keys(v), "Asserted that volume \""+ (i + 1) +"\" contains "+property+" key." );
+       });
+       
+       var displayed_volumes = store_ctrl.getVolumes (volumes);
+       assert.ok( jQuery.isArray(displayed_volumes), 'Asserting that function returns an array.' );
+       var len = volumes.length;
+       assert.ok( displayed_volumes.length == len, 'Asserting that the length of the returned array is the same as the input array.' );
+       
+        //check display volumes 
+       $.each(displayed_volumes, function(i, v) {          
+           assert.ok( v.length > 0, "Asserted that display volume \""+ (i + 1) +"\" is valid." );
+       });
+      
+    }
+    else{ //residential
+       volumes = [];
+       var result = store_ctrl.getVolumes (volumes);
+       assert.ok( jQuery.isArray(result) && result.length === 0, 'Asserting that function returns an empty array.' );
+    } 
+    
+   
+});
+
+
+QUnit.test( "Testing the \"getPriceByVolume\" function.", function( assert ) {
+    
+    var store_ctrl = ctrlScope.dataStore;
+    
+    //test each current packages
+    var current_pkgs = store_ctrl.getPackages(data.package_compare.current);
+    $.each(current_pkgs, function(i, pkg) {
+        ctrlScope.current_pkg = pkg;
+        var prices = ctrlScope.current_pkg.price;
+        if (jQuery.isArray(prices)) {
+            $.each(store_ctrl.data.package_compare.volumes, function(i, v) {
+               var expected_price = prices[i].p;
+               ctrlScope.volume = store_ctrl.data.package_compare.volumes[i].v;              
+               var price_from_function = store_ctrl.getPriceByVolume(prices,ctrlScope.volume);
+               assert.deepEqual( expected_price, price_from_function, 'Asserting that the current pkg. resulting price "$'+price_from_function+'" is the same from the expected price "$'+expected_price+'".' );
+            });
+        }
+        else{
+            assert.throws(function(){ store_ctrl.getPriceByVolume( prices, ctrlScope.volume) },/Invalid prices. Prices should be an array./,'Testing with an invalid prices. Asserted that function throws an exception if prices param for current pkg. is not an array.');
+        }
+    });
+    
+    //test each requested packages
+    var requested_pkgs = store_ctrl.getPackages(data.package_compare.requested);
+    $.each(requested_pkgs, function(i, pkg) {
+        ctrlScope.requested_pkg = pkg;
+        var prices = ctrlScope.requested_pkg.price;
+        if (jQuery.isArray(prices)) {
+            $.each(store_ctrl.data.package_compare.volumes, function(i, v) {
+               var expected_price = prices[i].p;
+               ctrlScope.volume = store_ctrl.data.package_compare.volumes[i].v;              
+               var price_from_function = store_ctrl.getPriceByVolume(prices,ctrlScope.volume);
+               assert.deepEqual( expected_price, price_from_function, 'Asserting that the requested pkg. resulting price "$'+price_from_function+'" is the same from the expected price "$'+expected_price+'".' );
+            });
+        }
+        else{
+            assert.throws(function(){ store_ctrl.getPriceByVolume( prices, ctrlScope.volume) },/Invalid prices. Prices should be an array./,'Testing with an invalid prices. Asserted that function throws an exception if prices param for requested pkg. is not an array.');
+        }
+    });
+ 
+});
+
+
+QUnit.test( "Testing the \"getPrice\" function.", function( assert ) {
+    
+    var store_ctrl = ctrlScope.dataStore;
+    ctrlScope.volume = "51 - 100"; //assign the second biggest volume
+    
+    //test current packages
+    var current_pkgs = store_ctrl.getPackages(data.package_compare.current);
+    $.each(current_pkgs, function(i, pkg) {
+        ctrlScope.current_pkg = pkg;
+        var price_obj = ctrlScope.current_pkg.price;       
+        if (!store_ctrl.data.package_compare.volumes) // if residential
+           ctrlScope.volume = null;
+        var price_from_function = store_ctrl.getPrice(price_obj,ctrlScope.volume);
+        if (price_from_function)
+            assert.ok( isNumeric(price_from_function), 'Asserting that the resulting price for current package is of expected numeric value.' );     
+        if (!price_obj) //if no price object available
+            assert.ok( _.isNull(price_from_function), 'Asserting that the resulting price  for current package is of expected null value.' );
+    });
+    
+     //test requested packages
+    var requested_pkgs = store_ctrl.getPackages(data.package_compare.requested);
+    $.each(requested_pkgs, function(i, pkg) {
+        ctrlScope.requested_pkg = pkg;
+        var price_obj = ctrlScope.requested_pkg.price;        
+        if (!store_ctrl.data.package_compare.volumes) // if residential
+           ctrlScope.volume = null;
+        var price_from_function = store_ctrl.getPrice(price_obj,ctrlScope.volume);
+        if (price_from_function)
+            assert.ok( isNumeric(price_from_function), 'Asserting that the resulting price for requested package is of expected numeric value.' );     
+        if (!price_obj) //if no price object available
+            assert.ok( _.isNull(price_from_function), 'Asserting that the resulting price for requested package is of expected  null value.' );
+    });
+        
+});
+
+
+QUnit.test( "Testing the \"getDisplayPrice\" function.", function( assert ) {
+    
+    var store_ctrl = ctrlScope.dataStore;
+    ctrlScope.volume = "51 - 100"; //assign the second biggest volume
+    
+    //test current packages
+    var current_pkgs = store_ctrl.getPackages(data.package_compare.current);
+    $.each(current_pkgs, function(i, pkg) {
+        ctrlScope.current_pkg = pkg;
+        var price_obj = ctrlScope.current_pkg.price;        
+        if (!store_ctrl.data.package_compare.volumes) // if residential
+           ctrlScope.volume = null;           
+        var price_from_function = jQuery.trim(store_ctrl.getDisplayPrice(price_obj,ctrlScope.volume));        
+        if (price_obj){
+           assert.ok(price_from_function.length > 0, 'Asserting that the resulting display price for current package is valid.' );
+        }
+        else{
+           assert.ok(price_from_function.length == 0, 'Asserting that the resulting display price for current package is a valid empty string.' ); 
+        }
+    });
+    
+    //test requested packages
+    var requested_pkgs = store_ctrl.getPackages(data.package_compare.requested);
+    $.each(requested_pkgs, function(i, pkg) {
+        ctrlScope.requested_pkg = pkg;
+        var price_obj = ctrlScope.requested_pkg.price;        
+        if (!store_ctrl.data.package_compare.volumes) // if residential
+           ctrlScope.volume = null;           
+        var price_from_function = jQuery.trim(store_ctrl.getDisplayPrice(price_obj,ctrlScope.volume));        
+        if (price_obj){
+           assert.ok(price_from_function.length > 0, 'Asserting that the resulting display price for requested package is valid.' );
+        }
+        else{
+           assert.ok(price_from_function.length == 0, 'Asserting that the resulting display price for requested package is a valid empty string.' ); 
+        }
+    });
+    
+});
+
+
+
+
+
+
+
+
+
+

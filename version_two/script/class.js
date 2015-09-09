@@ -18,6 +18,7 @@
         this.util = new Utility();
     };
     
+    
     /**
      * This will find the package by package id from
      * the package compare data source
@@ -98,6 +99,8 @@
         return channels;
     };
     
+    
+    
     /**
      * Computes the difference between the current package to requested package
      * @param {object} current_pkg the current package of the customer
@@ -128,11 +131,11 @@
      * @param {object} requested_pkg the requested package of the customer
      * @return {object} diff
      */
-    dataStore.prototype.getPriceDiff = function(current_pkg, requested_pkg){
+    dataStore.prototype.getPriceDiff = function(current_pkg, requested_pkg, volume){
         var diff = {};       
         if (current_pkg && requested_pkg) {
-          var current_package_price = parseFloat(current_pkg.price);
-          var requested_package_price = parseFloat(requested_pkg.price);
+          var current_package_price = parseFloat(this.getPrice(current_pkg.price,volume));
+          var requested_package_price = parseFloat(this.getPrice(requested_pkg.price,volume));
           if ( current_package_price > requested_package_price ) { //saving money
             diff.saved_amt = current_package_price - requested_package_price;
             diff.saved_amt = Math.round(diff.saved_amt * 100) / 100;
@@ -152,6 +155,86 @@
         }       
         return diff;    
     };
+    
+    /**
+     * Retrieve the price from the price array against the volume selected
+     * @param {array} prices collection of price objects for a specific package
+     * @param {volume} volume the selected volume
+     */
+    dataStore.prototype.getPriceByVolume = function(prices,volume){
+        var matched_price = false;
+        
+        if (!jQuery.isArray(prices))
+            throw new Error('Invalid prices. Prices should be an array.');   
+        
+        
+        for (var i = 0, max = prices.length;  i < max; i++) {
+            var price = prices[i];
+            //if no volume provided, return the first price on the array
+            if (i == 0 && (_.isNull(volume) || undefined === volume)) { //if no volume, return the first property
+                matched_price = price.p;
+                break;
+            }
+            
+            if (price.v == volume) {
+                matched_price = price.p;
+                break;
+            }           
+        }
+        return matched_price;
+    };
+    
+    /**
+     * Get all the volumes from the data source and return an array
+     * @param {array} vols collection of different volume objects from the data source
+     * @return {array} collection of volumes to be selected
+     */
+    dataStore.prototype.getVolumes = function(vols){
+        var volumes = [];       
+        for (var i = 0, max = vols.length; i < max; i++) {
+            var vol = vols[i];
+            volumes.push(vol.v);
+        }
+        return volumes;
+    };
+    
+    /**
+     * Assigns the proper price for selected current or requested package per chosen volume
+     * @param {mixed} price the price property of each package and could be an array, integer or null.
+     * @param {string} volume the selected volume of an establishment defaults to null
+     * @return {mixed} 
+     */
+    dataStore.prototype.getPrice = function(price,volume){
+       var volume_price = null;
+       
+       if (!_.isNull(price)) {
+         if (jQuery.isArray(price)) {
+            volume_price = this.getPriceByVolume(price,volume);            
+         }
+         else
+           volume_price = price;
+       }
+     
+       return volume_price;
+    };
+    
+    /**
+     * Forms the display price on the select price control
+     * @param {mixed} price the price property of each package and could be an array, integer or null.
+     * @param {string} volume the selected volume of an establishment defaults to null
+     *
+     * @return {string}
+     */
+    dataStore.prototype.getDisplayPrice = function(price,volume){
+        var price = this.getPrice(price,volume);
+        if (price) {
+            return ' - $' + price;
+        }
+        else
+          return '';
+    }
+    
+    
     
     
     /**

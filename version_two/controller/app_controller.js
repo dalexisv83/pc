@@ -28,6 +28,9 @@ app.controller('AppController', function ($scope, $filter, growl) {
     
     $scope.saved_amt = 0; //amount being saved
     $scope.pay_more_amt = 0; //amount that will pay more
+    
+    $scope.volumes = []; //hold the collection of volumes
+    $scope.volume = null; //hold the value for the selected volume
    
     
     /**
@@ -40,7 +43,12 @@ app.controller('AppController', function ($scope, $filter, growl) {
        var current_pkg_ids = data.package_compare.current;
        //fill the packages dropdowns
        $scope.requested_pkgs = $scope.dataStore.getPackages(requested_pkg_ids); 
-       $scope.current_pkgs = $scope.dataStore.getPackages(current_pkg_ids);       
+       $scope.current_pkgs = $scope.dataStore.getPackages(current_pkg_ids);
+       
+       //if there is a volume property and only it is still empty
+       if (data.package_compare.volumes && $scope.volumes.length == 0)
+         $scope.volumes = $scope.dataStore.getVolumes(data.package_compare.volumes);
+       
     };
    
     
@@ -63,9 +71,22 @@ app.controller('AppController', function ($scope, $filter, growl) {
         comment_btn.init();
     });
     
+   
+    //watch change in selected volume
+    $scope.$watchCollection('volume', function() {        
+        $scope.init();
+        if ($scope.current_pkg && $scope.requested_pkg) {
+            //get the price diff. to determine if customer will save or pay more
+            var price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
+            if (!jQuery.isEmptyObject(price_diff)) {
+             $scope.saved_amt = price_diff.saved_amt;
+             $scope.pay_more_amt = price_diff.pay_more_amt;
+            }         
+        }     
+    });
     
     //watch for a change in current package
-    $scope.$watchCollection('current_pkg', function() {        
+    $scope.$watchCollection('current_pkg', function() {       
         if ($scope.current_pkg) {
             $scope.saved_amt = 0;
             $scope.pay_more_amt = 0;
@@ -81,12 +102,13 @@ app.controller('AppController', function ($scope, $filter, growl) {
             }
             
             //get the price diff. to determine if customer will save or pay more
-            var price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg);
+            var price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
             if (!jQuery.isEmptyObject(price_diff)) {
                 $scope.saved_amt = price_diff.saved_amt;
                 $scope.pay_more_amt = price_diff.pay_more_amt;
             }            
-        }       
+        }
+      
     });
     
     //watch for a change in requested package
@@ -106,7 +128,7 @@ app.controller('AppController', function ($scope, $filter, growl) {
             }
             
              //get the price diff. to determine if customer will save or pay more
-            var price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg);
+            var price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
             if (!jQuery.isEmptyObject(price_diff)) {
                 $scope.saved_amt = price_diff.saved_amt;
                 $scope.pay_more_amt = price_diff.pay_more_amt;
@@ -161,7 +183,10 @@ app.controller('AppController', function ($scope, $filter, growl) {
         $scope.pay_more_amt = 0; 
         
         //remove the growl message
-        growl.addInfoMessage(''); 
+        growl.addInfoMessage('');
+        
+        //reset volume
+        $scope.volume = null;
     };
     
    

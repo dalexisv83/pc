@@ -430,6 +430,14 @@ span.btn-feedback:hover {
 
 /**comment button**/
 
+.volumes select{
+  width: 150px;
+  position: absolute;
+  top: 22px;
+  left: 70%;
+  font-size:13px;
+}
+
 
 
 
