@@ -195,7 +195,7 @@
             var vol = vols[i];
             volumes.push(vol.v);
         }
-        return 0;
+        return volumes;
     };
     
     /**
