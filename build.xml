@@ -45,7 +45,7 @@
 	
 	<!-- props -->
 	<property environment="env" />
-	<property name="build.dir" value="build" />
+	<property name="build.dir" value="build_${BUILD_NUMBER}" />
 	<property name="lib.dir" value="C:/Users/505120/Documents/toolkit/yui-compression-master/lib" />
 	<property name="final_js" value="${basedir}/build/js/complete.js" />
 	<property name="final_css" value="${basedir}/build/css/complete.css" />
