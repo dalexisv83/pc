@@ -1,4 +1,4 @@
-<project name="JS-CSS-Compression-and-Concat-Sample" basedir="." default="main">
+<project name="Package Compare V2" basedir="." default="main">
 	
 	<!-- **************************************************************************************
 	
@@ -45,10 +45,11 @@
 	
 	<!-- props -->
 	<property environment="env" />
-	<property name="build.dir" value="build_${env.BUILD_NUMBER}" />
-	<property name="lib.dir" value="C:/Users/505120/Documents/toolkit/yui-compression-master/lib" />
-	<property name="final_js" value="${basedir}/build/js/complete.js" />
-	<property name="final_css" value="${basedir}/build/css/complete.css" />
+	<property name="build.dir" value="build" />
+	<!-- point this to the location of the YUI Compression Library -->
+	<property name="lib.dir" value="C:/yui-compression-master/lib" />
+	<property name="final_js" value="${basedir}/${build.dir}/js/complete.js" />
+	<property name="final_css" value="${basedir}/${build.dir}/css/complete.css" />
 	
 	<!-- libraries -->
 	<property name="yui-compressor" location="${lib.dir}/yuicompressor-2.4.7.jar" />
@@ -102,6 +103,8 @@
 	</target>
 	
 	<target name="start">
+		<echo message="Deleting build existing folder" />
+		<delete dir="${build.dir}"/>
 		<echo message="Building ${ant.project.name} with ${ant.version} - System Java ${ant.java.version}" />
 		<mkdir dir="${build.dir}" />
 		<echo message="Building build/js" />
