@@ -223,17 +223,16 @@
         'use strict';
         var matched_price = false,
         i,
-        max = prices.length,
+        max,
         price;
         
         if (!jQuery.isArray(prices)){
             throw new Error('Invalid prices. Prices should be an array.');   
         }
         
-        
+        max = prices.length;        
         for (i = 0;  i < max; i = i + 1) {
             price = prices[i];
-            
             //if no volume provided, return the first price on the array
             if (i === 0 && (_.isNull(volume) || undefined === volume)) { //if no volume, return the first property
                 matched_price = price.p;

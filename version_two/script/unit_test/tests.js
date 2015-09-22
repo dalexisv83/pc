@@ -216,7 +216,7 @@ QUnit.test( "Testing the \"getPriceByVolume\" function.", function( assert ) {
                assert.deepEqual( expected_price, price_from_function, 'Asserting that the current pkg. resulting price "$'+price_from_function+'" is the same from the expected price "$'+expected_price+'".' );
             });
         }
-        else{
+        else{           
             assert.throws(function(){ store_ctrl.getPriceByVolume( prices, ctrlScope.volume) },/Invalid prices. Prices should be an array./,'Testing with an invalid prices. Asserted that function throws an exception if prices param for current pkg. is not an array.');
         }
     });
