@@ -84,7 +84,7 @@
 	
 	<target name="jslint">
 		<jslint options="white" haltOnFailure="false">
-			<predef>$$scope,$$</predef>
+			<predef>$$scope,$$,app,data,angular</predef>
 			<formatter type="plain" />
 			<formatter type="xml" destfile="${build.dir}/test-reports/jslint.xml" />
 			<fileset dir="version_two" includes="**/*.js" excludes="**/unit_test/tests.js" />
