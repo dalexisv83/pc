@@ -1,7 +1,7 @@
+
 app.controller('AppController', function ($scope, $filter, growl) {
-    
-    var orderBy = $filter('orderBy');
-    var localhost = false; //change to false on production
+    'use strict';
+    var orderBy = $filter('orderBy'), localhost = false; //change to false on production
     
     $scope.current_pkg = null; //holds the selected current package object
     $scope.requested_pkg = null; //holds the selected requested package object    
@@ -15,7 +15,7 @@ app.controller('AppController', function ($scope, $filter, growl) {
     $scope.gained_channels = []; //holds the gained channels
     $scope.lost_channels = []; //holds the lost channels
     
-    $scope.dataStore = new dataStore(data); //expose the datasource class to the view
+    $scope.dataStore = new DataStore(data); //expose the datasource class to the view
     $scope.UrlFormatter = new UrlFormatter(localhost); //expose the urlformatter class to the view
     $scope.Utility = new Utility(); //expose the utility class to the view
     
@@ -37,17 +37,16 @@ app.controller('AppController', function ($scope, $filter, growl) {
      * Called on page load
      */
     $scope.init = function(){
-       //identify the collection of requested package ids
-       var requested_pkg_ids = data.package_compare.requested;
-       //identify the collection of current package ids
-       var current_pkg_ids = data.package_compare.current;
+       var requested_pkg_ids = data.package_compare.requested, current_pkg_ids = data.package_compare.current;
+       
        //fill the packages dropdowns
        $scope.requested_pkgs = $scope.dataStore.getPackages(requested_pkg_ids); 
        $scope.current_pkgs = $scope.dataStore.getPackages(current_pkg_ids);
        
        //if there is a volume property and only it is still empty
-       if (data.package_compare.volumes && $scope.volumes.length == 0)
+       if (data.package_compare.volumes && $scope.volumes.length === 0){
          $scope.volumes = $scope.dataStore.getVolumes(data.package_compare.volumes);
+       }
        
     };
    
@@ -56,18 +55,18 @@ app.controller('AppController', function ($scope, $filter, growl) {
      * Call your jquery functionality here 
      */
     angular.element(document).ready(function () {
+        var tool_tip_btn = $('#genreLegend'),
+        tooltip = new ToolTip(tool_tip_btn),
+        genre_codes_container = $('#genreCodes'),
+        btn = $('#comment_btn'),
+        root_url = '%%pub%%',
+        class_name = 'comment-btn', //add a class of comment-btn
+        comment_btn = new CommentBtn(btn,class_name,root_url);
+        
         //initialize tooltip
-        var tool_tip_btn = $('#genreLegend');
-        var tooltip = new toolTip(tool_tip_btn);
-        //activate the genre codes tooltip
-        var genre_codes_container = $('#genreCodes');
         tooltip.genreToolTip(genre_codes_container);
         
         //initiate the comment btn
-        var btn = $('#comment_btn');
-        var root_url = '%%pub%%';
-        var class_name = 'comment-btn'; //add a class of comment-btn
-        var comment_btn = new commentBtn(btn,class_name,root_url);
         comment_btn.init();
     });
     
@@ -95,14 +94,15 @@ app.controller('AppController', function ($scope, $filter, growl) {
             $scope.current_channels = $scope.dataStore.getChannels($scope.current_pkg.channels);
            
             //get the difference between the current and requested package
-            var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
+            var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
+            //get the price diff. to determine if customer will save or pay more
+            price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
+            
             if (!jQuery.isEmptyObject(diff)) {
                 $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
                 $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);
-            }
+            }     
             
-            //get the price diff. to determine if customer will save or pay more
-            var price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
             if (!jQuery.isEmptyObject(price_diff)) {
                 $scope.saved_amt = price_diff.saved_amt;
                 $scope.pay_more_amt = price_diff.pay_more_amt;
@@ -121,18 +121,20 @@ app.controller('AppController', function ($scope, $filter, growl) {
             $scope.requested_channels = $scope.dataStore.getChannels($scope.requested_pkg.channels);
             
             //get the difference between the current and requested package
-            var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
+            var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
+            //get the price diff. to determine if customer will save or pay more
+            price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
+            
             if (!jQuery.isEmptyObject(diff)) {
                 $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
                 $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);                
             }
             
-             //get the price diff. to determine if customer will save or pay more
-            var price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
             if (!jQuery.isEmptyObject(price_diff)) {
                 $scope.saved_amt = price_diff.saved_amt;
                 $scope.pay_more_amt = price_diff.pay_more_amt;
             }
+            
             //show package tip
             growl.addInfoMessage($scope.requested_pkg.tip);   
         }        
