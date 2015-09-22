@@ -66,42 +66,9 @@
 		<classpath refid="yui.classpath" />
 	</taskdef>
 	
+	<taskdef name="jslint" classname="com.googlecode.jslint4java.ant.JSLintTask" classpath="${lib.dir}/jslint4java-2.0.5.jar" />
+	
 	<!-- targets -->
-	<target name="concat">
-		
-		<echo message="Building ${final_js}" />
-		<concat destfile="${final_js}" force="true" fixlastline="true">
-			<fileset dir="${build.dir}" includes="**/*.js" />
-                        <fileset dir="${build.dir}" includes="**/version_two/script/class.js" />
-                        <fileset dir="${build.dir}" includes="**/version_two/script/app.js" />
-			<fileset dir="${build.dir}" includes="**/version_two/controller/*.js" />
-		</concat>
-		
-		<echo message="Building ${final_css}" />
-		<concat destfile="${final_css}" force="true" fixlastline="true">
-			<fileset dir="${build.dir}" includes="**/*.css" />
-			<fileset dir="${build.dir}" includes="**/version_two/style/*.css" />
-		</concat>
-		
-	</target>
-	
-	<target name="compress">
-		
-		<yui-compressor
-			warn="false"
-			munge="true"
-			preserveallsemicolons="false"
-			fromdir="version_two"
-			todir="${build.dir}"			
-		>   
-			<exclude name="script/unit_test/tests.js" />                       
-		</yui-compressor>
-		
-	</target>
-	
-	<target name="clean">
-	</target>
-	
 	<target name="start">
 		<echo message="Deleting build existing folder" />
 		<delete dir="${build.dir}"/>
@@ -111,8 +78,49 @@
 		<mkdir dir="${build.dir}/js" />
 		<echo message="Building build/css" />
 		<mkdir dir="${build.dir}/css" />
+		<echo message="Building build/test-reports" />
+		<mkdir dir="${build.dir}/test-reports" />		
 	</target>
 	
-	<target name="main" depends="start,compress,concat,clean" />
+	<target name="jslint">
+		<jslint options="white" haltOnFailure="false">
+			<predef>$$scope,$$</predef>
+			<formatter type="plain" />
+			<formatter type="xml" destfile="${build.dir}/test-reports/jslint.xml" />
+			<fileset dir="version_two" includes="**/*.js" excludes="**/unit_test/tests.js" />
+		</jslint>
+	</target>
 	
+	<target name="compress">		
+		<yui-compressor
+			warn="false"
+			munge="true"
+			preserveallsemicolons="false"
+			fromdir="version_two"
+			todir="${build.dir}"			
+		>   
+			<exclude name="script/unit_test/tests.js" />                       
+		</yui-compressor>		
+	</target>
+	
+	<target name="concat">
+		<echo message="Building ${final_js}" />
+		<concat destfile="${final_js}" force="true" fixlastline="true">
+			<fileset dir="${build.dir}" includes="**/*.js" />
+                        <fileset dir="${build.dir}" includes="**/version_two/script/class.js" />
+                        <fileset dir="${build.dir}" includes="**/version_two/script/app.js" />
+			<fileset dir="${build.dir}" includes="**/version_two/controller/*.js" />
+		</concat>		
+		<echo message="Building ${final_css}" />
+		<concat destfile="${final_css}" force="true" fixlastline="true">
+			<fileset dir="${build.dir}" includes="**/*.css" />
+			<fileset dir="${build.dir}" includes="**/version_two/style/*.css" />
+		</concat>		
+	</target>
+	
+	<!-- cleaning tasks -->
+	<target name="clean">
+	</target>
+	
+	<target name="main" depends="start,jslint,compress,concat,clean" />	
 </project>
