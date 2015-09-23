@@ -62,7 +62,6 @@ select{
 
 .border {
   z-index: 0;
-  position: relative;
   margin-top: 5px;
   background: -ms-linear-gradient(top, rgba(255,255,255,.7) 0px, rgba(255,255,255,1) 50px);
   background: linear-gradient(to bottom, rgba(255,255,255,.7) 0px, rgba(255,255,255,1) 50px);
