@@ -485,11 +485,12 @@ span.btn-feedback:hover {
 
 /**comment button**/
 
-.volumes select{
+.volumes {
   width: 150px;
   position: absolute;
   top: 22px;
-  left: 70%;
+  left: 50%;
+  margin-left: -75px;
   font-size:13px;
 }
 

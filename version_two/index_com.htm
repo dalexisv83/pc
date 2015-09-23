@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="full" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="App">
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="App">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />   
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="%%pub%%system/css/growl.css"> 
     <link rel="stylesheet" href="style/style.css">
     <!--[if IE]>
-     <link rel="stylesheet" href="style/ie.css">
+     <link href="package_compare/version_two/pie/PIE.htc" rel="stylesheet" type="text/css" />
     <![endif]-->
     
     <!--intentionally placed in the head so ng-cloak will work.... please refer to https://docs.angularjs.org/api/ng/directive/ngCloak-->
@@ -18,43 +18,61 @@
     <script type="text/javascript" src="%%pub%%system/js/chosen_jquery.js"></script>
     <script type="text/javascript" src="%%pub%%system/js/angular.js"></script>  
 </head>
-<body>
+<body class="full">
    
-    <!--comment button-->
-    <div id="comment_btn" class="pull-right" >                
-    </div>
-    <!--comment button-->
-    
-    <!--growl notifier-->
-    <div growl>
-    </div>
-    <!--growl notifier-->   
+<div>
     
     <div class="wrapper" ng-controller="AppController" ng-init="init()">
         
-        <!--reset button-->
-        <div class="reset">
-            <button class="btn btn-inverse reset" type="reset" ng-click="reset();">
-               Reset
-            </button>
+        <!--comment button-->
+        <div id="comment_btn" class="pull-right" >
         </div>
-        <!--reset button-->
-        
-        <span class="why" id="genreLegend">Legend</span>
-        
-        <div class="volumes">
-            <select ng-model="volume" ng-options="volume for volume in volumes" name="volume">
-                <option value="">Select EVO:</option>
-            </select>
+        <!--comment button-->
+
+        <!--growl notifier-->
+        <div growl>
         </div>
+        <!--growl notifier-->
+
+        <div class="headers">
+            <div>
+                <img src="http://agentanswercenter.directv.com/en-us/res/system/img/Logo_DTV_ATT.png">
+            </div>
+            <div>
+                <h1 class="tool-title">Package Compare Tool</h1>
+            </div>
+        </div>
+
+    <div class="border">
+        <div class="headers">
+            <div>
+                <h2>Current Package</h2>
+            </div>
+            <div>
+                <h2>Requested Package</h2>
+            </div>
+        </div>
+
+        <!--reset button-->
+        <button class="btn btn-inverse reset" type="reset" ng-click="reset();">
+            Reset
+        </button>
+         <!--reset button-->
+
+        
+        <p class="why" id="genreLegend">Legend<span>?</span></p>
+        
+        <select class="volumes" ng-model="volume" ng-options="volume for volume in volumes" name="volume">
+            <option value="">Select EVO:</option>
+        </select>
         
         <!--start row for package dropdowns-->
-        <div class="row pkgs-holder">
-            <div class="current-pkg-holder pull-left com">
+        <div class="pkgs-holder headers">
+            <div class="com">
                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' ' + dataStore.getDisplayPrice(current_pkg.price,volume))  for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
                 </select>
             </div>
-            <div class="requested-pkg-holder pull-left com">
+            <div class="com">
                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' ' + dataStore.getDisplayPrice(requested_pkg.price,volume))  for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
                 </select>
             </div>
@@ -63,7 +81,7 @@
         <!--ends row for package dropdowns-->
        
         <!--start row for channels count-->
-        <div class="row">
+        <div>
             <div class="channels-count-holder" ng-cloak ng-show="current_channels.length > 0 || gained_channels.length > 0 || lost_channels.length > 0 || requested_channels.length > 0">
                 <div class="pull-left">
                     <div class="current count" ng-click="show_current_channels = Utility.show(show_current_channels)" ng-cloak>{{current_channels.length}}</div>
@@ -83,7 +101,7 @@
         <!--end row for channels count-->
         
         <!--start of row for show-btn-->
-        <div class="row show-btn-holder">
+        <div class="show-btn-holder">
             <div class="current pull-left">
                 <div class="show-btn" ng-click="show_current_channels = Utility.show(show_current_channels)" ng-class="{open: show_current_channels}" ng-show="current_channels.length > 0" ng-cloak></div>
             </div>
@@ -101,7 +119,7 @@
         <!--end of row for show-btn-->
         
         <!--start row for package labels-->        
-        <div class="row pkg-name-holder">
+        <div class="pkg-name-holder">
             <div class="table-header label pull-left" ng-cloak>
                 <div class="current label-holder" ng-show="show_current_channels">
                     <a title="Click to open this package main page." onClick="window.open('{{current_pkg.url}}', '_blank');" href="#">
@@ -131,7 +149,7 @@
         <!--end row for package labels-->
         
         <!--start row for table headers-->
-        <div class="row" ng-cloak ng-show="current_channels.length > 0 || gained_channels.length > 0 || lost_channels.length > 0 || requested_channels.length > 0">
+        <div ng-cloak ng-show="current_channels.length > 0 || gained_channels.length > 0 || lost_channels.length > 0 || requested_channels.length > 0">
             <div class="table-header current pull-left">
                 <div class="table-header-inner" ng-cloak ng-show="current_channels.length > 0 && show_current_channels">
                     <div class="channel-number pull-left" >
@@ -191,7 +209,7 @@
         <!--end row for table headers-->
         
         <!--start row for channel tables-->
-        <div class="row">
+        <div>
             <div class="pull-left channels-table-holder current-channels">
                 <div class="table-wrapper" ng-cloak ng-show="current_channels.length > 0  && show_current_channels">
                     <table>
@@ -291,6 +309,7 @@
             </div>          
         </div><!--end of div#genreCodes-->
        
+    </div>
     </div>
     
     <script type="text/javascript" src="%%pub%%system/js/angular-sanitize.js"></script>
