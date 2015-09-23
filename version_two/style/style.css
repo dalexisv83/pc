@@ -1,13 +1,13 @@
 body{
   font-family: Verdana, Geneva, sans-serif;
-  font-size: 11px;
-  background-color: transparent;
+  font-size: 12px;
+  background-color: black;
 }
 
 .full{
-  background-image: url(%%pub%%system/img/package_comp_back.jpg);
+  background-image: url(%%pub%%system/img/tool_bg-09212015.jpg);
   background-repeat: no-repeat; 
-  background-position: center center fixed;
+  background-position: left -30px;
 }
 
 .clearfix{
@@ -22,9 +22,54 @@ select{
   width:280px;
 }
 
-
 .wrapper{
- width:920px;
+ width:950px;
+ position: relative;
+ padding: 0 15px;
+}
+
+.headers > div {
+  width: 49.5%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: right;
+}
+
+.headers > div:first-child {
+  text-align: left;
+}
+
+.headers h1, .headers h2 {
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+.headers h1 {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.75em;
+}
+
+.tool-title {
+  margin-right: 50px;
+}
+
+.headers h2 {
+  font-size: 1.25em;
+  margin-top: 0;
+  color: #333;
+}
+
+.border {
+  z-index: 0;
+  margin-top: 5px;
+  background: -ms-linear-gradient(top, rgba(255,255,255,.7) 0px, rgba(255,255,255,1) 50px);
+  background: linear-gradient(to bottom, rgba(255,255,255,.7) 0px, rgba(255,255,255,1) 50px);
+  -pie-background: linear-gradient(#b3e6e6 0px, #ffffff 70px);
+  border: 3px solid #005D9E;
+  border-radius: 16px;
+  padding: 10px;
+  behavior: url(package_compare/version_two/pie/PIE.htc);
 }
 
 table{
@@ -32,20 +77,10 @@ table{
   border: 1px solid #ccc;
 }
 
-.current-pkg-holder,
-.requested-pkg-holder{
-  width:50%;
-}
-
-/**
- * Anything wrap with row class will align to the left
- */
-.row{
-  padding-left:23px;
-}
 
 .chosen-container{
   font-size:12px;
+  text-align: left;
 }
 
 .requested-pkg-holder select,
@@ -58,16 +93,6 @@ table{
 .requested-pkg-holder.com .chosen-container
 {
   margin-left:120px;
-}
-
-.current-pkg-holder select,
-.current-pkg-holder .chosen-container
-{
-  margin-left: 33px;
-}
-
-.row.pkgs-holder{
-  margin-top:110px;
 }
 
 .channels-count-holder .pull-left{
@@ -88,7 +113,8 @@ table{
   cursor:pointer;
 }
 
-.channels-count-holder{  
+.channels-count-holder{
+  margin-top: -15px;
   width:915px;
   background-image: url(%%pub%%system/img/channels_back.png);
   background-position: 10px 0;
@@ -162,10 +188,7 @@ table{
   height:370px;
   overflow-y:auto;
   overflow-x: hidden;  
-}
-
-.lost-channels .table-wrapper{
-  width:214px;
+  width: 100%;
 }
 
 .table-header.label{
@@ -298,17 +321,35 @@ table td.channel-number{
 }
 
 .why {
-  background-image: url(%%pub%%system/img/why-icon.png);
+  color: black;
   background-repeat: no-repeat;
   background-position: 49px 1px;
-  width: 120px;
+  width: 66px;
   height: 20px;
   cursor: pointer;
   position: absolute;
-  top: 113px;
-  left: 423px;
+  top: 105px;
+  left: 50%;
+  margin-left: -33px;
   font-size: 12px;
   display: none;
+}
+
+.why span {
+    margin: 0 4px;
+    background: #d0e4f7;
+    background: -ms-linear-gradient(top, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);
+    background: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);
+    -pie-background: linear-gradient(#87bcea, #0a77d5);
+    text-align: center;
+    color: white;
+    font-size: .9em;
+    font-weight: bold;
+    padding: 1px 4px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    behavior: url(package_compare/version_two/pie/PIE.htc);
 }
 
 .qtip-content .wrapper .code{
@@ -346,15 +387,14 @@ table td.channel-number{
   color:#d00404;  
 }
 
-.growl{
-  top: 0;
-  right: 67px;
-  width: 513px;
-  font-size:11px;
-}
-
-.growl .alert{
-  padding:3px 2px 3px 4px;
+.growl {
+  top: 10px;
+  left: 50%;
+  margin-left: -256px;
+  width: 512px;
+  font-size: 11px;
+  position: absolute;
+  z-index: 1983;
 }
 
 .growl-item button{
@@ -364,9 +404,12 @@ table td.channel-number{
 /**reset button**/
 .reset {
   padding: 3px 6px;
+  width: 46px;
+  border: 1px solid gray;
   position: absolute;
-  top: 10px;
-  right: 6px;
+  top: 71px;
+  left: 50%;
+  margin-left: -23px;
   font-size: 11px;
 }
 /**reset button**/
@@ -377,7 +420,6 @@ table td.channel-number{
   position: absolute;
   top: 10px;
   right: 13px;
-  display:none;
 }
 
 a.btn-feedback.btns,
@@ -419,10 +461,12 @@ span.btn-feedback:hover {
 }
 
 .alert-info{
-  background-color: #134896;
-  border-color: #134896;  
-  color: #fff;
-  font-family:  Verdana, Geneva, sans-serif;
+  padding: 2px 10px 3px;
+  background-color: rgba(255,255,255,.925);
+  border: #b3b3b3 solid 1px;  
+  color: #111;
+  z-index: 1000;
+  behavior: url(package_compare/version_two/pie/PIE.htc);
 }
 
 .pkg-name-holder .label-holder a{
@@ -441,11 +485,12 @@ span.btn-feedback:hover {
 
 /**comment button**/
 
-.volumes select{
+.volumes {
   width: 150px;
   position: absolute;
   top: 22px;
-  left: 70%;
+  left: 50%;
+  margin-left: -75px;
   font-size:13px;
 }
 
