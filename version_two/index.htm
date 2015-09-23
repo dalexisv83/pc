@@ -148,10 +148,10 @@
             <div class="table-header current pull-left">
                 <div class="table-header-inner" ng-cloak ng-show="current_channels.length > 0 && show_current_channels">
                     <div class="channel-number pull-left" >
-                       <a ng-class="{'current channelnumber sort-true sorted': sorted_column == 'current channelnumber sort-true', 'current channelnumber sort-false sorted': sorted_column == 'current channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;current_channels = sort('current', current_channels, 'channelnumber', reverse)">#</a> 
+                       <a ng-class="{'current channelnumber sort-true sorted': sorted_column == 'current channelnumber sort-true', 'current channelnumber sort-false sorted': sorted_column == 'current channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('current','channelnumber', reverse)">#</a> 
                     </div>
                     <div class="channel-name pull-left">
-                        <a ng-class="{'current channelname sort-true sorted': sorted_column == 'current channelname sort-true', 'current channelname sort-false sorted': sorted_column == 'current channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;current_channels = sort('current', current_channels, 'channelname',reverse)">Channel Name</a>
+                        <a ng-class="{'current channelname sort-true sorted': sorted_column == 'current channelname sort-true', 'current channelname sort-false sorted': sorted_column == 'current channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('current','channelname',reverse)">Channel Name</a>
                     </div>                  
                     <div class="clearfix">                        
                     </div>
@@ -160,13 +160,13 @@
             <div class="table-header gained pull-left">
                 <div class="table-header-inner" ng-cloak ng-show="gained_channels.length > 0 && show_gained_channels">
                     <div class="channel-number pull-left">
-                       <a ng-class="{'sort-true sorted': sorted_column == 'gained channelnumber sort-true', 'sort-false sorted': sorted_column == 'gained channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;gained_channels = sort('gained', gained_channels, 'channelnumber', reverse)">#</a>
+                       <a ng-class="{'sort-true sorted': sorted_column == 'gained channelnumber sort-true', 'sort-false sorted': sorted_column == 'gained channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('gained','channelnumber', reverse)">#</a>
                     </div>
                     <div class="channel-name pull-left">
-                        <a ng-class="{'sort-true sorted': sorted_column == 'gained channelname sort-true', 'sort-false sorted': sorted_column == 'gained channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;gained_channels = sort('gained', gained_channels, 'channelname',reverse)">Channel Name</a>
+                        <a ng-class="{'sort-true sorted': sorted_column == 'gained channelname sort-true', 'sort-false sorted': sorted_column == 'gained channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('gained','channelname',reverse)">Channel Name</a>
                     </div>
                     <div class="genre pull-left">
-                        <a ng-class="{'sort-true sorted': sorted_column == 'gained genre sort-true', 'sort-false sorted': sorted_column == 'gained genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;gained_channels = sort('gained', gained_channels, 'genre',reverse)">Genre</a>
+                        <a ng-class="{'sort-true sorted': sorted_column == 'gained genre sort-true', 'sort-false sorted': sorted_column == 'gained genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('gained','genre',reverse)">Genre</a>
                     </div>
                     <div class="clearfix">                        
                     </div>
@@ -175,13 +175,13 @@
             <div class="table-header lost pull-left">
                 <div class="table-header-inner" ng-cloak ng-show="lost_channels.length > 0  && show_lost_channels">
                     <div class="channel-number pull-left">
-                       <a ng-class="{'sort-true sorted': sorted_column == 'lost channelnumber sort-true', 'sort-false sorted': sorted_column == 'lost channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;lost_channels = sort('lost', lost_channels, 'channelnumber', reverse)">#</a>
+                       <a ng-class="{'sort-true sorted': sorted_column == 'lost channelnumber sort-true', 'sort-false sorted': sorted_column == 'lost channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('lost','channelnumber', reverse)">#</a>
                     </div>
                     <div class="channel-name pull-left">
-                       <a ng-class="{'sort-true sorted': sorted_column == 'lost channelname sort-true', 'sort-false sorted': sorted_column == 'lost channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;lost_channels = sort('lost', lost_channels, 'channelname',reverse)">Channel Name</a>
+                       <a ng-class="{'sort-true sorted': sorted_column == 'lost channelname sort-true', 'sort-false sorted': sorted_column == 'lost channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('lost','channelname',reverse)">Channel Name</a>
                     </div>
                     <div class="genre pull-left">
-                        <a ng-class="{'sort-true sorted': sorted_column == 'lost genre sort-true', 'sort-false sorted': sorted_column == 'lost genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;lost_channels = sort('lost', lost_channels, 'genre',reverse)">Genre</a>
+                        <a ng-class="{'sort-true sorted': sorted_column == 'lost genre sort-true', 'sort-false sorted': sorted_column == 'lost genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('lost','genre',reverse)">Genre</a>
                     </div>
                     <div class="clearfix">                        
                     </div>
@@ -190,10 +190,10 @@
              <div class="table-header requested pull-left">
                 <div class="table-header-inner" ng-cloak ng-show="requested_channels.length > 0  && show_requested_channels">
                     <div class="channel-number pull-left">
-                       <a ng-class="{'sort-true sorted': sorted_column == 'requested channelnumber sort-true', 'sort-false sorted': sorted_column == 'requested channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;requested_channels = sort('requested', requested_channels, 'channelnumber', reverse)">#</a>
+                       <a ng-class="{'sort-true sorted': sorted_column == 'requested channelnumber sort-true', 'sort-false sorted': sorted_column == 'requested channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('requested','channelnumber', reverse)">#</a>
                     </div>
                     <div class="channel-name pull-left">
-                       <a ng-class="{'sort-true sorted': sorted_column == 'requested channelname sort-true', 'sort-false sorted': sorted_column == 'requested channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;requested_channels = sort('requested', requested_channels, 'channelname',reverse)">Channel Name</a>
+                       <a ng-class="{'sort-true sorted': sorted_column == 'requested channelname sort-true', 'sort-false sorted': sorted_column == 'requested channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('requested','channelname',reverse)">Channel Name</a>
                     </div>                   
                     <div class="clearfix">                        
                     </div>
@@ -208,7 +208,7 @@
             <div class="pull-left channels-table-holder current-channels">
                 <div class="table-wrapper" ng-cloak ng-show="current_channels.length > 0  && show_current_channels">
                     <table>
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                         </tr>
@@ -218,7 +218,7 @@
             <div class="pull-left channels-table-holder gained-channels">
                 <div class="table-wrapper" ng-cloak  ng-show="gained_channels.length > 0 && show_gained_channels">
                     <table>
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels | orderBy:sortType:reverse">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
@@ -229,7 +229,7 @@
             <div class="pull-left channels-table-holder lost-channels">
                 <div class="table-wrapper" ng-cloak  ng-show="lost_channels.length > 0  && show_lost_channels">
                     <table>                    
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels | orderBy:sortType:reverse">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
@@ -240,7 +240,7 @@
             <div class="pull-left channels-table-holder requested-channels">
                 <div class="table-wrapper" ng-cloak  ng-show="requested_channels.length > 0 && show_requested_channels">
                     <table>                  
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels | orderBy:sortType:reverse">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                         </tr>

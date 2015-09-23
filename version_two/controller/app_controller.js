@@ -32,6 +32,7 @@ app.controller('AppController', function ($scope, $filter, growl) {
     $scope.volumes = []; //hold the collection of volumes
     $scope.volume = null; //hold the value for the selected volume
    
+    $scope.sortType = 'channelname';
     
     /**
      * Called on page load
@@ -147,11 +148,10 @@ app.controller('AppController', function ($scope, $filter, growl) {
      * @param {string} predicate the property to sort
      * @param {boolean} reverse 
      */
-    $scope.sort = function(data_set ,channels, predicate, reverse) {
-        channels = orderBy(channels, predicate, reverse);        
+    $scope.sort = function(data_set,predicate,reverse) {
         //assign the selected class to the scope
-        $scope.sorted_column = $scope.Utility.selectedClass(data_set + ' ' + predicate,reverse);       
-        return channels;
+        $scope.sorted_column = $scope.Utility.selectedClass(data_set + ' ' + predicate,reverse);
+        $scope.sortType = predicate;       
     };
     
     
@@ -189,6 +189,8 @@ app.controller('AppController', function ($scope, $filter, growl) {
         
         //reset volume
         $scope.volume = null;
+        
+        $scope.sortType = 'channelname';
     };
     
    
