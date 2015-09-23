@@ -1,7 +1,7 @@
 
-app.controller('AppController', function ($scope, $filter, growl) {
+app.controller('AppController', function ($scope, growl) {
     'use strict';
-    var orderBy = $filter('orderBy'), localhost = false; //change to false on production
+    var localhost = false; //change to false on production
     
     $scope.current_pkg = null; //holds the selected current package object
     $scope.requested_pkg = null; //holds the selected requested package object    
