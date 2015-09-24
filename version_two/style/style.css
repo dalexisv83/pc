@@ -463,8 +463,10 @@ span.btn-feedback:hover {
     color:#000;
 }
 
-.current .channel-number,
-.requested .channel-number
+.current .com.channel-number,
+.requested .com.channel-number,
+.gained .com.channel-number,
+.lost .com.channel-number,
 {
   width:28.5%;
 }

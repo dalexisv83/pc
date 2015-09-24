@@ -154,7 +154,10 @@
                     </div>
                     <div class="channel-name pull-left">
                         <a ng-class="{'sort-true sorted': sorted_column == 'channelname sort-true', 'sort-false sorted': sorted_column == 'channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelname',reverse)">Channel Name</a>
-                    </div>                  
+                    </div>
+                    <div class="genre pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'genre sort-true', 'sort-false sorted': sorted_column == 'genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('genre',reverse)">Genre</a>
+                    </div>
                     <div class="clearfix">                        
                     </div>
                 </div>
@@ -196,7 +199,10 @@
                     </div>
                     <div class="channel-name pull-left">
                        <a ng-class="{'sort-true sorted': sorted_column == 'channelname sort-true', 'sort-false sorted': sorted_column == 'channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelname',reverse)">Channel Name</a>
-                    </div>                   
+                    </div>
+                    <div class="genre pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'genre sort-true', 'sort-false sorted': sorted_column == 'genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('genre',reverse)">Genre</a>
+                    </div>
                     <div class="clearfix">                        
                     </div>
                 </div>
@@ -213,6 +219,7 @@
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
                 </div>
@@ -245,6 +252,7 @@
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels | orderBy:sortType:reverse">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
                 </div>
