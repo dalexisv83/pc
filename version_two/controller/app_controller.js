@@ -143,14 +143,14 @@ app.controller('AppController', function ($scope, growl) {
    
     /**
      * Sort functionality for channels
-     * @param {string} dataset the name of the current data set being sorted
+     *
      * @param {mixed} channels collection of channel objects
      * @param {string} predicate the property to sort
      * @param {boolean} reverse 
      */
-    $scope.sort = function(data_set,predicate,reverse) {
+    $scope.sort = function(predicate,reverse) {
         //assign the selected class to the scope
-        $scope.sorted_column = $scope.Utility.selectedClass(data_set + ' ' + predicate,reverse);
+        $scope.sorted_column = $scope.Utility.selectedClass(predicate,reverse);
         $scope.sortType = predicate;       
     };
     
