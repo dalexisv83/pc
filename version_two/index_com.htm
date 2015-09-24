@@ -36,7 +36,7 @@
 
         <div class="headers">
             <div>
-                <img src="http://agentanswercenter.directv.com/en-us/res/system/img/Logo_DTV_ATT.png">
+                <img src="%%pub%%system/img/Logo_DTV_ATT.png">
             </div>
             <div>
                 <h1 class="tool-title">Package Compare Tool</h1>
@@ -124,8 +124,9 @@
                 <div class="current label-holder" ng-show="show_current_channels">
                     <a title="Click to open this package main page." onClick="window.open('{{current_pkg.url}}', '_blank');" href="#">
                         {{current_pkg.name}}
-                        <span class="expired" ng-show="current_pkg.status == 'Expired'"> - Expired</span>
-                    </a>
+                        </a>
+                     <span ng-show="current_pkg.status == 'Expired'"> - </span>
+                    <a href="/en-us/res/programming/expired_packages.html" class="expired" ng-show="current_pkg.status == 'Expired'">Expired</a>
                 </div>               
             </div>
             <div class="table-header label double pull-left">
@@ -140,8 +141,9 @@
                 <div class="label-holder" ng-cloak ng-show="show_requested_channels">
                     <a title="Click to open this package main page." onClick="window.open('{{requested_pkg.url}}', '_blank');" href="#">
                         {{requested_pkg.name}}
-                        <span class="expired" ng-show="requested_pkg.status == 'Expired'"> - Expired</span>
-                    </a>
+                        </a>
+                     <span ng-show="requested_pkg.status == 'Expired'"> - </span>
+                    <a href="/en-us/res/programming/expired_packages.html" class="expired" ng-show="requested.status == 'Expired'">Expired</a>
                 </div>                
             </div>
             <div class="clearfix"></div>
@@ -259,14 +261,15 @@
         <div id="genreCodes" style="display:none">
             <div class="wrapper last">
                <div class="pull-left code">*</div>
-               <div class="pull-left title">DIRECTV On Demand</div>
+               <div class="pull-left title"><a href="/en-us/res/ace/vod_index.html">DIRECTV On Demand</a></div>
                <div style="clear:both"></div>
             </div>
             <div class="wrapper last">
                <div class="pull-left code">&#171;</div>
-               <div class="pull-left title">Rewind & Restart</div>
+               <div class="pull-left title"><a href="/en-us/res/programming/72hr_rewind_restart.html">Rewind &amp; Restart</a></div>
                <div style="clear:both"></div>
-            </div>     
+            </div>
+            <hr />
             <div class="wrapper">
                <div class="pull-left code">FAM</div>
                <div class="pull-left title">Family</div>
