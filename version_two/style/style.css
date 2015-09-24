@@ -335,6 +335,10 @@ table td.channel-number{
   display: none;
 }
 
+.why:hover {
+  padding-right: 240px;
+}
+
 .why span {
     margin: 0 4px;
     background: #d0e4f7;
@@ -356,6 +360,11 @@ table td.channel-number{
   width:50px;
   font-weight:bold;
 }
+
+.qtip-content hr {
+  margin: 10px 0;
+}
+
 .qtip-content .wrapper{
   margin-bottom: 7px;
 }
@@ -471,10 +480,9 @@ span.btn-feedback:hover {
 
 .pkg-name-holder .label-holder a{
   color:#31517c;
-  text-decoration:none;
 }
 
-.expired{
+.pkg-name-holder .label-holder a.expired{
   color:#ff0000;
 }
 
@@ -493,19 +501,3 @@ span.btn-feedback:hover {
   margin-left: -75px;
   font-size:13px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

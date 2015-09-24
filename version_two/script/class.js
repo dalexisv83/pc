@@ -340,6 +340,12 @@
                 },
                 style: {
                   classes: 'qtip-bootstrap'
+                },
+                show: {
+                  solo: true
+                },
+                hide: {
+                  fixed: true
                 }
             });
             this.self.show();
