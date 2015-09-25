@@ -32,14 +32,16 @@ select{
  padding: 0 15px;
 }
 
-.headers > div {
+.headers .first,
+.headers .second
+{
   width: 49.5%;
   display: inline-block;
   vertical-align: middle;
   text-align: right;
 }
 
-.headers > div:first-child {
+.headers .first {
   text-align: left;
 }
 
@@ -65,6 +67,7 @@ select{
 }
 
 .border {
+  background-color:#fff;
   z-index: 0;
   margin-top: 5px;
   background: -ms-linear-gradient(top, rgba(255,255,255,.7) 0px, rgba(255,255,255,1) 50px);
@@ -72,8 +75,7 @@ select{
   -pie-background: linear-gradient(#b3e6e6 0px, #ffffff 70px);
   border: 3px solid #005D9E;
   border-radius: 16px;
-  padding: 10px;
-  behavior: url(package_compare/version_two/pie/PIE.htc);
+  padding: 10px; 
 }
 
 table{
@@ -117,8 +119,7 @@ table{
   cursor:pointer;
 }
 
-.channels-count-holder{
-  margin-top: -15px;
+.channels-count-holder{  
   width:915px;
   background-image: url(%%pub%%system/img/channels_back.png);
   background-position: 10px 0;
@@ -356,8 +357,7 @@ table td.channel-number{
     padding: 1px 4px;
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
-    border-radius: 16px;
-    behavior: url(package_compare/version_two/pie/PIE.htc);
+    border-radius: 16px;    
 }
 
 .qtip-content .wrapper .code{
@@ -480,8 +480,7 @@ span.btn-feedback:hover {
   background-color: rgba(255,255,255,.925);
   border: #b3b3b3 solid 1px;  
   color: #111;
-  z-index: 1000;
-  behavior: url(package_compare/version_two/pie/PIE.htc);
+  z-index: 1000;  
 }
 
 .pkg-name-holder .label-holder a{

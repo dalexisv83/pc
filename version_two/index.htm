@@ -8,10 +8,7 @@
     <link rel="stylesheet" href="%%pub%%system/css/jquery.qtip.min.css"> 
     <link rel="stylesheet" href="%%pub%%system/css/chosen.css"> 
     <link rel="stylesheet" href="%%pub%%system/css/growl.css"> 
-    <link rel="stylesheet" href="style/style.css">
-    <!--[if IE]>
-    <link href="package_compare/version_two/pie/PIE.htc" rel="stylesheet" type="text/css" />
-    <![endif]-->
+    <link rel="stylesheet" href="style/style.css">  
     
     <!--intentionally placed in the head so ng-cloak will work.... please refer to https://docs.angularjs.org/api/ng/directive/ngCloak-->
     <script type="text/javascript" src="%%pub%%system/js/jquery-1.10.2.min.js"></script>
@@ -35,20 +32,20 @@
         <!--growl notifier-->
 
         <div class="headers">
-            <div>
+            <div class="first">
                 <img src="%%pub%%system/img/Logo_DTV_ATT.png">
             </div>
-            <div>
+            <div class="second">
                 <h1 class="tool-title">Package Compare Tool</h1>
             </div>
         </div>
 
     <div class="border">
         <div class="headers">
-            <div>
+            <div class="first">
                 <h2>Current Package</h2>
             </div>
-            <div>
+            <div class="second">
                 <h2>Requested Package</h2>
             </div>
         </div>
@@ -63,11 +60,11 @@
         
         <!--start row for package dropdowns-->
         <div class="pkgs-holder headers">
-            <div>
+            <div class="first">
                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' - $' + current_pkg.price)  for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
                 </select>
             </div>
-            <div>
+            <div class="second">
                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' - $' + requested_pkg.price)  for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
                 </select>
             </div>
