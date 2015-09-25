@@ -121,9 +121,9 @@
                 <div class="current label-holder" ng-show="show_current_channels">
                     <a title="Click to open this package main page." onClick="window.open('{{current_pkg.url}}', '_blank');" href="#">
                         {{current_pkg.name}}
-                        </a>
-                     <span ng-show="current_pkg.status == 'Expired'"> - </span>
-                    <a href="/en-us/res/programming/expired_packages.html" class="expired" ng-show="current_pkg.status == 'Expired'">Expired</a>
+                    </a>
+                    <span ng-show="current_pkg.status == 'Expired'"> - </span>
+                    <a href="/en-us/res/programming/expired_packages.html" target="_blank" class="expired" ng-show="current_pkg.status == 'Expired'">Expired</a>
                 </div>               
             </div>
             <div class="table-header label double pull-left">
@@ -138,9 +138,9 @@
                 <div class="label-holder" ng-cloak ng-show="show_requested_channels">
                     <a title="Click to open this package main page." onClick="window.open('{{requested_pkg.url}}', '_blank');" href="#">
                         {{requested_pkg.name}}
-                        </a>
-                     <span ng-show="requested_pkg.status == 'Expired'"> - </span>
-                    <a href="/en-us/res/programming/expired_packages.html" class="expired" ng-show="requested.status == 'Expired'">Expired</a>
+                    </a>
+                    <span ng-show="requested_pkg.status == 'Expired'"> - </span>
+                    <a href="/en-us/res/programming/expired_packages.html" target="_blank" class="expired" ng-show="requested.status == 'Expired'">Expired</a>
                 </div>                
             </div>
             <div class="clearfix"></div>
