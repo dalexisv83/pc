@@ -48,5 +48,5 @@ app.config(['growlProvider', function(growlProvider) {
 			    });
 			});
 		    }
-    }
+    };
 }]);

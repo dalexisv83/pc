@@ -2,7 +2,8 @@
 app.controller('AppController', function ($scope, growl) {
     'use strict';
     var localhost = false, //change to false on production
-    max_limit = 450;
+    max_limit = 450,
+    min_limit = 23;
     
     $scope.current_pkg = null; //holds the selected current package object
     $scope.requested_pkg = null; //holds the selected requested package object    
@@ -35,24 +36,24 @@ app.controller('AppController', function ($scope, growl) {
    
     $scope.sortType = 'channelname';
     
-    $scope.current_pkg_limit = 23;
-    $scope.requested_pkg_limit = 23;
-    $scope.gained_channels_limit = 23;
-    $scope.lost_channels_limit = 23;
+    $scope.current_pkg_limit = min_limit;
+    $scope.requested_pkg_limit = min_limit;
+    $scope.gained_channels_limit = min_limit;
+    $scope.lost_channels_limit = min_limit;
     
     
     $scope.loadMore = function(limit) {
         if (limit <= max_limit) {
-          limit = limit + 20;
+          limit = limit + min_limit;
         }        
         return limit;
     };
     
     $scope.resetLimit = function(){
-        $scope.current_pkg_limit = 23;
-        $scope.requested_pkg_limit = 23;
-        $scope.gained_channels_limit = 23;
-        $scope.lost_channels_limit = 23;
+        $scope.current_pkg_limit = min_limit;
+        $scope.requested_pkg_limit = min_limit;
+        $scope.gained_channels_limit = min_limit;
+        $scope.lost_channels_limit = min_limit;
         $scope.$broadcast("items_changed");
     };
     
