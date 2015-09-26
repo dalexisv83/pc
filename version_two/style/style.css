@@ -75,7 +75,8 @@ select{
   -pie-background: linear-gradient(#b3e6e6 0px, #ffffff 70px);
   border: 3px solid #005D9E;
   border-radius: 16px;
-  padding: 10px; 
+  padding: 10px;
+  visibility: hidden\9;
 }
 
 table{
@@ -357,7 +358,8 @@ table td.channel-number{
     padding: 1px 4px;
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
-    border-radius: 16px;    
+    border-radius: 16px;
+    visibility: hidden\9;
 }
 
 .qtip-content .wrapper .code{
