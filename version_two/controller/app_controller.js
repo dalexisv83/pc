@@ -1,7 +1,8 @@
 
 app.controller('AppController', function ($scope, growl) {
     'use strict';
-    var localhost = false; //change to false on production
+    var localhost = false, //change to false on production
+    max_limit = 450;
     
     $scope.current_pkg = null; //holds the selected current package object
     $scope.requested_pkg = null; //holds the selected requested package object    
@@ -33,6 +34,27 @@ app.controller('AppController', function ($scope, growl) {
     $scope.volume = null; //hold the value for the selected volume
    
     $scope.sortType = 'channelname';
+    
+    $scope.current_pkg_limit = 23;
+    $scope.requested_pkg_limit = 23;
+    $scope.gained_channels_limit = 23;
+    $scope.lost_channels_limit = 23;
+    
+    
+    $scope.loadMore = function(limit) {
+        if (limit <= max_limit) {
+          limit = limit + 20;
+        }        
+        return limit;
+    };
+    
+    $scope.resetLimit = function(){
+        $scope.current_pkg_limit = 23;
+        $scope.requested_pkg_limit = 23;
+        $scope.gained_channels_limit = 23;
+        $scope.lost_channels_limit = 23;
+        $scope.$broadcast("items_changed");
+    };
     
     /**
      * Called on page load
@@ -87,7 +109,11 @@ app.controller('AppController', function ($scope, growl) {
     
     //watch for a change in current package
     $scope.$watchCollection('current_pkg', function() {       
+        
         if ($scope.current_pkg) {
+            
+            $scope.resetLimit();            
+            
             $scope.saved_amt = 0;
             $scope.pay_more_amt = 0;
             
@@ -114,7 +140,11 @@ app.controller('AppController', function ($scope, growl) {
     
     //watch for a change in requested package
     $scope.$watchCollection('requested_pkg', function() {        
-        if ($scope.requested_pkg) {            
+        
+        if ($scope.requested_pkg) {
+            
+            $scope.resetLimit();
+            
             $scope.saved_amt = 0;
             $scope.pay_more_amt = 0;
             
@@ -191,6 +221,8 @@ app.controller('AppController', function ($scope, growl) {
         $scope.volume = null;
         
         $scope.sortType = 'channelname';
+        
+        $scope.resetLimit();
     };
     
    
