@@ -113,7 +113,7 @@ app.controller('AppController', function ($scope, growl) {
         
         if ($scope.current_pkg) {
             
-            $scope.resetLimit();            
+            $scope.current_pkg_limit = min_limit;            
             
             $scope.saved_amt = 0;
             $scope.pay_more_amt = 0;
@@ -127,6 +127,8 @@ app.controller('AppController', function ($scope, growl) {
             price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
             
             if (!jQuery.isEmptyObject(diff)) {
+                $scope.gained_channels_limit = min_limit;
+                $scope.lost_channels_limit = min_limit;
                 $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
                 $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);
             }     
@@ -134,7 +136,9 @@ app.controller('AppController', function ($scope, growl) {
             if (!jQuery.isEmptyObject(price_diff)) {
                 $scope.saved_amt = price_diff.saved_amt;
                 $scope.pay_more_amt = price_diff.pay_more_amt;
-            }            
+            }
+            
+            $scope.$broadcast("items_changed");
         }
       
     });
@@ -144,7 +148,7 @@ app.controller('AppController', function ($scope, growl) {
         
         if ($scope.requested_pkg) {
             
-            $scope.resetLimit();
+            $scope.requested_pkg_limit = min_limit;
             
             $scope.saved_amt = 0;
             $scope.pay_more_amt = 0;
@@ -158,6 +162,8 @@ app.controller('AppController', function ($scope, growl) {
             price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
             
             if (!jQuery.isEmptyObject(diff)) {
+                $scope.gained_channels_limit = min_limit;
+                $scope.lost_channels_limit = min_limit;
                 $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
                 $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);                
             }
@@ -167,6 +173,7 @@ app.controller('AppController', function ($scope, growl) {
                 $scope.pay_more_amt = price_diff.pay_more_amt;
             }
             
+            $scope.$broadcast("items_changed");
             //show package tip
             growl.addInfoMessage($scope.requested_pkg.tip);   
         }        
