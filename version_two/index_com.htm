@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="%%pub%%system/css/chosen.css"> 
     <link rel="stylesheet" href="%%pub%%system/css/growl.css"> 
     <link rel="stylesheet" href="style/style.css">    
-    
+     <!--[if IE]>
+    <script src="%%pub%%system/js/PIE.js"></script>
+    <![endif]-->
     <!--intentionally placed in the head so ng-cloak will work.... please refer to https://docs.angularjs.org/api/ng/directive/ngCloak-->
     <script type="text/javascript" src="%%pub%%system/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="%%pub%%system/js/chosen_jquery.js"></script>
@@ -201,44 +203,48 @@
         </div>
         <!--end row for table headers-->
         
-         <!--start row for channel tables-->
+        <!--start row for channel tables-->
         <div>
             <div class="pull-left channels-table-holder current-channels">
-                <div class="table-wrapper" ng-cloak ng-show="current_channels.length > 0  && show_current_channels">
+                <div class="table-wrapper" ng-cloak ng-show="current_channels.length > 0  && show_current_channels" scroll-to-top-when="items_changed" when-scrolled="current_pkg_limit = loadMore(current_pkg_limit);">
                     <table>
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse | limitTo:current_pkg_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div class="pull-left channels-table-holder gained-channels">
-                <div class="table-wrapper" ng-cloak  ng-show="gained_channels.length > 0 && show_gained_channels">
+                <div class="table-wrapper" ng-cloak  ng-show="gained_channels.length > 0 && show_gained_channels" scroll-to-top-when="items_changed" when-scrolled="gained_channels_limit = loadMore(gained_channels_limit);">
                     <table>
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels | orderBy:sortType:reverse">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels | orderBy:sortType:reverse  | limitTo:gained_channels_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div class="pull-left channels-table-holder lost-channels">
-                <div class="table-wrapper" ng-cloak  ng-show="lost_channels.length > 0  && show_lost_channels">
+                <div class="table-wrapper" ng-cloak  ng-show="lost_channels.length > 0  && show_lost_channels" scroll-to-top-when="items_changed" when-scrolled="lost_channels_limit = loadMore(lost_channels_limit);">
                     <table>                    
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels | orderBy:sortType:reverse">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels | orderBy:sortType:reverse  | limitTo:lost_channels_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div class="pull-left channels-table-holder requested-channels">
-                <div class="table-wrapper" ng-cloak  ng-show="requested_channels.length > 0 && show_requested_channels">
+                <div class="table-wrapper" ng-cloak  ng-show="requested_channels.length > 0 && show_requested_channels" scroll-to-top-when="items_changed" when-scrolled="requested_pkg_limit = loadMore(requested_pkg_limit);">
                     <table>                  
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels | orderBy:sortType:reverse">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels | orderBy:sortType:reverse | limitTo:requested_pkg_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
                 </div>
@@ -312,6 +318,6 @@
     <script type="text/javascript" src="script/app.js"></script>
     <script type="text/javascript" src="%%pub%%rover_tools/channel_list/version_two/data/com_channels.js"></script>
     <script type="text/javascript" src="script/class.js"></script>
-    <script type="text/javascript" src="controller/app_controller.js"></script>   
+    <script type="text/javascript" src="controller/app_controller.js"></script>  
 </body>
 </html>

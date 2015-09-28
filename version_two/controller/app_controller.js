@@ -84,13 +84,29 @@ app.controller('AppController', function ($scope, growl) {
         btn = $('#comment_btn'),
         root_url = '%%pub%%',
         class_name = 'comment-btn', //add a class of comment-btn
-        comment_btn = new CommentBtn(btn,class_name,root_url);
+        comment_btn = new CommentBtn(btn,class_name,root_url),
+        border,
+        why;
         
         //initialize tooltip
         tooltip.genreToolTip(genre_codes_container);
         
         //initiate the comment btn
         comment_btn.init();
+        
+        //initiate PIE.js
+        if (window.PIE) {
+            window.setTimeout(function(){
+                border = $('.border');
+                window.PIE.attach(border[0]);
+                border.css({display: "none", visibility: "visible"}).show();
+            }, 1);
+            window.setTimeout(function(){
+                why = $('.why span');
+                window.PIE.attach(why[0]);            
+                why.css({display: "none", visibility: "visible"}).show();
+            }, 1);
+        }
     });
     
    
@@ -110,10 +126,10 @@ app.controller('AppController', function ($scope, growl) {
     //watch for a change in current package
     $scope.$watchCollection('current_pkg', function() {       
         
-        if ($scope.current_pkg) {
-            
+        if ($scope.current_pkg) {            
+
             $scope.current_pkg_limit = min_limit; //reset the limit for current package to minimum            
-            
+
             $scope.saved_amt = 0;
             $scope.pay_more_amt = 0;
             
@@ -128,7 +144,7 @@ app.controller('AppController', function ($scope, growl) {
             if (!jQuery.isEmptyObject(diff)) {
                 $scope.gained_channels_limit = min_limit;
                 $scope.lost_channels_limit = min_limit;
-                
+
                 $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
                 $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);
             }     
@@ -164,7 +180,7 @@ app.controller('AppController', function ($scope, growl) {
             if (!jQuery.isEmptyObject(diff)) {
                 $scope.gained_channels_limit = min_limit;
                 $scope.lost_channels_limit = min_limit;
-                
+
                 $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
                 $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);                
             }
@@ -175,7 +191,7 @@ app.controller('AppController', function ($scope, growl) {
             }
             
             $scope.$broadcast("items_changed");
-            
+
             //show package tip
             growl.addInfoMessage($scope.requested_pkg.tip);   
         }        
