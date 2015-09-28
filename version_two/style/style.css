@@ -204,10 +204,12 @@ table{
 
 .odd{
   background: #cce3f3;
+  height:25px;
 }
 
 .even{
   background: #fff;
+  height:25px;
 }
 
 .table-header-inner{

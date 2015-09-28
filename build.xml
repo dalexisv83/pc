@@ -84,7 +84,7 @@
 	
 	<target name="jslint">
 		<jslint options="white,nomen,regexp" haltOnFailure="true">
-			<predef>screen,_,$$scope,$$,app,data,angular,DataStore,UrlFormatter,Utility,document,ToolTip,CommentBtn,jQuery,window</predef>
+			<predef>screen,_,$$scope,$$,app,data,angular,DataStore,UrlFormatter,Utility,document,ToolTip,CommentBtn,jQuery,window,localhost, min_limit, max_limit</predef>
 			<formatter type="plain" />
 			<formatter type="xml" destfile="${build.dir}/test-reports/jslint.xml" />
 			<fileset dir="version_two" includes="**/*.js" excludes="**/unit_test/tests.js" />

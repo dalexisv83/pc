@@ -1,9 +1,6 @@
 
 app.controller('AppController', function ($scope, growl) {
     'use strict';
-    var localhost = false, //change to false on production
-    max_limit = 450,
-    min_limit = 23;
     
     $scope.current_pkg = null; //holds the selected current package object
     $scope.requested_pkg = null; //holds the selected requested package object    
@@ -41,7 +38,9 @@ app.controller('AppController', function ($scope, growl) {
     $scope.gained_channels_limit = min_limit;
     $scope.lost_channels_limit = min_limit;
     
-    
+    /**
+     * Increases the limit initially set for ng-repeat everytime the user scrolls a dynamic channel
+     */
     $scope.loadMore = function(limit) {
         if (limit <= max_limit) {
           limit = limit + min_limit;
@@ -56,7 +55,7 @@ app.controller('AppController', function ($scope, growl) {
         $scope.lost_channels_limit = min_limit;
         $scope.$broadcast("items_changed");
     };
-    
+   
     /**
      * Called on page load
      */
@@ -113,7 +112,7 @@ app.controller('AppController', function ($scope, growl) {
         
         if ($scope.current_pkg) {
             
-            $scope.resetLimit();            
+            $scope.current_pkg_limit = min_limit; //reset the limit for current package to minimum            
             
             $scope.saved_amt = 0;
             $scope.pay_more_amt = 0;
@@ -127,6 +126,9 @@ app.controller('AppController', function ($scope, growl) {
             price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
             
             if (!jQuery.isEmptyObject(diff)) {
+                $scope.gained_channels_limit = min_limit;
+                $scope.lost_channels_limit = min_limit;
+                
                 $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
                 $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);
             }     
@@ -134,7 +136,9 @@ app.controller('AppController', function ($scope, growl) {
             if (!jQuery.isEmptyObject(price_diff)) {
                 $scope.saved_amt = price_diff.saved_amt;
                 $scope.pay_more_amt = price_diff.pay_more_amt;
-            }            
+            }
+            
+            $scope.$broadcast("items_changed");
         }
       
     });
@@ -144,7 +148,7 @@ app.controller('AppController', function ($scope, growl) {
         
         if ($scope.requested_pkg) {
             
-            $scope.resetLimit();
+            $scope.requested_pkg_limit = min_limit;
             
             $scope.saved_amt = 0;
             $scope.pay_more_amt = 0;
@@ -158,6 +162,9 @@ app.controller('AppController', function ($scope, growl) {
             price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
             
             if (!jQuery.isEmptyObject(diff)) {
+                $scope.gained_channels_limit = min_limit;
+                $scope.lost_channels_limit = min_limit;
+                
                 $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
                 $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);                
             }
@@ -166,6 +173,8 @@ app.controller('AppController', function ($scope, growl) {
                 $scope.saved_amt = price_diff.saved_amt;
                 $scope.pay_more_amt = price_diff.pay_more_amt;
             }
+            
+            $scope.$broadcast("items_changed");
             
             //show package tip
             growl.addInfoMessage($scope.requested_pkg.tip);   
