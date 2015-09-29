@@ -43,12 +43,24 @@ app.config(['growlProvider', function(growlProvider) {
     
 }).directive("scrollToTopWhen", ['$timeout',function ($timeout) {
     'use strict';
-    return { link: function (scope, element, attrs) {
+    return {
+	link: function (scope, element, attrs) {
 			scope.$on(attrs.scrollToTopWhen, function () {
 			    $timeout(function () {
 			       angular.element(element)[0].scrollTop = 0;
 			    });
 			});
-		    }
+	    }
     };
-}]);
+}]).directive("ngWindowPie", function () {
+    'use strict';
+    /*jslint unparam: true*/
+    return function (scope, element, attrs) {
+		if (window.PIE) {
+		    var el = angular.element(element);				
+		    window.PIE.attach(el[0]);
+		    el.css({display: "none", visibility: "visible"}).show();			    			    
+		} 
+    };   
+});
+/*jslint unparam: false*/

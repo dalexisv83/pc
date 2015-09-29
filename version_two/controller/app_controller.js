@@ -84,29 +84,13 @@ app.controller('AppController', function ($scope, growl) {
         btn = $('#comment_btn'),
         root_url = '%%pub%%',
         class_name = 'comment-btn', //add a class of comment-btn
-        comment_btn = new CommentBtn(btn,class_name,root_url),
-        border,
-        why;
+        comment_btn = new CommentBtn(btn,class_name,root_url);
         
         //initialize tooltip
         tooltip.genreToolTip(genre_codes_container);
         
         //initiate the comment btn
-        comment_btn.init();
-        
-        //initiate PIE.js
-        if (window.PIE) {
-            window.setTimeout(function(){
-                border = $('.border');
-                window.PIE.attach(border[0]);
-                border.css({display: "none", visibility: "visible"}).show();
-            }, 1);
-            window.setTimeout(function(){
-                why = $('.why span');
-                window.PIE.attach(why[0]);            
-                why.css({display: "none", visibility: "visible"}).show();
-            }, 1);
-        }
+        comment_btn.init();        
     });
     
    
