@@ -38,7 +38,16 @@ app.config(['growlProvider', function(growlProvider) {
      link: linker
     };
     
-}]).directive("scrollToTopWhen", ['$timeout',function ($timeout) {
+}).directive('whenScrolled', function() {
+    'use strict';
+    return function(scope, elm, attr) {
+        var raw = elm[0];
+        elm.bind('scroll', _.throttle(function() {
+                scope.$apply(attr.whenScrolled);
+        }, 300));
+    };
+    
+}).directive("scrollToTopWhen", ['$timeout',function ($timeout) {
     'use strict';
     return {
 	link: function (scope, element, attrs) {
