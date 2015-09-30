@@ -20,6 +20,7 @@ app.config(['growlProvider', function(growlProvider) {
        
        scope.$watch(attrs.ngModel, function() {          
 	   element.trigger('chosen:updated');
+       console.log(scope.$eval(attrs.chosen).length);
        });
     
        element.chosen();
