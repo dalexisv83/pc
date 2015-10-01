@@ -418,18 +418,6 @@ table td.channel-number{
   display:none;
 }
 
-/**reset button**/
-.reset {
-  padding: 3px 6px;
-  width: 46px;
-  border: 1px solid gray;
-  position: absolute;
-  top: 71px;
-  left: 50%;
-  margin-left: -23px;
-  font-size: 11px;
-}
-/**reset button**/
 
 /**comment button**/
 
@@ -510,3 +498,43 @@ span.btn-feedback:hover {
   margin-left: -75px;
   font-size:13px;
 }
+
+input[type='button'] {
+  position: absolute;
+  top: 71px;
+  left: 50%;
+  margin-left: -24px;
+  background: -moz-linear-gradient(#fff,#ddd);
+  background: -webkit-gradient(linear,0 0,0 bottom, from(#fff),to(#ddd));
+  background: linear-gradient(#fff,#ddd);
+  -pie-background: linear-gradient(#fff,#ddd);
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  border-radius:3px;
+  border: solid 1px #999;
+  padding:3px 5px;     
+  color: #333;
+  text-shadow: 0px 1px 1px white;
+}
+    
+input[type='button']:hover {
+  background: -moz-linear-gradient(#f1f1f1,#ddd);
+  background: -webkit-gradient(linear,0 0,0 bottom, from(#f1f1f1),to(#ddd));
+  background: linear-gradient(#f1f1f1,#ddd);
+  -pie-background: linear-gradient(#f1f1f1,#ddd);
+}    
+
+input[type='button'].default {
+  -webkit-box-shadow: #ccc 0px 0px 3px;
+  -moz-box-shadow: #ccc 0px 0px 3px;
+  box-shadow: #ccc 0px 0px 3px;
+}
+
+.chosen-container .chosen-drop{
+  top:89%;
+  padding-top:2px;
+  border-radius:0 0 5px 5px;  
+}
+
+
+  

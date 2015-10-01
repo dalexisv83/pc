@@ -8,7 +8,7 @@ app.config(['growlProvider', function(growlProvider) {
     'use strict';
     growlProvider.globalEnableHtml(true);
     
-}]).directive('chosen',function(){
+}]).directive('chosen',['$timeout',function($timeout){
     'use strict';
     var linker = function(scope,element,attrs){
        
@@ -23,6 +23,16 @@ app.config(['growlProvider', function(growlProvider) {
        });
     
        element.chosen();
+       
+       if (window.PIE) {
+	    var select = angular.element(element).parent().find(".chosen-single"),
+	    drop = angular.element(element).parent().find(".chosen-drop");
+	    $timeout(function () {
+		window.PIE.attach(select[0]);	      
+		window.PIE.attach(drop[0]);	      
+	    });
+       }
+       
     };
     
     return{
@@ -30,7 +40,7 @@ app.config(['growlProvider', function(growlProvider) {
      link: linker
     };
     
-}).directive('whenScrolled', function() {
+}]).directive('whenScrolled', function() {
     'use strict';
     return function(scope, elm, attr) {
         var raw = elm[0];
@@ -57,10 +67,21 @@ app.config(['growlProvider', function(growlProvider) {
     /*jslint unparam: true*/
     return function (scope, element, attrs) {
 		if (window.PIE) {
-		    var el = angular.element(element);				
+		    var el = angular.element(element);		    
 		    window.PIE.attach(el[0]);
 		    el.css({display: "none", visibility: "visible"}).show();			    			    
 		} 
     };   
-});
+}).directive("ngWindowPieBtn", ['$timeout', function ($timeout) {
+    'use strict';
+    /*jslint unparam: true*/
+    return function (scope, element, attrs) {
+	if (window.PIE) {
+	    var el = angular.element(element);
+	    $timeout(function () {
+		window.PIE.attach(el[0]);	      
+	    });
+	}
+    };   
+}]);
 /*jslint unparam: false*/
