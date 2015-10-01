@@ -38,18 +38,7 @@ app.config(['growlProvider', function(growlProvider) {
      link: linker
     };
     
-}]).directive('whenScrolled', function() {
-    'use strict';
-    return function(scope, elm, attr) {
-        var raw = elm[0];
-        elm.bind('scroll', function() {
-            if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-                scope.$apply(attr.whenScrolled);
-            }
-        });
-    };
-    
-}).directive("scrollToTopWhen", ['$timeout',function ($timeout) {
+}]).directive("scrollToTopWhen", ['$timeout',function ($timeout) {
     'use strict';
     return {
 	link: function (scope, element, attrs) {
@@ -72,3 +61,21 @@ app.config(['growlProvider', function(growlProvider) {
     };   
 }]);
 /*jslint unparam: false*/
+
+
+/**
+ * Please leave this code commented for now till Ankam and team fix the issue on Tridion parsing incorrectly the > symbol
+ */
+
+/*app.directive('whenScrolled', function() {
+    'use strict';
+    return function(scope, elm, attr) {
+        var raw = elm[0];
+        elm.bind('scroll', function() {
+            if(raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+                scope.$apply(attr.whenScrolled);
+            }
+        });
+    };
+    
+});*/

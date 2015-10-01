@@ -313,6 +313,22 @@
     <script type="text/javascript" src="%%pub%%system/js/underscore.js"></script>     
     <script type="text/javascript" src="%%pub%%system/js/jquery.qtip.min.js"></script>
     <script type="text/javascript" src="script/app.js"></script>
+    <!-- moved here due to Tridion parsing the > symbol incorrectly -->
+    <!-- TODO: moved this back to app.js once the issue in Tridion is fixed -->
+    <script type="text/javascript">
+        app.directive('whenScrolled', function() {
+            'use strict';
+            return function(scope, elm, attr) {
+                var raw = elm[0];
+                elm.bind('scroll', function() {
+                    if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+                        scope.$apply(attr.whenScrolled);
+                    }
+                });
+            };
+            
+        });
+    </script>
     <script type="text/javascript" src="%%pub%%rover_tools/channel_list/version_two/data/com_channels.js"></script>
     <script type="text/javascript" src="script/class.js"></script>
     <script type="text/javascript" src="controller/app_controller.js"></script>  
