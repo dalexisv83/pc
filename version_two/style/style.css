@@ -45,6 +45,14 @@ select{
   text-align: left;
 }
 
+.headers .requested{
+  margin-left:46%;
+}
+
+.headers .com.requested{
+  margin-left:36.7%;
+}
+
 .headers h1, .headers h2 {
   font-family: Arial, sans-serif;
   color: white;
@@ -68,7 +76,6 @@ select{
 
 .border {
   background-color:#fff;
-  z-index: 0;
   margin-top: 5px;
   background: -ms-linear-gradient(top, rgba(255,255,255,.7) 0px, rgba(255,255,255,1) 50px);
   background: linear-gradient(to bottom, rgba(255,255,255,.7) 0px, rgba(255,255,255,1) 50px);
@@ -76,7 +83,6 @@ select{
   border: 3px solid #005D9E;
   border-radius: 16px;
   padding: 10px;
-  visibility: hidden\9;
 }
 
 table{
@@ -360,8 +366,7 @@ table td.channel-number{
     padding: 1px 4px;
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
-    border-radius: 16px;
-    visibility: hidden\9;
+    border-radius: 16px;    
 }
 
 .qtip-content .wrapper .code{

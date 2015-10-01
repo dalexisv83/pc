@@ -43,6 +43,7 @@
         </div>
 
     <div class="border" ng-window-pie>
+        
         <div class="headers">
             <div class="first">
                 <h2>Current Package</h2>
@@ -53,18 +54,18 @@
         </div>
     
         <!--reset button-->       
-        <input type="button" value="Reset" class="default" ng-click="reset();" ng-window-pie-btn></input>
+        <input type="button" value="Reset" class="default" ng-click="reset();" ng-window-pie></input>
         <!--reset button-->
         
         <p class="why" id="genreLegend">Legend<span ng-window-pie>?</span></p>
         
         <!--start row for package dropdowns-->
         <div class="pkgs-holder headers">
-            <div class="first">
+            <div class="pull-left current">
                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' - $' + current_pkg.price)  for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
                 </select>
             </div>
-            <div class="second">
+            <div class="pull-left requested">
                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' - $' + requested_pkg.price)  for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
                 </select>
             </div>
