@@ -213,13 +213,15 @@
         <div>
             <div class="pull-left channels-table-holder current-channels">
                 <div class="table-wrapper" ng-cloak ng-show="current_channels.length > 0  && show_current_channels" scroll-to-top-when="items_changed" when-scrolled="current_pkg_limit = loadMore(current_pkg_limit);">
-                    <table>
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse | limitTo:current_pkg_limit">
-                            <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
-                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
-                        </tr>
-                    </table>
+                	<div style="height: {{current_channels.length * 50}}px;">
+	                    <table>
+	                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse | limitTo:current_pkg_limit">
+	                            <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+	                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+	                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
+	                        </tr>
+	                    </table>
+	        		</div>
                 </div>
             </div>
             <div class="pull-left channels-table-holder gained-channels">

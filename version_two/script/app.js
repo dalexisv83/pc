@@ -1,5 +1,5 @@
 var max_limit = 500, //the maximum limit for ng-repeat to display
-    min_limit = 16,  //the minimum limit for ng-repeat to display
+    min_limit = 25,  //the minimum limit for ng-repeat to display
     localhost = false, //change this to false on production/staging
     app = angular.module('App', ['angular-growl','ngSanitize']);
 
@@ -39,13 +39,18 @@ app.config(['growlProvider', function(growlProvider) {
      link: linker
     };
     
-}).directive('whenScrolled', function() {
+}]).directive('whenScrolled', function() {
     'use strict';
     return function(scope, elm, attr) {
         var raw = elm[0];
-        elm.bind('scroll', _.throttle(function() {
+        // elm.bind('scroll', _.throttle(function() {
+        //         scope.$apply(attr.whenScrolled);
+        // }, 150));
+        elm.bind('scroll', function() {
+            if(raw.scrollTop + raw.offsetHeight == raw.scrollHeight) {
                 scope.$apply(attr.whenScrolled);
-        }, 300));
+            }
+        });
     };
     
 }).directive("scrollToTopWhen", ['$timeout',function ($timeout) {
