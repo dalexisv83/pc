@@ -1,10 +1,10 @@
 body{
   font-family: Verdana, Geneva, sans-serif;
   font-size: 12px;
-  background-color: black;
 }
 
 .full{
+  background-color: black;
   background-image: url(%%pub%%system/img/tool_bg-09212015.jpg);
   background-repeat: no-repeat; 
   background-position: left -30px;
