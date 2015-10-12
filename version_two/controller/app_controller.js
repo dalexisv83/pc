@@ -1,5 +1,5 @@
 
-app.controller('AppController', function ($scope, growl) {
+app.controller('AppController', ['$scope','growl',function ($scope, growl) {
     'use strict';
     
     $scope.current_pkg = null; //holds the selected current package object
@@ -236,4 +236,4 @@ app.controller('AppController', function ($scope, growl) {
     };
     
    
-});
+}]);
