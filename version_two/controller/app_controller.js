@@ -110,7 +110,12 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
     //watch for a change in current package
     $scope.$watchCollection('current_pkg', function() {       
         
-        if ($scope.current_pkg) {            
+        if ($scope.current_pkg) {
+            
+            try{
+               dcsMultiTrack("tool_package_compare_selected_user_packages","Current package change");
+            }catch (err) { }
+
 
             $scope.current_pkg_limit = min_limit; //reset the limit for current package to minimum            
 
@@ -147,6 +152,10 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
     $scope.$watchCollection('requested_pkg', function() {        
         
         if ($scope.requested_pkg) {
+            
+             try{
+               dcsMultiTrack("tool_package_compare_selected_user_packages","Current package change");
+            }catch (err) { }
             
             $scope.requested_pkg_limit = min_limit;
             
