@@ -113,7 +113,7 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
         if ($scope.current_pkg) {
             
             try{
-               dcsMultiTrack("tool_package_compare_selected_user_packages","Current package change");
+               dcsMultiTrack("DCSext.tool_package_compare_selected_user_packages","Current package change");
             }catch (ignore) { }
 
 
@@ -154,7 +154,7 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
         if ($scope.requested_pkg) {
             
              try{
-               dcsMultiTrack("tool_package_compare_selected_user_packages","Current package change");
+               dcsMultiTrack("DCSext.tool_package_compare_selected_user_packages","Current package change");
             }catch (ignore) { }
             
             $scope.requested_pkg_limit = min_limit;
