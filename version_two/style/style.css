@@ -541,3 +541,7 @@ input[type='button'].default {
   padding-top:2px;
   border-radius:0 0 5px 5px;  
 }
+
+.group-result{
+    text-transform: uppercase;
+}

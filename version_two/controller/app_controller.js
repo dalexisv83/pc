@@ -14,7 +14,7 @@ app.controller('AppController', ['$scope','growl','$window',function ($scope, gr
     $scope.gained_channels = []; //holds the gained channels
     $scope.lost_channels = []; //holds the lost channels
     
-    $scope.dataStore = new DataStore(data); //expose the datasource class to the view
+    $scope.dataStore = new DataStore(data,att_channels); //expose the datasource class to the view
     $scope.UrlFormatter = new UrlFormatter(localhost); //expose the urlformatter class to the view
     $scope.Utility = new Utility(); //expose the utility class to the view
     
@@ -44,7 +44,7 @@ app.controller('AppController', ['$scope','growl','$window',function ($scope, gr
     $scope.loadMore = function(limit) {
         if (limit <= max_limit) {
           limit = limit + min_limit;
-        }        
+        } 
         return limit;
     };
     
@@ -65,7 +65,6 @@ app.controller('AppController', ['$scope','growl','$window',function ($scope, gr
        //fill the packages dropdowns
        $scope.requested_pkgs = $scope.dataStore.getPackages(requested_pkg_ids); 
        $scope.current_pkgs = $scope.dataStore.getPackages(current_pkg_ids);
-       
        //if there is a volume property and only it is still empty
        if (data.package_compare.volumes && $scope.volumes.length === 0){
          $scope.volumes = $scope.dataStore.getVolumes(data.package_compare.volumes);
@@ -112,6 +111,8 @@ app.controller('AppController', ['$scope','growl','$window',function ($scope, gr
         
         if ($scope.current_pkg) {
             
+            var type = $scope.current_pkg.type;
+            
             try{
                dcsMultiTrack("DCSext.tool_package_compare_selected_user_packages","Current package change");
             }catch (ignore) { }
@@ -123,19 +124,19 @@ app.controller('AppController', ['$scope','growl','$window',function ($scope, gr
             $scope.pay_more_amt = 0;
             
             //get the current channels out of the selected current package of the customer 
-            $scope.current_channels = $scope.dataStore.getChannels($scope.current_pkg.channels);
-           
+            $scope.current_channels = $scope.dataStore.getChannels($scope.current_pkg.channels,type);
+            
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
             //get the price diff. to determine if customer will save or pay more
             price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
             
-            if (!jQuery.isEmptyObject(diff)) {
+            if (!jQuery.isEmptyObject(diff)) {                
                 $scope.gained_channels_limit = min_limit;
                 $scope.lost_channels_limit = min_limit;
 
-                $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
-                $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);
+                $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels,type,false);
+                $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels,type,false);
             }     
             
             if (!jQuery.isEmptyObject(price_diff)) {
@@ -152,8 +153,9 @@ app.controller('AppController', ['$scope','growl','$window',function ($scope, gr
     $scope.$watchCollection('requested_pkg', function() {        
         
         if ($scope.requested_pkg) {
+            var type = $scope.requested_pkg.type;
             
-             try{
+            try{
                dcsMultiTrack("DCSext.tool_package_compare_selected_user_packages","Current package change");
             }catch (ignore) { }
             
@@ -163,7 +165,7 @@ app.controller('AppController', ['$scope','growl','$window',function ($scope, gr
             $scope.pay_more_amt = 0;
             
             //get the requested channels out of the selected requested package of the customer
-            $scope.requested_channels = $scope.dataStore.getChannels($scope.requested_pkg.channels);
+            $scope.requested_channels = $scope.dataStore.getChannels($scope.requested_pkg.channels,type);
             
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
@@ -174,8 +176,8 @@ app.controller('AppController', ['$scope','growl','$window',function ($scope, gr
                 $scope.gained_channels_limit = min_limit;
                 $scope.lost_channels_limit = min_limit;
 
-                $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels, false);
-                $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels, false);                
+                $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels,type,false);
+                $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels,type,false);                
             }
             
             if (!jQuery.isEmptyObject(price_diff)) {
@@ -186,7 +188,12 @@ app.controller('AppController', ['$scope','growl','$window',function ($scope, gr
             $scope.$broadcast("items_changed");
 
             //show package tip
-            growl.addInfoMessage($scope.requested_pkg.tip);   
+            if($scope.requested_pkg.tip){
+               growl.addInfoMessage($scope.requested_pkg.tip); 
+            }
+            else{
+               growl.addInfoMessage('');  
+            }
         }        
     });
    
