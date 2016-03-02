@@ -139,6 +139,7 @@
     
     
     
+    
     /**
      * Computes the difference between the current package to requested package
      * @param {object} current_pkg the current package of the customer
@@ -147,56 +148,91 @@
      */
      DataStore.prototype.getPackageDiff = function(current_pkg, requested_pkg){
         'use strict';
-        var diff = {},        
+        var diff = {},
+        is_same_provider = true,        
         unique_ids, //true if we are comparing dtv to dtv or at&t to at&t else false 
         unique;
         
         if (current_pkg && requested_pkg) {
-          
-            /*is_same_provider = (current_pkg.type === requested_pkg.type);
-            if(is_same_provider){
-                current_channels = _.map(current_pkg.channels, _.iteratee('id'));
-                requested_channels = _.map(requested_pkg.channels, _.iteratee('id')); 
-            }
-            else{              
-
-                if(current_pkg.type === 'att'){
-                   current_channels = _.map(current_pkg.channels, _.iteratee('dtv_id')); 
-                   requested_channels = _.map(requested_pkg.channels, _.iteratee('id'));
-                }              
-
-                if(requested_pkg.type === 'att'){
-                  requested_channels = _.map(current_pkg.channels, _.iteratee('dtv_id')); 
-                  current_channels = _.map(current_pkg.channels, _.iteratee('id'));
-                }
-            }*/
+            is_same_provider = (current_pkg.type === requested_pkg.type);
+            unique_ids = this.getUniqueIds(is_same_provider,requested_pkg,current_pkg);           
             
-            unique_ids = this.getUniqueIds(requested_pkg,current_pkg);
-          
             //combine and get the unique ids for both collections
             unique = _([unique_ids.current_channels,unique_ids.requested_channels]).chain().flatten().unique().value();
-
+            
             //channels not found on current channels        
             diff.gained_channels = _.difference(unique, unique_ids.current_channels); //collection of gained channel ids
             //channels not found on the requested(new package)
-            diff.lost_channels = _.difference(unique, unique_ids.requested_channels); //collection of lost channel ids          
-        }
+            diff.lost_channels = _.difference(unique, unique_ids.requested_channels); //collection of lost channel ids 
+            
+            diff.is_same_provider = is_same_provider;
+        }       
         
         return diff;       
     };
     
-    DataStore.prototype.getUniqueIds = function(requested_pkg,current_pkg){
+    /**
+     * Return the actual channels gained and lost between pkgs. used in the controller
+     * @param {type} current_pkg
+     * @param {type} requested_pkg
+     * @param {type} diff
+     * @returns {DataStore.prototype.diffChannelsByProvider.channels_diff}
+     */
+    DataStore.prototype.diffChannelsByProvider = function(current_pkg,requested_pkg,diff){
         'use strict';
-        var is_same_provider = (current_pkg.type === requested_pkg.type),
-        channel_ids = {};
         
+        var channels_diff = {};        
+        if(diff.is_same_provider){ 
+            //if same provider, just do normal stuff
+            channels_diff.gained_channels = this.getChannels(diff.gained_channels,current_pkg.type,false);
+            channels_diff.lost_channels = this.getChannels(diff.lost_channels,requested_pkg.type,false);           
+        } 
+        else { 
+            //comparing Uverse with Directv or vice versa
+            if(current_pkg.type === 'att'){         
+               //query the current_pkg by dtv_id                       
+               channels_diff.gained_channels = this.getChannelsByDtvIdCollections(current_pkg.channels,diff.gained_channels,'att');    
+            }
+            else{
+                channels_diff.gained_channels = this.getChannels(diff.gained_channels,current_pkg.type,false);
+                //dtv_id with 0 value, query the requested pkg
+                if(_.indexOf(diff.gained_channels, "0") !== -1){                           
+                   channels_diff.gained_channels = _.flatten([this.getChannelsByDtvIdCollections(requested_pkg.channels,["0"],'att'),channels_diff.gained_channels]);
+                }
+            }
+
+            if(requested_pkg.type === 'att'){                       
+               //you should query the requested_pkg by dtv_id
+               channels_diff.lost_channels = this.getChannelsByDtvIdCollections(requested_pkg.channels,diff.lost_channels,'att');                        
+            }
+            else{                       
+                channels_diff.lost_channels = this.getChannels(diff.lost_channels,requested_pkg.type,false);
+                 //dtv_id with 0 value, query the current pkg
+                if(_.indexOf(diff.lost_channels, "0") !== -1){
+                   channels_diff.lost_channels = _.flatten([this.getChannelsByDtvIdCollections(current_pkg.channels,["0"],'att'),channels_diff.lost_channels]);
+                }
+            } 
+        }        
+        return channels_diff;
+    };
+    
+    /**
+     * Get the unique ids of channels between requested pkg and current pkg 
+     * @param {type} is_same_provider
+     * @param {type} requested_pkg
+     * @param {type} current_pkg
+     * @returns {DataStore.prototype.getUniqueIds.channel_ids}
+     */
+    DataStore.prototype.getUniqueIds = function(is_same_provider,requested_pkg,current_pkg){
+        'use strict';
+        var channel_ids = {};
         if(is_same_provider){
             channel_ids.current_channels = _.map(current_pkg.channels, _.iteratee('id'));
             channel_ids.requested_channels = _.map(requested_pkg.channels, _.iteratee('id')); 
         }
         else{
-            if(current_pkg.type === 'att'){
-               channel_ids.current_channels = _.map(current_pkg.channels, _.iteratee('dtv_id')); 
+            if(current_pkg.type === 'att'){              
+               channel_ids.current_channels = _.map(current_pkg.channels, _.iteratee('dtv_id'));              
                channel_ids.requested_channels = _.map(requested_pkg.channels, _.iteratee('id'));
             }
             if(requested_pkg.type === 'att'){
@@ -206,6 +242,54 @@
         }
         
         return channel_ids;
+    };
+    
+    /**
+     * Get channels using the dtv id collections
+     * @param {type} channels
+     * @param {type} dtv_ids
+     * @param {type} type
+     * @returns {Function|Number|underscore_L6._.foldl_.inject|lodash.foldl_.inject|_.foldl_.inject|underscore_L1.underscore.foldl_.inject|underscore.foldl_.inject|util._@call;require.foldl_.inject|es5-shim_L27.reduce}
+     */
+    DataStore.prototype.getChannelsByDtvIdCollections = function(channels,dtv_ids,type){
+        'use strict';       
+        var that = this,
+        result,
+        results = _.map(dtv_ids, function(dtv_id){ 
+            result = that.getChannelsByDtvId(channels,dtv_id,type); 
+            if(result.length === 0){
+                //get channel from directv data
+                result = that.getChannels([dtv_id],'dtv',false);
+            }
+            return result;
+        });        
+        return _.flatten(results);
+    };
+    
+    /**
+     * Get a channel by single dtv id
+     * @param {mixed} channels the channels data source
+     * @param {string} dtv_id the dtv id
+     * @param {string} type either att or dtv 
+     * @returns {Array|DataStore.prototype.getChannels.channels|mixed}
+     */
+    DataStore.prototype.getChannelsByDtvId = function(channels,dtv_id,type){
+        'use strict';
+        var i,        
+        channel_ids = [],
+        channel,
+        counter = 0,
+        max = channels.length;
+
+        for (i = 0;  i < max; i = i + 1) {
+            channel = channels[i];
+            if(channel.dtv_id === dtv_id){
+                channel_ids[counter] = channel.id;               
+                counter = counter + 1;
+            }
+        }        
+        
+        return this.getChannels(channel_ids,type,false);
     };
     
     

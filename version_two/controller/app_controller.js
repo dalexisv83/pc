@@ -108,10 +108,7 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
     
     //watch for a change in current package
     $scope.$watchCollection('current_pkg', function() {       
-        
-        if ($scope.current_pkg) {
-            
-            var type = $scope.current_pkg.type;
+        if ($scope.current_pkg) {    
             
             try{
                dcsMultiTrack("DCSext.tool_package_compare_selected_user_packages","Current package change");
@@ -124,22 +121,23 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
             $scope.pay_more_amt = 0;
             
             //get the current channels out of the selected current package of the customer 
-            $scope.current_channels = $scope.dataStore.getChannels($scope.current_pkg.channels,type);
+            $scope.current_channels = $scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type);
             
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
+            channels_provider_diff,
             //get the price diff. to determine if customer will save or pay more
-            price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
+            price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);            
             
-            if (!jQuery.isEmptyObject(diff)) {                
+            if (!$.isEmptyObject(diff)) {                
                 $scope.gained_channels_limit = min_limit;
-                $scope.lost_channels_limit = min_limit;
-
-                $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels,type,false);
-                $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels,type,false);
+                $scope.lost_channels_limit = min_limit;               
+                channels_provider_diff = $scope.dataStore.diffChannelsByProvider($scope.current_pkg,$scope.requested_pkg,diff);
+                $scope.gained_channels = channels_provider_diff.gained_channels;
+                $scope.lost_channels = channels_provider_diff.lost_channels;                              
             }     
             
-            if (!jQuery.isEmptyObject(price_diff)) {
+            if (!$.isEmptyObject(price_diff)) {
                 $scope.saved_amt = price_diff.saved_amt;
                 $scope.pay_more_amt = price_diff.pay_more_amt;
             }
@@ -153,7 +151,6 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
     $scope.$watchCollection('requested_pkg', function() {        
         
         if ($scope.requested_pkg) {
-            var type = $scope.requested_pkg.type;
             
             try{
                dcsMultiTrack("DCSext.tool_package_compare_selected_user_packages","Current package change");
@@ -165,22 +162,23 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
             $scope.pay_more_amt = 0;
             
             //get the requested channels out of the selected requested package of the customer
-            $scope.requested_channels = $scope.dataStore.getChannels($scope.requested_pkg.channels,type);
+            $scope.requested_channels = $scope.dataStore.getChannels($scope.requested_pkg.channels,$scope.requested_pkg.type);
             
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
+            channels_provider_diff,
             //get the price diff. to determine if customer will save or pay more
             price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
             
-            if (!jQuery.isEmptyObject(diff)) {
+            if (!$.isEmptyObject(diff)) {
                 $scope.gained_channels_limit = min_limit;
                 $scope.lost_channels_limit = min_limit;
-
-                $scope.gained_channels = $scope.dataStore.getChannels(diff.gained_channels,type,false);
-                $scope.lost_channels = $scope.dataStore.getChannels(diff.lost_channels,type,false);                
+                channels_provider_diff = $scope.dataStore.diffChannelsByProvider($scope.current_pkg,$scope.requested_pkg,diff);
+                $scope.gained_channels = channels_provider_diff.gained_channels;
+                $scope.lost_channels = channels_provider_diff.lost_channels;   
             }
             
-            if (!jQuery.isEmptyObject(price_diff)) {
+            if (!$.isEmptyObject(price_diff)) {
                 $scope.saved_amt = price_diff.saved_amt;
                 $scope.pay_more_amt = price_diff.pay_more_amt;
             }
