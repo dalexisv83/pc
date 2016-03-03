@@ -54,25 +54,13 @@
      * @returns {Boolean|pkg}
      */
      DataStore.prototype.getChannelById = function(id,channels){
-        'use strict';
+        'use strict';        
+        if (!id || undefined === id){          
+           return false;          
+        }        
         
-        var match_channel = false,        
-        i,
-        len = channels.length,
-        channel;
+        return channels[id - 1];
         
-        if (!this.util.isInteger(id)){
-           throw new Error('Invalid channel id.');
-        }
-        
-        for (i = 0; i < len; i = i + 1) {
-            channel = channels[i];
-            if (parseInt(channel.id, 10) === id){
-                match_channel = channel;
-                break;
-            }
-        }
-        return match_channel;
     };
     
     /**
@@ -118,6 +106,7 @@
         max = channel_ids.length,
         channel_id,
         id,
+        counter = 0,
         channel;
 
         //if are_objects param is not provided then assume true
@@ -128,9 +117,10 @@
         for (i = 0;  i < max; i = i + 1) {
             channel_id = channel_ids[i];
             id = are_objects ? channel_id.id : channel_id;
-            channel = that.getChannelById(parseInt(id,10),channels_data);           
+            channel = that.getChannelById(id,channels_data);            
             if (channel){
-               channels.push(channel);
+               channels[counter] = channel;
+               counter = counter + 1;
             }
         }
         
@@ -186,7 +176,7 @@
             channels_diff.gained_channels = this.getChannels(diff.gained_channels,current_pkg.type,false);
             channels_diff.lost_channels = this.getChannels(diff.lost_channels,requested_pkg.type,false);           
         } 
-        else { 
+        else {           
             //comparing Uverse with Directv or vice versa            
             channels_diff.gained_channels = this.diffChannels(current_pkg,requested_pkg,diff.gained_channels);
             channels_diff.lost_channels = this.diffChannels(requested_pkg,current_pkg,diff.lost_channels);
@@ -194,6 +184,13 @@
         return channels_diff;
     };
     
+    /**
+     * Returns an array of channel ids when comparing 2 diff. providers
+     * @param {type} main_pkg
+     * @param {type} alt_pkg
+     * @param {type} diff_channel_ids
+     * @returns {Function|Number|underscore_L6._.foldl_.inject|lodash.foldl_.inject|_.foldl_.inject|underscore_L1.underscore.foldl_.inject|underscore.foldl_.inject|util._@call;require.foldl_.inject|es5-shim_L27.reduce|DataStore.prototype.diffChannels.diff_channels}
+     */
     DataStore.prototype.diffChannels = function(main_pkg,alt_pkg,diff_channel_ids){
         'use strict';
         var diff_channels;
@@ -247,7 +244,7 @@
      * @returns {Function|Number|underscore_L6._.foldl_.inject|lodash.foldl_.inject|_.foldl_.inject|underscore_L1.underscore.foldl_.inject|underscore.foldl_.inject|util._@call;require.foldl_.inject|es5-shim_L27.reduce}
      */
     DataStore.prototype.getChannelsByDtvIdCollections = function(channels,dtv_ids,type){
-        'use strict';       
+        'use strict'; 
         var that = this,
         result,
         results = _.map(dtv_ids, function(dtv_id){ 
@@ -261,6 +258,8 @@
         return _.flatten(results);
     };
     
+    
+    
     /**
      * Get a channel by single dtv id
      * @param {mixed} channels the channels data source
@@ -270,21 +269,14 @@
      */
     DataStore.prototype.getChannelsByDtvId = function(channels,dtv_id,type){
         'use strict';
-        var i,        
-        channel_ids = [],
-        channel,
-        counter = 0,
-        max = channels.length;
-
-        for (i = 0;  i < max; i = i + 1) {
-            channel = channels[i];
-            if(channel.dtv_id === dtv_id){
-                channel_ids[counter] = channel.id;               
-                counter = counter + 1;
+       
+        var ids = _.map(channels,function(obj){
+            if(obj.dtv_id === dtv_id){
+                return obj.id;
             }
-        }        
+        });
         
-        return this.getChannels(channel_ids,type,false);
+        return this.getChannels(ids,type,false);
     };
     
     
