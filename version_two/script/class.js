@@ -179,8 +179,7 @@
      * @returns {DataStore.prototype.diffChannelsByProvider.channels_diff}
      */
     DataStore.prototype.diffChannelsByProvider = function(current_pkg,requested_pkg,diff){
-        'use strict';
-        
+        'use strict';        
         var channels_diff = {};        
         if(diff.is_same_provider){ 
             //if same provider, just do normal stuff
@@ -188,32 +187,28 @@
             channels_diff.lost_channels = this.getChannels(diff.lost_channels,requested_pkg.type,false);           
         } 
         else { 
-            //comparing Uverse with Directv or vice versa
-            if(current_pkg.type === 'att'){         
-               //query the current_pkg by dtv_id                       
-               channels_diff.gained_channels = this.getChannelsByDtvIdCollections(current_pkg.channels,diff.gained_channels,'att');    
-            }
-            else{
-                channels_diff.gained_channels = this.getChannels(diff.gained_channels,current_pkg.type,false);
-                //dtv_id with 0 value, query the requested pkg
-                if(_.indexOf(diff.gained_channels, "0") !== -1){                           
-                   channels_diff.gained_channels = _.flatten([this.getChannelsByDtvIdCollections(requested_pkg.channels,["0"],'att'),channels_diff.gained_channels]);
-                }
-            }
-
-            if(requested_pkg.type === 'att'){                       
-               //you should query the requested_pkg by dtv_id
-               channels_diff.lost_channels = this.getChannelsByDtvIdCollections(requested_pkg.channels,diff.lost_channels,'att');                        
-            }
-            else{                       
-                channels_diff.lost_channels = this.getChannels(diff.lost_channels,requested_pkg.type,false);
-                 //dtv_id with 0 value, query the current pkg
-                if(_.indexOf(diff.lost_channels, "0") !== -1){
-                   channels_diff.lost_channels = _.flatten([this.getChannelsByDtvIdCollections(current_pkg.channels,["0"],'att'),channels_diff.lost_channels]);
-                }
-            } 
+            //comparing Uverse with Directv or vice versa            
+            channels_diff.gained_channels = this.diffChannels(current_pkg,requested_pkg,diff.gained_channels);
+            channels_diff.lost_channels = this.diffChannels(requested_pkg,current_pkg,diff.lost_channels);
         }        
         return channels_diff;
+    };
+    
+    DataStore.prototype.diffChannels = function(main_pkg,alt_pkg,diff_channel_ids){
+        'use strict';
+        var diff_channels;
+        if(main_pkg.type === 'att'){         
+            //query the current_current_pkg by dtv_id                       
+            diff_channels = this.getChannelsByDtvIdCollections(main_pkg.channels,diff_channel_ids,'att');    
+        }
+        else{
+            diff_channels = this.getChannels(diff_channel_ids,main_pkg.type,false);
+            //dtv_id with 0 value, query the requested current_pkg
+            if(_.indexOf(diff_channel_ids, "0") !== -1){                           
+               diff_channels = _.flatten([this.getChannelsByDtvIdCollections(alt_pkg.channels,["0"],'att'),diff_channels]);
+            }
+        }
+        return diff_channels;
     };
     
     /**
