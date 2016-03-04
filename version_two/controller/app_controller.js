@@ -1,7 +1,5 @@
-
-app.controller('AppController', ['$scope','growl','$window',function ($scope, growl, $window) {
-    'use strict';
-    
+app.controller('AppController', ['$scope','growl',function ($scope, growl) {
+    'use strict';    
     $scope.current_pkg = null; //holds the selected current package object
     $scope.requested_pkg = null; //holds the selected requested package object    
     
@@ -213,7 +211,40 @@ app.controller('AppController', ['$scope','growl','$window',function ($scope, gr
      * Resets the whole datascopes as if the page just loaded
      */
     $scope.reset = function(){
-        $window.location.reload();
+        //reset current package
+        $scope.current_pkg = null; 
+        $scope.requested_pkg = null;   
+    
+        //reset the collection of current and requested packages's channels
+        $scope.current_channels = [];  
+        $scope.requested_channels = []; 
+        
+        //reset the gained and lost channels
+        $scope.gained_channels = []; 
+        $scope.lost_channels = []; 
+        
+        //reset the sorted column
+        $scope.sorted_column = '';
+        
+        //reset all the show/hide pointers back to original values
+        $scope.show_current_channels = true; 
+        $scope.show_requested_channels = true; 
+        $scope.show_gained_channels = false; 
+        $scope.show_lost_channels = false;
+        
+        //reset the saved and pay more amts
+        $scope.saved_amt = 0; 
+        $scope.pay_more_amt = 0; 
+        
+        //remove the growl message
+        growl.addInfoMessage('');
+        
+        //reset volume
+        $scope.volume = null;
+        
+        $scope.sortType = 'channelname';
+        
+        $scope.resetLimit();
     };
     
    
