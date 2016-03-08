@@ -1,4 +1,4 @@
-var max_limit = 500, //the maximum limit for ng-repeat to display
+var max_limit = 10000, //the maximum limit for ng-repeat to display
     min_limit = 16,  //the minimum limit for ng-repeat to display
     localhost = true, //change this to false on production/staging
     app = angular.module('App', ['angular-growl','ngSanitize']);
