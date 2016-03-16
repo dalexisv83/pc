@@ -123,7 +123,15 @@
                counter = counter + 1;
             }
         }
-        
+        if (type === 'att') {
+            channels = _.uniq(channels, function(channel){
+                if (channel.dtv_id !== 0) {
+                    return channel.dtv_id;
+                } else {
+                    return channel.id;
+                }
+            });
+        }
         return channels;
     };
     
