@@ -107,7 +107,9 @@
         channel_id,
         id,
         counter = 0,
-        channel;
+        channel,
+        channels_unmapped,
+        channels_mapped;
 
         //if are_objects param is not provided then assume true
         if (undefined === are_objects){ 
@@ -124,13 +126,20 @@
             }
         }
         if (type === 'att') {
-            channels = _.uniq(channels, function(channel){
-                if (channel.dtv_id !== 0) {
-                    return channel.dtv_id;
-                } else {
-                    return channel.id;
+            channels_unmapped = _.filter(channels, function(channel){
+                if (channel.dtv_id == 0) {
+                    return channel;
                 }
             });
+            channels_mapped = _.filter(channels, function(channel){
+                if (channel.dtv_id != 0) {
+                    return channel;
+                }
+            });
+            channels_mapped = _.uniq(channels_mapped, function(channel){
+                return channel.dtv_id;
+            });
+            channels = channels_mapped.concat(channels_unmapped);
         }
         return channels;
     };
