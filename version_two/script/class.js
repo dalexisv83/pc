@@ -127,12 +127,12 @@
         }
         if (type === 'att') {
             channels_unmapped = _.filter(channels, function(channel){
-                if (channel.dtv_id == 0) {
+                if (channel.dtv_id === "0") {
                     return channel;
                 }
             });
             channels_mapped = _.filter(channels, function(channel){
-                if (channel.dtv_id != 0) {
+                if (channel.dtv_id !== "0") {
                     return channel;
                 }
             });
