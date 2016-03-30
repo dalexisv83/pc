@@ -58,7 +58,7 @@
         <!--reset button-->
         
         <p class="why" id="genreLegend">Legend<span ng-window-pie>?</span></p>
-        
+        <div class="label-holder disclaim reminder" ng-show="current_pkg || requested_pkg" ng-cloak>**REMINDER: DO NOT discuss exact channel counts with customers.</div>
         <!--start row for package dropdowns-->
         <div class="pkgs-holder headers">
             <div class="pull-left current">
@@ -216,7 +216,7 @@
                     <table>
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse | limitTo:current_pkg_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelnamebold"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -227,7 +227,7 @@
                     <table>
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels | orderBy:sortType:reverse  | limitTo:gained_channels_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelnamebold"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -238,7 +238,7 @@
                     <table>                    
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels | orderBy:sortType:reverse  | limitTo:lost_channels_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelnamebold"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -249,7 +249,7 @@
                     <table>                  
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels | orderBy:sortType:reverse | limitTo:requested_pkg_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelnamebold"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -313,6 +313,8 @@
             </div>          
         </div><!--end of div#genreCodes-->
     </div>
+        <div class="label-holder disclaim assumehd" ng-if="current_pkg.type == 'att'" ng-cloak>U-Verse packages assume HD</div><!-- 
+         --><div class="label-holder disclaim assumehd assumeright" ng-if="requested_pkg.type == 'att'" ng-cloak>U-Verse packages assume HD</div>
     </div>
     
     <script type="text/javascript" src="data/att_channels.js"></script>
