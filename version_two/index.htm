@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="%%pub%%system/css/jquery.qtip.min.css"> 
     <link rel="stylesheet" href="%%pub%%system/css/chosen.css"> 
     <link rel="stylesheet" href="%%pub%%system/css/growl.css"> 
-    <link rel="stylesheet" href="%%pub%%rover_tools/package_compare/3.0/style/style.css">  
+    <link rel="stylesheet" href="style/style.css?v=new">
     <!--[if IE]>
     <script src="%%pub%%system/js/PIE.js"></script>
     <![endif]-->
@@ -58,7 +58,7 @@
         <!--reset button-->
         
         <p class="why" id="genreLegend">Legend<span ng-window-pie>?</span></p>
-        <div class="label-holder disclaim reminder" ng-show="current_pkg || requested_pkg" ng-cloak>**REMINDER: DO NOT discuss exact channel counts with customers.</div>
+        <div class="label-holder disclaim center-note reminder" ng-show="current_pkg || requested_pkg" ng-cloak>**REMINDER: DO NOT discuss exact channel counts with customers.</div>
         <!--start row for package dropdowns-->
         <div class="pkgs-holder headers">
             <div class="pull-left current">
@@ -313,6 +313,8 @@
             </div>          
         </div><!--end of div#genreCodes-->
     </div>
+        <div class="label-holder disclaim center-note pricing" ng-show="current_pkg && requested_pkg" ng-cloak>Pricing is not inclusive of any add-ons; refer to the ordering system for accurate pricing with all package components
+        </div>
         <div class="label-holder disclaim assumehd" ng-if="current_pkg.type == 'att'" ng-cloak>U-Verse packages assume HD</div><!-- 
          --><div class="label-holder disclaim assumehd assumeright" ng-if="requested_pkg.type == 'att'" ng-cloak>U-Verse packages assume HD</div>
     </div>

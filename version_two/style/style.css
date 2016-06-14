@@ -413,14 +413,21 @@ table td.channel-number{
   color: #e67e22;
 }
 
-.reminder {
+.center-note {
   position: absolute;
   width: 520px;
   text-align: center;
-  top: 74px;
   left: 50%;
   margin-left: -260px;
   font-weight: bold;
+}
+
+.reminder {
+  top: 74px;
+}
+
+.pricing {
+  top: 638px;
 }
 
 .assumehd {
