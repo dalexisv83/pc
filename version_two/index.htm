@@ -16,6 +16,23 @@
     <script type="text/javascript" src="%%pub%%system/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="%%pub%%system/js/chosen_jquery.js"></script>
     <script type="text/javascript" src="%%pub%%system/js/angular.js"></script>
+    <script>
+        function pop_at_noresize(page,pageWidth,pageHeight,pageName) {
+    if(isNaN(pageWidth) == true){
+        pageWidth = 800;
+    }
+    if(isNaN(pageHeight) == true){
+        pageHeight = 600;
+    }
+    if(isNaN(pageName) == true){
+        var pageName = '_blank';
+    }
+    width = pageWidth;
+    height = pageHeight;
+    newWin = window.open(page,pageName, ",status=no,toolbar=no,menubar=no,location=no,scrollbars=yes,resizable=no width="+width+",height="+height+"");
+    newWin.focus();
+    }
+    </script>
 </head>
 <body class="full" >
    
@@ -53,7 +70,7 @@
             </div>
         </div>
     
-        <label><input type="checkbox" ng-model="genre_filter" ng-true-value='SNC' ng-false-value=''></input> Music channels</label>
+        <a href="javascript:pop_at_noresize('%%pub%%rover_tools/channel_list/channel_list.htm',900,760);" >channel lineup</a><br>
         <!--reset button-->       
         <input type="button" value="Reset" class="default" ng-click="reset();" ng-window-pie></input>
         <!--reset button-->
@@ -124,13 +141,13 @@
                 </div>               
             </div>
             <div class="table-header label double pull-left">
-                <div class="label-holder saved-amt" ng-show="saved_amt > 0" ng-cloak>
+<!--                 <div class="label-holder saved-amt" ng-show="saved_amt > 0" ng-cloak>
                     Customer will save <span class="price">&#36;<span ng-bind-html-unsafe="saved_amt"></span></span>
                 </div>
                 <div class="label-holder pay-more-amt" ng-show="pay_more_amt > 0" ng-cloak>
                     Customer will pay <span class="price">&#36;<span ng-bind-html-unsafe="pay_more_amt"></span></span> more
                 </div>
-            </div>          
+ -->            </div>          
             <div class="table-header label pull-left">
                 <div class="label-holder" ng-cloak ng-show="show_requested_channels">
                     <a title="Click to open this package main page." onClick="window.open('{{requested_pkg.url}}', '_blank');" href="#">
@@ -214,8 +231,8 @@
         <div>
             <div class="pull-left channels-table-holder current-channels">
                 <div class="table-wrapper" ng-cloak ng-show="current_channels.length > 0 && show_current_channels" scroll-to-top-when="items_changed" when-scrolled="current_pkg_limit = loadMore(current_pkg_limit);">
-                    <table><span ng-repeat="channel in current_channels2 = (current_channels2 | filter:{genre:genre_filter} | orderBy:sortType:reverse)"></span>
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in filteredArr=(current_channels | filter:{genre:genre_filter} | orderBy:sortType:reverse | limitTo:current_pkg_limit)">
+                    <table>
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse | limitTo:current_pkg_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelnamebold"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
@@ -314,9 +331,9 @@
             </div>          
         </div><!--end of div#genreCodes-->
     </div>
-        <div class="label-holder disclaim center-note pricing" ng-show="current_pkg && requested_pkg" ng-cloak>Pricing is not inclusive of any add-ons; refer to the ordering system for accurate pricing with all package components
+<!--         <div class="label-holder disclaim center-note pricing" ng-show="current_pkg && requested_pkg" ng-cloak>Pricing is not inclusive of any add-ons; refer to the ordering system for accurate pricing with all package components
         </div>
-        <div class="label-holder disclaim assumehd" ng-if="current_pkg.type == 'att'" ng-cloak>U-Verse packages assume HD</div><!-- 
+ -->        <div class="label-holder disclaim assumehd" ng-if="current_pkg.type == 'att'" ng-cloak>U-Verse packages assume HD</div><!-- 
          --><div class="label-holder disclaim assumehd assumeright" ng-if="requested_pkg.type == 'att'" ng-cloak>U-Verse packages assume HD</div>
     </div>
     
