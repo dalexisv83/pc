@@ -120,7 +120,8 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
             
             //get the current channels out of the selected current package of the customer 
             $scope.current_channels = $scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type);
-            
+            $scope.current_channels2 = $scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type);
+
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
             channels_provider_diff,
@@ -247,5 +248,9 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
         $scope.resetLimit();
     };
     
-   
+    $scope.reloadit =  function(){
+        $scope.$watchCollection('current_pkg');
+        $scope.$apply();
+    };
+    
 }]);
