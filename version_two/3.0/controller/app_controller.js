@@ -1,6 +1,6 @@
 app.controller('AppController', ['$scope','growl',function ($scope, growl) {
     'use strict';    
-    var alert_message = $(".alert_message");
+    var alert_message = $('.alert_message');
     $scope.current_pkg = null; //holds the selected current package object
     $scope.requested_pkg = null; //holds the selected requested package object    
     
@@ -121,7 +121,7 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
             
             //get the current channels out of the selected current package of the customer 
             $scope.current_channels = $scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type);
-
+            
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
             channels_provider_diff,
@@ -186,10 +186,12 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
 
             //show package tip
             if($scope.requested_pkg.tip){
-               alert_message.addInfoMessage($scope.requested_pkg.tip); 
+                alert_message.parent().css('display','');
+                alert_message.html($scope.requested_pkg.tip); 
             }
             else{
-               alert_message.addInfoMessage('');  
+                alert_message.parent().css('display','none');
+                alert_message.html('');  
             }
         }        
     });
@@ -248,9 +250,5 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
         $scope.resetLimit();
     };
     
-    $scope.reloadit =  function(){
-        $scope.$watchCollection('current_pkg');
-        $scope.$apply();
-    };
-    
+   
 }]);

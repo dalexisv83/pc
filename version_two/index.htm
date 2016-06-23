@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="%%pub%%system/css/bootstrap.3.1.1.css">  
     <link rel="stylesheet" href="%%pub%%system/css/jquery.qtip.min.css"> 
     <link rel="stylesheet" href="%%pub%%system/css/chosen.css"> 
-    <link rel="stylesheet" href="%%pub%%system/css/growl.css"> 
+    <link rel="stylesheet" href="%%pub%%system/css/growl.css">
     <link rel="stylesheet" href="style/style.css?v=new">
     <!--[if IE]>
     <script src="%%pub%%system/js/PIE.js"></script>
@@ -35,59 +35,57 @@
     </script>
 </head>
 <body class="full" >
-   
-<div>
-
-    <div class="wrapper" ng-controller="AppController" ng-init="init()">
-
-        <!--comment button-->
-        <div id="comment_btn" class="pull-right">
-        </div>
-        <!--comment button-->
-
-        <!--growl notifier-->
-        <div growl>
-        </div>
-        <!--growl notifier-->
-
-        <div class="headers">
-            <div class="first">
-                <img src="%%pub%%system/img/Logo_DTV_ATT.png">
+<div class="wrapper" ng-controller="AppController" ng-init="init()">
+    <div class="headers" style="height:80px">
+            <div class="col-md-4" style="margin-top:25px">
+                <img src="%%pub%%system/img/Logo_DTV_ATT.png">            
             </div>
-            <div class="second">
-                <h1 class="tool-title">Package Compare Tool</h1>
+            <div class="col-md-5" style="margin-top:10px">
+                <h1 class="tool-title" style="font-size:1.5em;">Package Compare Tool</h1>
+            </div>
+            <div class="col-md-3" style="float:right;margin-top:50px;text-align:right;">
+                <!-- <span class="glyphicon glyphicon-new-window" style="font-size:25px;color:white"></span> -->
+                    <a href="javascript:pop_at_noresize('%%pub%%rover_tools/channel_list/channel_list.htm',900,760);" style="font-size:1.2em;color:white;text-decoration:underline">channel lineup</a>
             </div>
         </div>
-
-    <div class="border" ng-window-pie>
-        
-        <div class="headers">
-            <div class="first">
+    <div class="border" ng-window-pie style="height:750px">
+        <div style="width:100%;border:1px solid black;padding:7px;font-size: 1.2em;display:none">
+                <div class="close_notification" style="float:right;cursor:pointer">&#10006;</div>
+                <div class="alert_message"></div>
+        </div>
+        <div class="headers" style="width:100%;display:block;position:relative;vertical-align:middle;margin-top:8px">
+            <div style="display:inline-block;float:left">
                 <h2>Current Package</h2>
             </div>
-            <div class="second">
+            <div style="display:inline-block;float:right">
                 <h2>Requested Package</h2>
             </div>
         </div>
     
-        <a href="javascript:pop_at_noresize('%%pub%%rover_tools/channel_list/channel_list.htm',900,760);" >channel lineup</a><br>
-        <!--reset button-->       
-        <input type="button" value="Reset" class="default" ng-click="reset();" ng-window-pie></input>
-        <!--reset button-->
-        
-        <p class="why" id="genreLegend">Legend<span ng-window-pie>?</span></p>
-        <div class="label-holder disclaim center-note reminder" ng-show="current_pkg || requested_pkg" ng-cloak>**REMINDER: DO NOT discuss exact channel counts with customers.</div>
         <!--start row for package dropdowns-->
-        <div class="pkgs-holder headers">
-            <div class="pull-left current">
-                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' ' + dataStore.getDisplayPrice(current_pkg.price)) group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
+        <div style="display:table;width:100%;border-spacing:0.2em">
+            <div style="display:table-row">
+                <div style="display:table-cell;width:35%" class="current">
+<!--                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' ' + dataStore.getDisplayPrice(current_pkg.price)) group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
                 </select>
-            </div>
-            <div class="pull-left requested">
-                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' ' + dataStore.getDisplayPrice(requested_pkg.price)) group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
+ -->            
+                        <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname) group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
+                        </select>
+                    </div>
+                    <div style="display:table-cell;width:30%;text-align: center;">
+                        <input type="button" value="Reset" class="default" ng-click="reset();" style="position:inherit" ng-window-pie></input>
+                        <p id="genreLegend" style="position:inherit;margin-left:20px;display:inline-block;color:black;background-repeat: no-repeat;background-position: 49px 1px;height: 20px;cursor: pointer;font-size: 12px;">Legend<span <span style="margin:0 4px;background: #d0e4f7;background: -ms-linear-gradient(top, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);background: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); -pie-background: linear-gradient(#87bcea, #0a77d5); text-align: center;    color: white;font-size: .9em;font-weight: bold;padding: 1px 4px;-webkit-border-radius: 16px;-moz-border-radius: 16px;border-radius: 16px;" ng-window-pie>?</span></p>
+                    </div>
+
+                    <div style="display:table-cell;width:35%;text-align:right" class="requested">
+<!--                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' ' + dataStore.getDisplayPrice(requested_pkg.price)) group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
                 </select>
+ -->            
+                        <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname) group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
+                        </select>
+                </div>
+                <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
         </div>
         <!--ends row for package dropdowns-->
        
@@ -146,10 +144,11 @@
                 </div>
                 <div class="label-holder pay-more-amt" ng-show="pay_more_amt > 0" ng-cloak>
                     Customer will pay <span class="price">&#36;<span ng-bind-html-unsafe="pay_more_amt"></span></span> more
-                </div>
- -->            </div>          
-            <div class="table-header label pull-left">
-                <div class="label-holder" ng-cloak ng-show="show_requested_channels">
+                </div>-->
+                
+            </div>          
+            <div class="table-header label pull-left" style="width:26%">
+                <div class="label-holder" ng-cloak ng-show="show_requested_channels" >
                     <a title="Click to open this package main page." onClick="window.open('{{requested_pkg.url}}', '_blank');" href="#">
                         {{requested_pkg.name}}
                     </a>
@@ -160,10 +159,30 @@
             <div class="clearfix"></div>
         </div>
         <!--end row for package labels-->
-        
+        <div style="display:table;width:100%;border-spacing:0.2em;height:50px;margin-bottom:5px;">
+            <div style="display:table-row">
+                <div style="display:table-cell;width:25%">
+                    <div style="background-color:#e1edf9;height:100%;width:100%;vertical-align:middle;border:1px solid #dae3ec" class="current" ng-if="current_pkg.type == 'att'" ng-cloak>
+                        <div style="color:#495ecb;font-weight:bold;font-size:0.9em;padding:5px;margin-top:7px" class="label-holder" ><div style="display:inline-block;color:black;background-repeat: no-repeat;background-position: 49px 1px;height: 20px;cursor: pointer;font-size: 12px;"><span style="margin:0 4px;background: #d0e4f7;background: -ms-linear-gradient(top, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);background: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); -pie-background: linear-gradient(#87bcea, #0a77d5); text-align: center; color: white;font-size: .9em;font-weight: bold;padding: 1px 4px;-webkit-border-radius: 16px;-moz-border-radius: 16px;border-radius: 16px;">!</span>
+                        </div>U-Verse packages assume HD</div>
+                    </div>
+                </div>
+                <div style="display:table-cell;width:50%" class="current">
+                    <div style="vertical-align:middle;padding:5px;text-align:center">
+                        <div style="color:red" class="label-holder reminder" ng-show="current_pkg || requested_pkg" ng-cloak>**REMINDER: DO NOT discuss exact channel counts with customers.</div>
+                    </div>
+                </div>
+                <div style="display:table-cell;width:25%">
+                    <div style="background-color:#e1edf9;height:100%;width:100%;vertical-align:middle;border:1px solid #dae3ec" class="current" ng-if="requested_pkg.type == 'att'" ng-cloak>
+                        <div style="color:#495ecb;font-weight:bold;font-size:0.9em;padding:5px;margin-top:7px" class="label-holder" ><div style="display:inline-block;color:black;background-repeat: no-repeat;background-position: 49px 1px;height: 20px;cursor: pointer;font-size: 12px;"><span style="margin:0 4px;background: #d0e4f7;background: -ms-linear-gradient(top, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);background: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);-pie-background: linear-gradient(#87bcea, #0a77d5);text-align: center; color: white;font-size: .9em;font-weight: bold;padding: 1px 4px;-webkit-border-radius: 16px;-moz-border-radius: 16px;border-radius: 16px;">!</span>
+                        </div>U-Verse packages assume HD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--start row for table headers-->
         <div ng-cloak ng-show="current_channels.length > 0 || gained_channels.length > 0 || lost_channels.length > 0 || requested_channels.length > 0">
-            <div class="table-header current pull-left">
+            <div class="table-header current pull-left" style="margin-left: 15px;">
                 <div class="table-header-inner" ng-cloak ng-show="current_channels.length > 0 && show_current_channels">
                     <div class="channel-number pull-left" >
                        <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a> 
@@ -178,7 +197,7 @@
                     </div>
                 </div>
             </div>
-            <div class="table-header gained pull-left">
+            <div class="table-header gained pull-left" style="margin-left: 15px;">
                 <div class="table-header-inner" ng-cloak ng-show="gained_channels.length > 0 && show_gained_channels">
                     <div class="channel-number pull-left">
                        <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a>
@@ -193,7 +212,7 @@
                     </div>
                 </div>
             </div>
-            <div class="table-header lost pull-left">
+            <div class="table-header lost pull-left" style="margin-left: 15px;">
                 <div class="table-header-inner" ng-cloak ng-show="lost_channels.length > 0 && show_lost_channels">
                     <div class="channel-number pull-left">
                        <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a>
@@ -208,7 +227,7 @@
                     </div>
                 </div>
             </div>
-             <div class="table-header requested pull-left">
+             <div class="table-header requested pull-left" style="margin-left: 15px;">
                 <div class="table-header-inner" ng-cloak ng-show="requested_channels.length > 0 && show_requested_channels">
                     <div class="channel-number pull-left">
                        <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a>
@@ -229,45 +248,45 @@
         
         <!--start row for channel tables-->
         <div>
-            <div class="pull-left channels-table-holder current-channels">
+            <div class="pull-left channels-table-holder current-channels" style="margin-left: 15px;">
                 <div class="table-wrapper" ng-cloak ng-show="current_channels.length > 0 && show_current_channels" scroll-to-top-when="items_changed" when-scrolled="current_pkg_limit = loadMore(current_pkg_limit);">
                     <table>
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse | limitTo:current_pkg_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelnamebold"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
                 </div>
             </div>
-            <div class="pull-left channels-table-holder gained-channels">
+            <div class="pull-left channels-table-holder gained-channels" style="margin-left: 15px;">
                 <div class="table-wrapper" ng-cloak  ng-show="gained_channels.length > 0 && show_gained_channels" scroll-to-top-when="items_changed" when-scrolled="gained_channels_limit = loadMore(gained_channels_limit);">
                     <table>
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels | orderBy:sortType:reverse  | limitTo:gained_channels_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelnamebold"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
                 </div>
             </div>
-            <div class="pull-left channels-table-holder lost-channels">
+            <div class="pull-left channels-table-holder lost-channels" style="margin-left: 15px;">
                 <div class="table-wrapper" ng-cloak  ng-show="lost_channels.length > 0 && show_lost_channels" scroll-to-top-when="items_changed" when-scrolled="lost_channels_limit = loadMore(lost_channels_limit);">
                     <table>                    
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels | orderBy:sortType:reverse  | limitTo:lost_channels_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelnamebold"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
                 </div>
             </div>
-            <div class="pull-left channels-table-holder requested-channels">
+            <div class="pull-left channels-table-holder requested-channels" style="margin-left: 15px;">
                 <div class="table-wrapper" ng-cloak  ng-show="requested_channels.length > 0 && show_requested_channels" scroll-to-top-when="items_changed" when-scrolled="requested_pkg_limit = loadMore(requested_pkg_limit);">
                     <table>                  
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels | orderBy:sortType:reverse | limitTo:requested_pkg_limit">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelnamebold"></font></a></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -333,8 +352,7 @@
     </div>
 <!--         <div class="label-holder disclaim center-note pricing" ng-show="current_pkg && requested_pkg" ng-cloak>Pricing is not inclusive of any add-ons; refer to the ordering system for accurate pricing with all package components
         </div>
- -->        <div class="label-holder disclaim assumehd" ng-if="current_pkg.type == 'att'" ng-cloak>U-Verse packages assume HD</div><!-- 
-         --><div class="label-holder disclaim assumehd assumeright" ng-if="requested_pkg.type == 'att'" ng-cloak>U-Verse packages assume HD</div>
+ -->    
     </div>
     
     <script src="%%pub%%system/js/webtrends.js" type="text/javascript"></script>
@@ -343,7 +361,7 @@
     <script type="text/javascript" src="%%pub%%system/js/angular-growl.js"></script>
     <script type="text/javascript" src="%%pub%%system/js/underscore.js"></script>     
     <script type="text/javascript" src="%%pub%%system/js/jquery.qtip.min.js"></script>
-    <script type="text/javascript" src="%%pub%%rover_tools/package_compare/3.0/script/app.js"></script>
+    <script type="text/javascript" src="/3.0/script/app.js"></script>
     <!-- moved here due to Tridion parsing the > symbol incorrectly -->
     <!-- TODO: moved this back to app.js once the issue in Tridion is fixed -->
     <script type="text/javascript">
@@ -359,10 +377,11 @@
             };
             
         });
-    </script>    
+        $(".close_notification").on('click', function(){$(".alert_message").parent().css('display','none');});
+    </script>
     <script type="text/javascript" src="/data/channels.js"></script>
     <script type="text/javascript" src="/data/att_channels.js"></script>
-    <script type="text/javascript" src="%%pub%%rover_tools/package_compare/3.0/script/class.js"></script>
-    <script type="text/javascript" src="%%pub%%rover_tools/package_compare/3.0/controller/app_controller.js"></script>    
+    <script type="text/javascript" src="/3.0/script/class.js"></script>
+    <script type="text/javascript" src="/3.0/controller/app_controller.js"></script>    
 </body>
 </html>
