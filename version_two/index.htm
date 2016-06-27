@@ -61,7 +61,7 @@
             <div style="display:inline-block;float:left">
                 <h2 style="margin-bottom:5px">Current Package</h2>
             </div>
-            <div style="display:inline-block;float:right;margin-right: 110px;">
+            <div style="display:inline-block;float:right;margin-right: 90px;">
                 <h2 style="margin-bottom:5px">Requested Package</h2>
             </div>
         </div>
@@ -73,19 +73,19 @@
 <!--                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' ' + dataStore.getDisplayPrice(current_pkg.price)) group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
                 </select>
  -->            
-                        <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname) group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
-                        </select>
-                    </div>
-                    <div style="display:table-cell;width:30%;text-align: center;">
+                    <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname) group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
+                    </select>
+                </div>
+                <div style="display:table-cell;width:30%;text-align: center;">
                         <p id="genreLegend" >Legend<span class="alert" ng-window-pie>?</span></p>
-                    </div>
+                </div>
 
-                    <div style="display:table-cell;width:35%;text-align:right" class="requested">
+                <div style="display:table-cell;width:35%;text-align:right" class="requested">
 <!--                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' ' + dataStore.getDisplayPrice(requested_pkg.price)) group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
                 </select>
  -->            
-                        <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname) group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
-                        </select>
+                    <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname) group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
+                    </select>
                 </div>
                 <div class="clearfix"></div>
             </div>
