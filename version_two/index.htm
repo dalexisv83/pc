@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="%%pub%%system/css/jquery.qtip.min.css"> 
     <link rel="stylesheet" href="%%pub%%system/css/chosen.css"> 
     <link rel="stylesheet" href="%%pub%%system/css/growl.css">
-    <link rel="stylesheet" href="style/style.css?v=new">
+    <link rel="stylesheet" href="style/style.css?v=01">
     <!--[if IE]>
     <script src="%%pub%%system/js/PIE.js"></script>
     <![endif]-->
@@ -57,7 +57,7 @@
                 </div>
                 <div class="alert_message" style="padding-right:15px"></div>
         </div>
-        <div class="headers" style="width:100%;display:block;position:relative;vertical-align:middle;margin-top:8px">
+        <div class="headers headers2">
             <div style="display:inline-block;float:left">
                 <h2 style="margin-bottom:5px">Current Package</h2>
             </div>
@@ -77,7 +77,7 @@
                         </select>
                     </div>
                     <div style="display:table-cell;width:30%;text-align: center;">
-                        <p id="genreLegend" style="position:inherit;margin-left:20px;display:inline-block;color:black;background-repeat: no-repeat;background-position: 49px 1px;height: 20px;cursor: pointer;font-size: 12px;">Legend<span style="margin:0 4px;background: #d0e4f7;background: -ms-linear-gradient(top, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);background: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); -pie-background: linear-gradient(#87bcea, #0a77d5); text-align: center;color: white;font-size: .9em;font-weight: bold;padding: 1px 4px;-webkit-border-radius: 16px;-moz-border-radius: 16px;border-radius: 16px;" ng-window-pie>?</span></p>
+                        <p id="genreLegend" >Legend<span class="alert" ng-window-pie>?</span></p>
                     </div>
 
                     <div style="display:table-cell;width:35%;text-align:right" class="requested">
@@ -165,9 +165,13 @@
         <div style="display:table;width:100%;border-spacing:0.2em;margin-bottom:5px;">
             <div style="display:table-row">
                 <div style="display:table-cell;width:25%;height:100%">
-                    <div style="height:50px;width:100%;vertical-align:middle;border:1px solid #dae3ec;background-color:#e1edf9;" class="current" ng-if="current_pkg.type == 'att'" ng-cloak>
-                        <div style="color:#495ecb;font-weight:bold;font-size:0.87em;padding:5px;margin-top:7px" class="label-holder" ><div style="display:inline-block;color:black;background-repeat: no-repeat;background-position: 49px 1px;height: 20px;cursor: pointer;font-size: 12px;"><span style="margin:0 4px;background: #d0e4f7;background: -ms-linear-gradient(top, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);background: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); -pie-background: linear-gradient(#87bcea, #0a77d5); text-align: center; color: white;font-size: .8em;font-weight: bold;padding: 1px 4px;-webkit-border-radius: 16px;-moz-border-radius: 16px;border-radius: 16px;" ng-window-pie>!</span>
-                        </div>U-Verse packages assume HD</div>
+                    <div class="current alert_ggp" ng-if="current_pkg.type == 'att'" ng-cloak>
+                        <div class="label-holder alert_gp" >
+                            <div class="alert_p">
+                                <span class="alert" ng-window-pie><span style="position:relative;z-index:5">!</span></span>
+                            </div>
+                            U-Verse packages assume HD
+                        </div>
                     </div>
                 </div>
                 <div style="display:table-cell;width:50%" class="current">
@@ -176,9 +180,13 @@
                     </div>
                 </div>
                 <div style="display:table-cell;width:25%;height:100%">
-                    <div style="height:50px;width:100%;vertical-align:middle;border:1px solid #dae3ec;background-color:#e1edf9;" class="current" ng-if="requested_pkg.type == 'att'" ng-cloak>
-                        <div style="color:#495ecb;font-weight:bold;font-size:0.87em;padding:5px;margin-top:7px" class="label-holder" ><div style="display:inline-block;color:black;background-repeat: no-repeat;background-position: 49px 1px;height: 20px;cursor: pointer;font-size: 12px;"><span style="margin:0 4px;background: #d0e4f7;background: -ms-linear-gradient(top, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);background: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); -pie-background: linear-gradient(#87bcea, #0a77d5);text-align: center; color: white;font-size: .8em;font-weight: bold;padding: 1px 4px;-webkit-border-radius: 16px;-moz-border-radius: 16px;border-radius: 16px;" ng-window-pie>!</span>
-                        </div>U-Verse packages assume HD</div>
+                    <div class="current alert_ggp" ng-if="requested_pkg.type == 'att'" ng-cloak>
+                        <div class="label-holder alert_gp" >
+                            <div class="alert_p">
+                                <span class="alert" ng-window-pie><span style="position:relative;z-index:5">!</span></span>
+                            </div>
+                            U-Verse packages assume HD
+                        </div>
                     </div>
                 </div>
             </div>
