@@ -96,16 +96,16 @@
         <div>
             <div class="channels-count-holder" ng-cloak ng-show="current_channels.length > 0 || gained_channels.length > 0 || lost_channels.length > 0 || requested_channels.length > 0">
                 <div class="pull-left">
-                    <div class="current count" ng-click="show_current_channels = Utility.show(show_current_channels)" ng-cloak>{{current_channels.length}}</div>
+                    <div class="current count" ng-click="show_current_channels = Utility.show(show_current_channels)" ng-cloak>{{ (current_channels | filter:{genre:'!AD'}).length }}</div>
                 </div>
                 <div class="pull-left">
-                    <div class="gained count" ng-click="show_gained_channels = Utility.show(show_gained_channels)" ng-cloak>{{gained_channels.length}}</div>
+                    <div class="gained count" ng-click="show_gained_channels = Utility.show(show_gained_channels)" ng-cloak>{{ (gained_channels | filter:{genre:'!AD'}).length }}</div>
                 </div>
                 <div class="pull-left">
-                    <div class="lost count" ng-click="show_lost_channels = Utility.show(show_lost_channels)" ng-cloak>{{lost_channels.length}}</div>
+                    <div class="lost count" ng-click="show_lost_channels = Utility.show(show_lost_channels)" ng-cloak>{{ (lost_channels | filter:{genre:'!AD'}).length }}</div>
                 </div>
                 <div class="pull-left">
-                    <div class="requested count" ng-click="show_requested_channels = Utility.show(show_requested_channels)" ng-cloak>{{requested_channels.length}}</div>
+                    <div class="requested count" ng-click="show_requested_channels = Utility.show(show_requested_channels)" ng-cloak>{{ (requested_channels | filter:{genre:'!AD'}).length }}</div>
                 </div>
                 <div class="clearfix"></div> 
             </div>           
@@ -262,7 +262,7 @@
             <div class="pull-left channels-table-holder current-channels" style="margin-left: 15px;">
                 <div class="table-wrapper" ng-cloak ng-show="current_channels.length > 0 && show_current_channels" scroll-to-top-when="items_changed" when-scrolled="current_pkg_limit = loadMore(current_pkg_limit);">
                     <table>
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse | limitTo:current_pkg_limit">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse | limitTo:current_pkg_limit | filter:{genre:'!AD'}">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
@@ -273,7 +273,7 @@
             <div class="pull-left channels-table-holder gained-channels" style="margin-left: 15px;">
                 <div class="table-wrapper" ng-cloak  ng-show="gained_channels.length > 0 && show_gained_channels" scroll-to-top-when="items_changed" when-scrolled="gained_channels_limit = loadMore(gained_channels_limit);">
                     <table>
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels | orderBy:sortType:reverse  | limitTo:gained_channels_limit">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels | orderBy:sortType:reverse  | limitTo:gained_channels_limit | filter:{genre:'!AD'}">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
@@ -284,7 +284,7 @@
             <div class="pull-left channels-table-holder lost-channels" style="margin-left: 15px;">
                 <div class="table-wrapper" ng-cloak  ng-show="lost_channels.length > 0 && show_lost_channels" scroll-to-top-when="items_changed" when-scrolled="lost_channels_limit = loadMore(lost_channels_limit);">
                     <table>                    
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels | orderBy:sortType:reverse  | limitTo:lost_channels_limit">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels | orderBy:sortType:reverse  | limitTo:lost_channels_limit | filter:{genre:'!AD'}">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
@@ -295,7 +295,7 @@
             <div class="pull-left channels-table-holder requested-channels" style="margin-left: 15px;">
                 <div class="table-wrapper" ng-cloak  ng-show="requested_channels.length > 0 && show_requested_channels" scroll-to-top-when="items_changed" when-scrolled="requested_pkg_limit = loadMore(requested_pkg_limit);">
                     <table>                  
-                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels | orderBy:sortType:reverse | limitTo:requested_pkg_limit">
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels | orderBy:sortType:reverse | limitTo:requested_pkg_limit | filter:{genre:'!AD'}">
                             <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
                             <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
