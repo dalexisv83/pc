@@ -51,12 +51,12 @@
             </div>
         </div>
     <div class="border" ng-window-pie style="height:710px">
-        <div style="width:100%;border:2px solid #0a77d5;padding:7px;font-size: 1.2em;display:none;position:relative">
+        <span style="width:100%;border:2px solid #0a77d5;padding:7px;font-size: 1.2em;display:none;position:relative">
                 <div class="close_notification" style="float:right;cursor:pointer;position:absolute;right:4px;top:0">
                     <img src="%%pub%%system/img/remove_icon.png" width=20 height=20 />
                 </div>
                 <div class="alert_message" style="padding-right:15px"></div>
-        </div>
+        </span>
         <div class="headers headers2">
             <div style="display:inline-block;float:left">
                 <h2 style="margin-bottom:5px">Current Package</h2>
@@ -320,6 +320,11 @@
             </div>
             <hr />
             <div class="wrapper">
+               <div class="pull-left code">AD</div>
+               <div class="pull-left title">Advertisement</div>
+               <div style="clear:both"></div>
+            </div>            
+            <div class="wrapper">
                <div class="pull-left code">FAM</div>
                <div class="pull-left title">Family</div>
                <div style="clear:both"></div>
@@ -372,7 +377,7 @@
     <script type="text/javascript" src="%%pub%%system/js/angular-growl.js"></script>
     <script type="text/javascript" src="%%pub%%system/js/underscore.js"></script>     
     <script type="text/javascript" src="%%pub%%system/js/jquery.qtip.min.js"></script>
-    <script type="text/javascript" src="/3.0/script/app.js"></script>
+    <script type="text/javascript" src="script/app.js"></script>
     <!-- moved here due to Tridion parsing the > symbol incorrectly -->
     <!-- TODO: moved this back to app.js once the issue in Tridion is fixed -->
     <script type="text/javascript">
@@ -390,9 +395,8 @@
         });
         $(".close_notification").on('click', function(){$(".alert_message").parent().css('display','none');});
     </script>
-    <script type="text/javascript" src="/data/channels.js"></script>
-    <script type="text/javascript" src="/data/att_channels.js"></script>
-    <script type="text/javascript" src="/3.0/script/class.js"></script>
-    <script type="text/javascript" src="/3.0/controller/app_controller.js"></script>    
+    <script type="text/javascript" src="%%pub%%rover_tools/channel_list/version_two/data/channels.js?v=070716"></script>
+    <script type="text/javascript" src="script/class.js"></script>
+    <script type="text/javascript" src="controller/app_controller.js"></script>    
 </body>
 </html>

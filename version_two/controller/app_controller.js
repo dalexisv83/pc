@@ -13,7 +13,7 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
     $scope.gained_channels = []; //holds the gained channels
     $scope.lost_channels = []; //holds the lost channels
     
-    $scope.dataStore = new DataStore(data,att_channels); //expose the datasource class to the view
+    $scope.dataStore = new DataStore(data); //expose the datasource class to the view
     $scope.UrlFormatter = new UrlFormatter(localhost); //expose the urlformatter class to the view
     $scope.Utility = new Utility(); //expose the utility class to the view
     
@@ -186,10 +186,12 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
 
             //show package tip
             if($scope.requested_pkg.tip){
-               alert_message.addInfoMessage($scope.requested_pkg.tip); 
+                alert_message.parent().css('display','block');
+                alert_message.html($scope.requested_pkg.tip); 
             }
             else{
-               alert_message.addInfoMessage('');  
+                alert_message.parent().css('display','none');
+                alert_message.html('');  
             }
         }        
     });
@@ -238,7 +240,8 @@ app.controller('AppController', ['$scope','growl',function ($scope, growl) {
         $scope.pay_more_amt = 0; 
         
         //remove the growl message
-        alert_message.addInfoMessage('');
+        alert_message.parent().css('display','none');
+        alert_message.html('');
         
         //reset volume
         $scope.volume = null;
