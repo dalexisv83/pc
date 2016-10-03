@@ -59,7 +59,20 @@
            return false;          
         }        
         
-        return channels[id - 1];
+        var match_ch = false,
+        chs = this.data.channels,
+        i,
+        len = chs.length,
+        ch;
+
+        for (i = 0; i < len; i = i + 1) {
+            ch = chs[i];
+            if (ch.id === id){
+                match_ch = ch;
+                break;
+            }
+        }
+        return match_ch;
         
     };
     
