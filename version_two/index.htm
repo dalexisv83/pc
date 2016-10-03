@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />   
     <title>Package Compare</title>
-    <link rel="stylesheet" href="%%pub%%system/css/bootstrap.3.1.1.css">  
-    <link rel="stylesheet" href="%%pub%%system/css/jquery.qtip.min.css"> 
-    <link rel="stylesheet" href="%%pub%%system/css/chosen.css"> 
-    <link rel="stylesheet" href="%%pub%%system/css/growl.css">
+    <link rel="stylesheet" href="http://agentanswercenter.directv.com/en-us/res/system/css/bootstrap.3.1.1.css">  
+    <link rel="stylesheet" href="http://agentanswercenter.directv.com/en-us/res/system/css/jquery.qtip.min.css"> 
+    <link rel="stylesheet" href="http://agentanswercenter.directv.com/en-us/res/system/css/chosen.css"> 
+    <link rel="stylesheet" href="http://agentanswercenter.directv.com/en-us/res/system/css/growl.css">
     <link rel="stylesheet" href="style/style.css?v=01">
     <!--[if IE]>
-    <script src="%%pub%%system/js/PIE.js"></script>
+    <script src="http://agentanswercenter.directv.com/en-us/res/system/js/PIE.js"></script>
     <![endif]-->
     <!--intentionally placed in the head so ng-cloak will work.... please refer to https://docs.angularjs.org/api/ng/directive/ngCloak-->
-    <script type="text/javascript" src="%%pub%%system/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="%%pub%%system/js/chosen_jquery.js"></script>
-    <script type="text/javascript" src="%%pub%%system/js/angular.js"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/chosen_jquery.js"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/angular.js"></script>
     <script>
         function pop_at_noresize(page,pageWidth,pageHeight,pageName) {
     if(isNaN(pageWidth) == true){
@@ -38,7 +38,7 @@
 <div class="wrapper" ng-controller="AppController" ng-init="init()">
     <div class="headers" style="height:70px">
             <div class="col-md-4" style="margin-top:25px;display:inline-block">
-                <img src="%%pub%%system/img/Logo_DTV_ATT.png">            
+                <img src="http://agentanswercenter.directv.com/en-us/res/system/img/Logo_DTV_ATT.png">            
             </div>
             <div class="col-md-5" style="margin-top:10px;display:inline-block">
                 <h1 class="tool-title" style="font-size:1.5em;">Package Compare Tool</h1>
@@ -46,14 +46,14 @@
 
             <div class="col-md-3" style="float:right;margin-top:50px;text-align:right;position:relative">
                 <input type="button" value="Reset" class="default" ng-click="reset();" style="position:absolute;top:-30px;right:10px" ng-window-pie></input>
-                <a href="javascript:pop_at_noresize('%%pub%%rover_tools/channel_list/channel_list.htm',900,760);" style="font-size:1.2em;color:white;text-decoration:underline">
-                <img src='%%pub%%system/img/external-link-icon.png' width=20 height=15 /> Channel Lineup</a>
+                <a href="javascript:pop_at_noresize('http://agentanswercenter.directv.com/en-us/res/rover_tools/channel_list/channel_list.htm',900,760);" style="font-size:1.2em;color:white;text-decoration:underline">
+                <img src='http://agentanswercenter.directv.com/en-us/res/system/img/external-link-icon.png' width=20 height=15 /> Channel Lineup</a>
             </div>
         </div>
     <div class="border" ng-window-pie style="height:710px">
         <span style="width:100%;border:2px solid #0a77d5;padding:7px;font-size: 1.2em;display:none;position:relative">
                 <div class="close_notification" style="float:right;cursor:pointer;position:absolute;right:4px;top:0">
-                    <img src="%%pub%%system/img/remove_icon.png" width=20 height=20 />
+                    <img src="http://agentanswercenter.directv.com/en-us/res/system/img/remove_icon.png" width=20 height=20 />
                 </div>
                 <div class="alert_message" style="padding-right:15px"></div>
         </span>
@@ -165,7 +165,7 @@
         <div style="display:table;width:100%;border-spacing:0.2em;margin-bottom:5px;">
             <div style="display:table-row">
                 <div style="display:table-cell;width:25%;height:100%">
-                    <div class="current alert_ggp" ng-if="current_pkg.type == 'att'" ng-cloak>
+                    <div class="current alert_ggp" ng-if="current_pkg.company == 'U-verse'" ng-cloak>
                         <div class="label-holder alert_gp" >
                             <div class="alert_p">
                                 <span class="alert" ng-window-pie><span style="position:relative;z-index:5">!</span></span>
@@ -263,8 +263,9 @@
                 <div class="table-wrapper" ng-cloak ng-show="current_channels.length > 0 && show_current_channels" scroll-to-top-when="items_changed" when-scrolled="current_pkg_limit = loadMore(current_pkg_limit);">
                     <table>
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse | limitTo:current_pkg_limit | filter:{genre:'!AD'}">
-                            <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td ng-if="current_pkg.company == 'DIRECTV'" class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td ng-if="current_pkg.company == 'U-verse'" class="channel-number" ng-bind-html-unsafe="channel.attNumber" width="24"></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -274,8 +275,9 @@
                 <div class="table-wrapper" ng-cloak  ng-show="gained_channels.length > 0 && show_gained_channels" scroll-to-top-when="items_changed" when-scrolled="gained_channels_limit = loadMore(gained_channels_limit);">
                     <table>
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels | orderBy:sortType:reverse  | limitTo:gained_channels_limit | filter:{genre:'!AD'}">
-                            <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td ng-if="requested_pkg.company == 'DIRECTV'" class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td ng-if="requested_pkg.company == 'U-verse'" class="channel-number" ng-bind-html-unsafe="channel.attNumber" width="24"></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -285,8 +287,9 @@
                 <div class="table-wrapper" ng-cloak  ng-show="lost_channels.length > 0 && show_lost_channels" scroll-to-top-when="items_changed" when-scrolled="lost_channels_limit = loadMore(lost_channels_limit);">
                     <table>                    
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels | orderBy:sortType:reverse  | limitTo:lost_channels_limit | filter:{genre:'!AD'}">
-                            <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td ng-if="current_pkg.company == 'DIRECTV'" class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td ng-if="current_pkg.company == 'U-verse'" class="channel-number" ng-bind-html-unsafe="channel.attNumber" width="24"></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -296,8 +299,9 @@
                 <div class="table-wrapper" ng-cloak  ng-show="requested_channels.length > 0 && show_requested_channels" scroll-to-top-when="items_changed" when-scrolled="requested_pkg_limit = loadMore(requested_pkg_limit);">
                     <table>                  
                         <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels | orderBy:sortType:reverse | limitTo:requested_pkg_limit | filter:{genre:'!AD'}">
-                            <td class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
-                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><span ng-if="channel.genre == 'SNC'">Sonic Tap: </span><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td ng-if="requested_pkg.company == 'DIRECTV'" class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td ng-if="requested_pkg.company == 'U-verse'" class="channel-number" ng-bind-html-unsafe="channel.attNumber" width="24"></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
                             <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
                         </tr>
                     </table>
@@ -371,12 +375,12 @@
  -->    
     </div>
     
-    <script src="%%pub%%system/js/webtrends.js" type="text/javascript"></script>
-    <script type="text/javascript" src="%%pub%%system/js/angular-sanitize.js"></script>
-    <script type="text/javascript" src="%%pub%%rover_tools/channel_list/version_two/js/unit_test/polyfills.js"></script>
-    <script type="text/javascript" src="%%pub%%system/js/angular-growl.js"></script>
-    <script type="text/javascript" src="%%pub%%system/js/underscore.js"></script>     
-    <script type="text/javascript" src="%%pub%%system/js/jquery.qtip.min.js"></script>
+    <script src="http://agentanswercenter.directv.com/en-us/res/system/js/webtrends.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/angular-sanitize.js"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/rover_tools/channel_list/version_two/js/unit_test/polyfills.js"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/angular-growl.js"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/underscore.js"></script>     
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/jquery.qtip.min.js"></script>
     <script type="text/javascript" src="script/app.js"></script>
     <!-- moved here due to Tridion parsing the > symbol incorrectly -->
     <!-- TODO: moved this back to app.js once the issue in Tridion is fixed -->
@@ -395,7 +399,7 @@
         });
         $(".close_notification").on('click', function(){$(".alert_message").parent().css('display','none');});
     </script>
-    <script type="text/javascript" src="%%pub%%rover_tools/channel_list/version_two/data/channels.js?v=070716"></script>
+    <script type="text/javascript" src="http://vwecda05.testla.testfrd.directv.com/toolmanager/index.php/packagecompareres"></script>
     <script type="text/javascript" src="script/class.js"></script>
     <script type="text/javascript" src="controller/app_controller.js"></script>    
 </body>
