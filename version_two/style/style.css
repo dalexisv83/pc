@@ -631,15 +631,7 @@ font[color='red'], font[color='#FF0000'], .hdsd {
 #genreCodes {
   display: none;
   position: absolute;
-  width: 220px;
   background-color: white;
-  border: solid 1px #d2d2d2;
-  border-radius: 10px;
-  padding: 10px;
-}
-
-#genreCodes label {
-  margin-right: 15px;
 }
 
 #genreLegend:hover #genreCodes, #genreLegend:focus #genreCodes {

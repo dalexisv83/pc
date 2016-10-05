@@ -55,7 +55,7 @@
     <div class="border" ng-window-pie style="height:710px">
         <span style="width:100%;border:2px solid #0a77d5;padding:7px;font-size: 1.2em;display:none;position:relative">
                 <div class="close_notification" style="float:right;cursor:pointer;position:absolute;right:4px;top:0">
-                    <img src="http://agentanswercenter.directv.com/en-us/res/system/img/x.png" width=10 height=10 />
+                    <img src="http://agentanswercenter.directv.com/en-us/res/system/img/remove_icon.png" width=20 height=20 />
                 </div>
                 <div class="alert_message" style="padding-right:15px"></div>
         </span>
@@ -79,51 +79,62 @@
                     </select> -->
                 </div>
                 <div style="display:table-cell;width:30%;text-align: center;">
-                    <div id="genreLegend" onClick="return false;">Legend<span class="alert" ng-window-pie>?</span>
+                    <div id="genreLegend" >Legend<span class="alert" ng-window-pie>?</span>
                         <div id="genreCodes">
                             <div class="wrapper last">
-                               <div class="pull-left code"><label>*</label><a href="/en-us/res/ace/vod_index.html" target="_blank">DIRECTV On Demand</a></div>
+                               <div class="pull-left code">*</div>
+                               <div class="pull-left title"><a href="/en-us/res/ace/vod_index.html" target="_blank">DIRECTV On Demand</a></div>
                                <div style="clear:both"></div>
                             </div>
                             <div class="wrapper last">
-                               <div class="pull-left code"><label>&#171;</label><a href="/en-us/res/programming/72hr_rewind_restart.html" target="_blank">Rewind &amp; Restart</a></div>
+                               <div class="pull-left code">&#171;</div>
+                               <div class="pull-left title"><a href="/en-us/res/programming/72hr_rewind_restart.html" target="_blank">Rewind &amp; Restart</a></div>
                                <div style="clear:both"></div>
                             </div>
                             <hr />
                             <div class="wrapper">
-                               <div class="pull-left code"><label><input type="checkbox" ng-model="gFilter.fam" ng-change="update()"/> FAM</label>Family</div>
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.fam" ng-change="update()"/> FAM</div>
+                               <div class="pull-left title">Family</div>
                                <div style="clear:both"></div>
                             </div>
                             <div class="wrapper">
-                               <div class="pull-left code"><label><input type="checkbox" ng-model="gFilter.int" ng-change="update()"/> INT</label>International</div>
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.int" ng-change="update()"/> INT</div>
+                               <div class="pull-left title">International</div>
                                <div style="clear:both"></div>
                             </div>
                             <div class="wrapper">
-                               <div class="pull-left code"><label><input type="checkbox" ng-model="gFilter.lif" ng-change="update()"/> LIF</label>Lifestyle</div>
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.lif" ng-change="update()"/> LIF</div>
+                               <div class="pull-left title">Lifestyle</div>
                                <div style="clear:both"></div>
                             </div>
                             <div class="wrapper">
-                               <div class="pull-left code"><label><input type="checkbox" ng-model="gFilter.mov" ng-change="update()"/> MOV</label>Movie</div>
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.mov" ng-change="update()"/> MOV</div>
+                               <div class="pull-left title">Movie</div>
                                <div style="clear:both"></div>
                             </div>
                             <div class="wrapper">
-                               <div class="pull-left code"><label><input type="checkbox" ng-model="gFilter.new" ng-change="update()"/> NEW</label>News</div>
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.new" ng-change="update()"/> NEW</div>
+                               <div class="pull-left title">News</div>
                                <div style="clear:both"></div>
                             </div>
                             <div class="wrapper">
-                               <div class="pull-left code"><label><input type="checkbox" ng-model="gFilter.pub" ng-change="update()"/> PUB</label>Public</div>
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.pub" ng-change="update()"/> PUB</div>
+                               <div class="pull-left title">Public</div>
                                <div style="clear:both"></div>
                             </div>
                             <div class="wrapper">
-                               <div class="pull-left code"><label><input type="checkbox" ng-model="gFilter.snc" ng-change="update()"/> SNC</label>Music</div>
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.snc" ng-change="update()"/> SNC</div>
+                               <div class="pull-left title">Music</div>
                                <div style="clear:both"></div>
                             </div>
                             <div class="wrapper">
-                               <div class="pull-left code"><label><input type="checkbox" ng-model="gFilter.spa" ng-change="update()"/> SPA</label>Spanish</div>
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.spa" ng-change="update()"/> SPA</div>
+                               <div class="pull-left title">Spanish</div>
                                <div style="clear:both"></div>
                             </div>
                             <div class="wrapper last">
-                               <div class="pull-left code"><label><input type="checkbox" ng-model="gFilter.spt" ng-change="update()"/> SPT</label>Sports</div>
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.spt" ng-change="update()"/> SPT</div>
+                               <div class="pull-left title">Sports</div>
                                <div style="clear:both"></div>
                             </div>          
                         </div><!--end of div#genreCodes-->
