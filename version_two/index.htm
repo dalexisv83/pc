@@ -72,11 +72,11 @@
         <div style="display:table;width:100%;border-spacing:0.2em">
             <div style="display:table-row">
                 <div style="display:table-cell;width:35%" class="current">
-<!--                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' ' + dataStore.getDisplayPrice(current_pkg.price)) group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
+                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' ' + dataStore.getDisplayPrice(current_pkg.price) + ' (' + current_pkg.count + ')') group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
                 </select>
- -->            
-                    <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname) group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
-                    </select>
+            
+<!--                     <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname) group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
+                    </select> -->
                 </div>
                 <div style="display:table-cell;width:30%;text-align: center;">
                     <div id="genreLegend" >Legend<span class="alert" ng-window-pie>?</span>
@@ -118,6 +118,11 @@
                                <div style="clear:both"></div>
                             </div>
                             <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.pub" ng-change="update()"/> PUB</div>
+                               <div class="pull-left title">Public</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
                                <div class="pull-left code"><input type="checkbox" ng-model="gFilter.snc" ng-change="update()"/> SNC</div>
                                <div class="pull-left title">Music</div>
                                <div style="clear:both"></div>
@@ -137,11 +142,11 @@
                 </div>
 
                 <div style="display:table-cell;width:35%;text-align:right" class="requested">
-<!--                 <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' ' + dataStore.getDisplayPrice(requested_pkg.price)) group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
+                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' ' + dataStore.getDisplayPrice(requested_pkg.price) + ' (' + requested_pkg.count + ')') group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
                 </select>
- -->            
-                    <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname) group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
-                    </select>
+            
+<!--                     <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname) group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
+                    </select> -->
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -198,12 +203,12 @@
                 </div>               
             </div>
             <div class="table-header label double pull-left">
-<!--                 <div class="label-holder saved-amt" ng-show="saved_amt > 0" ng-cloak>
+                 <div class="label-holder saved-amt" ng-show="saved_amt > 0" ng-cloak>
                     Customer will save <span class="price">&#36;<span ng-bind-html-unsafe="saved_amt"></span></span>
                 </div>
                 <div class="label-holder pay-more-amt" ng-show="pay_more_amt > 0" ng-cloak>
                     Customer will pay <span class="price">&#36;<span ng-bind-html-unsafe="pay_more_amt"></span></span> more
-                </div>-->
+                </div>
                 
             </div>          
             <div class="table-header label pull-left" style="width:26%">
