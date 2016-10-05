@@ -517,8 +517,8 @@
             return 'http://agentanswercenterstg.directv.com/en-us/res/';            
         };
         this.formatUrl = function(url){
-            if (typeof url !== 'string'){
-                throw new Error('Enter a valid url.');
+            if (!url){
+                return null;
             }
             url = url.replace(/\s/g, ''); //remove spaces
             
@@ -580,21 +580,21 @@
     };
 
     
-    /**
-    * The Error class
-    */
-    var Error = function(message){
-        'use strict';
-        this.message = message;
-    };
+    // /**
+    // * The Error class
+    // */
+    // var Error = function(message){
+    //     'use strict';
+    //     this.message = message;
+    // };
     
-    Error.prototype.toString = function(){
-        'use strict';
-        return this.message;
-    };
-    /**
-    * End of Error class
-    */
+    // Error.prototype.toString = function(){
+    //     'use strict';
+    //     return this.message;
+    // };
+    // /**
+    // * End of Error class
+    // */
     
     
     /**

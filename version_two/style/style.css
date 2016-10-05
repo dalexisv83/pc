@@ -627,6 +627,16 @@ font[color='red'], font[color='#FF0000'], .hdsd {
   cursor: pointer;
   font-size: 12px;
 }
+
+#genreCodes {
+  display: none;
+  position: absolute;
+  background-color: white;
+}
+
+#genreLegend:hover #genreCodes, #genreLegend:focus #genreCodes {
+  display: block;
+}
 .alert_ggp{
   height:50px;
   width:100%;
