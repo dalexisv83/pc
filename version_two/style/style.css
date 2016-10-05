@@ -629,6 +629,7 @@ font[color='red'], font[color='#FF0000'], .hdsd {
 }
 
 #genreCodes {
+  cursor: default;
   display: none;
   position: absolute;
   width: 240px;
@@ -649,6 +650,7 @@ font[color='red'], font[color='#FF0000'], .hdsd {
 }
 
 .code input {
+  cursor: pointer;
   position: absolute;
   text-align: left;
   left: -14px;
