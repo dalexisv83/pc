@@ -162,13 +162,13 @@ app.controller('AppController', ['$scope','growl','$filter',function ($scope, gr
             channels_provider_diff,
             ranProv;
 
-        if($scope.show_current_channels) {
+        if (($scope.show_current_channels) && ($scope.current_pkg)) {
             $scope.current_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type),$scope.gFilter);
         }
-        if($scope.show_requested_channels) {
+        if (($scope.show_requested_channels) && ($scope.requested_pkg)) {
             $scope.requested_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.requested_pkg.channels,$scope.requested_pkg.type),$scope.gFilter);
         }
-        if ($scope.show_gained_channels) {
+        if (($scope.show_gained_channels) && ($scope.current_pkg) && ($scope.requested_pkg)) {
             diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
             ranDiff = true;
 
@@ -179,7 +179,7 @@ app.controller('AppController', ['$scope','growl','$filter',function ($scope, gr
                 $scope.gained_channels = $filter('byGenre')(channels_provider_diff.gained_channels, $scope.gFilter);
             }
         }
-        if ($scope.show_lost_channels) {
+        if (($scope.show_lost_channels) && ($scope.current_pkg) && ($scope.requested_pkg)) {
             if (!ranDiff) {
                 diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
             }
