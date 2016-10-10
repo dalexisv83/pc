@@ -37,6 +37,18 @@ app.controller('AppController', ['$scope','growl','$filter',function ($scope, gr
     $scope.gained_channels_limit = min_limit;
     $scope.lost_channels_limit = min_limit;
 
+    $scope.gFilter = {
+        "int": true,
+        "fam": true,
+        "lif": true,
+        "mov": true,
+        "new": true,
+        "pub": true,
+        "snc": true,
+        "spa": true,
+        "spt": true
+    };
+
     
     /**
      * Increases the limit initially set for ng-repeat everytime the user scrolls a dynamic channel
@@ -300,6 +312,18 @@ app.controller('AppController', ['$scope','growl','$filter',function ($scope, gr
         $scope.volume = null;
         
         $scope.sortType = 'channelname';
+
+        $scope.gFilter = {
+            "int": true,
+            "fam": true,
+            "lif": true,
+            "mov": true,
+            "new": true,
+            "pub": true,
+            "snc": true,
+            "spa": true,
+            "spt": true
+        };
         
         $scope.resetLimit();
     };
@@ -322,15 +346,15 @@ app.filter('byGenre', function() {
                 trueGens.push(k);
             }
         };
-        if (trueGens.length == 0) {
-            return items;
-        } else {
+        // if (trueGens.length == 0) {
+        //     return items;
+        // } else {
             for (i in items) {
                 if ((items[i].genre) && (trueGens.indexOf(items[i].genre.toLowerCase()) > -1)) {
                     matches.push(items[i]);
                 }
             };
             return matches;
-        }
+        //}
     }
 });
