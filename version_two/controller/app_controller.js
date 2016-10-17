@@ -1,6 +1,44 @@
-app.controller('AppController', ['$scope','growl','$filter',function ($scope, growl, $filter) {
+app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
     'use strict';    
-    var alert_message = $(".alert_message");
+    var alert_message = $(".alert_message"),
+        refresher = function() {
+            var diff,
+                ranDiff,
+                channels_provider_diff,
+                ranProv;
+
+            if (($scope.show_current_channels) && ($scope.current_pkg)) {
+                $scope.current_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type),$scope.gFilter);
+            }
+            if (($scope.show_requested_channels) && ($scope.requested_pkg)) {
+                $scope.requested_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.requested_pkg.channels,$scope.requested_pkg.type),$scope.gFilter);
+            }
+            if (($scope.show_gained_channels) && ($scope.current_pkg) && ($scope.requested_pkg)) {
+                diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
+                ranDiff = true;
+
+                if (!$.isEmptyObject(diff)) {
+                    $scope.gained_channels_limit = min_limit;
+                    channels_provider_diff = $scope.dataStore.diffChannelsByProvider($scope.current_pkg,$scope.requested_pkg,diff);
+                    ranProv = true;
+                    $scope.gained_channels = $filter('byGenre')(channels_provider_diff.gained_channels, $scope.gFilter);
+                }
+            }
+            if (($scope.show_lost_channels) && ($scope.current_pkg) && ($scope.requested_pkg)) {
+                if (!ranDiff) {
+                    diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
+                }
+
+                if (!$.isEmptyObject(diff)) {
+                    $scope.lost_channels_limit = min_limit;
+                    if (!ranProv) {
+                        channels_provider_diff = $scope.dataStore.diffChannelsByProvider($scope.current_pkg,$scope.requested_pkg,diff);
+                    }
+                    $scope.lost_channels = $filter('byGenre')(channels_provider_diff.lost_channels, $scope.gFilter);
+                }
+            }
+        };
+
     $scope.current_pkg = null; //holds the selected current package object
     $scope.requested_pkg = null; //holds the selected requested package object    
     
@@ -143,9 +181,8 @@ app.controller('AppController', ['$scope','growl','$filter',function ($scope, gr
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
             channels_provider_diff,
-            //get the price diff. to determine if customer will save or pay more
-            price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);            
-            
+            price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
+    
             if (!$.isEmptyObject(diff)) {                
                 $scope.gained_channels_limit = min_limit;
                 $scope.lost_channels_limit = min_limit;               
@@ -162,48 +199,10 @@ app.controller('AppController', ['$scope','growl','$filter',function ($scope, gr
             $scope.$broadcast("items_changed");
         }
       
-    }
+    };
 
     $scope.update = function() {
         return refresher();
-    };
-
-    var refresher = function() {
-        var diff,
-            ranDiff,
-            channels_provider_diff,
-            ranProv;
-
-        if (($scope.show_current_channels) && ($scope.current_pkg)) {
-            $scope.current_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type),$scope.gFilter);
-        }
-        if (($scope.show_requested_channels) && ($scope.requested_pkg)) {
-            $scope.requested_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.requested_pkg.channels,$scope.requested_pkg.type),$scope.gFilter);
-        }
-        if (($scope.show_gained_channels) && ($scope.current_pkg) && ($scope.requested_pkg)) {
-            diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
-            ranDiff = true;
-
-            if (!$.isEmptyObject(diff)) {
-                $scope.gained_channels_limit = min_limit;
-                channels_provider_diff = $scope.dataStore.diffChannelsByProvider($scope.current_pkg,$scope.requested_pkg,diff);
-                ranProv = true;
-                $scope.gained_channels = $filter('byGenre')(channels_provider_diff.gained_channels, $scope.gFilter);
-            }
-        }
-        if (($scope.show_lost_channels) && ($scope.current_pkg) && ($scope.requested_pkg)) {
-            if (!ranDiff) {
-                diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
-            }
-
-            if (!$.isEmptyObject(diff)) {
-                $scope.lost_channels_limit = min_limit;
-                if (!ranProv) {
-                    channels_provider_diff = $scope.dataStore.diffChannelsByProvider($scope.current_pkg,$scope.requested_pkg,diff);
-                }
-                $scope.lost_channels = $filter('byGenre')(channels_provider_diff.lost_channels, $scope.gFilter);
-            }
-        }
     };
     
     //watch for a change in requested package
@@ -259,7 +258,7 @@ app.controller('AppController', ['$scope','growl','$filter',function ($scope, gr
                 alert_message.html('');  
             }
         }        
-    }
+    };
    
     /**
      * Sort functionality for channels
@@ -336,25 +335,27 @@ app.controller('AppController', ['$scope','growl','$filter',function ($scope, gr
 }]);
 
 app.filter('byGenre', function() {
+    'use strict';
     return function(items, genreObj) {
-        var k,
+        var k=0,
             trueGens = [],
-            i,
-            matches = [];
+            i=0,
+            matches = [],
+            itemLen = items.length;
         for (k in genreObj) {
-            if (genreObj[k] == true) {
+            if (genreObj[k] === true) {
                 trueGens.push(k);
             }
-        };
+        }
         // if (trueGens.length == 0) {
         //     return items;
         // } else {
-            for (i in items) {
+            for (i = 0; i < itemLen; i = i+1) {
                 if ((items[i].genre) && (trueGens.indexOf(items[i].genre.toLowerCase()) > -1)) {
                     matches.push(items[i]);
                 }
-            };
+            }
             return matches;
         //}
-    }
+    };
 });

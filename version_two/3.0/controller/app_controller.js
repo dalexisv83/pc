@@ -1,4 +1,4 @@
-app.controller('AppController', ['$scope','growl',function ($scope, growl) {
+app.controller('AppController', ['$scope',function ($scope) {
     'use strict';    
     var alert_message = $('.alert_message');
     $scope.current_pkg = null; //holds the selected current package object
