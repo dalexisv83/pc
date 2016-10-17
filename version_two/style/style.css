@@ -640,6 +640,13 @@ font[color='red'], font[color='#FF0000'], .hdsd {
   box-shadow: 0px 0px 10px #d2d2d2;
 }
 
+#genreX {
+  cursor: pointer;
+  position: relative;
+  right: -105px;
+  top: -5px;
+}
+
 .code {
   width: 41px;
   font-weight: bold;
@@ -657,9 +664,6 @@ font[color='red'], font[color='#FF0000'], .hdsd {
   bottom: 2px;
 }
 
-#genreLegend:hover #genreCodes, #genreLegend:focus #genreCodes {
-  display: block;
-}
 .alert_ggp{
   height:50px;
   width:100%;

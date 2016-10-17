@@ -81,6 +81,7 @@
                 <div style="display:table-cell;width:30%;text-align: center;">
                     <div id="genreLegend" >Legend<span class="alert" ng-window-pie>?</span>
                         <div id="genreCodes">
+                        <img id="genreX" src="http://agentanswercenter.directv.com/en-us/res/system/img/x.png" width=10 height=10 />
                             <div class="wrapper last">
                                <div class="pull-left code">*</div>
                                <div class="pull-left title"><a href="/en-us/res/ace/vod_index.html" target="_blank">DIRECTV On Demand</a></div>
@@ -400,6 +401,13 @@
             
         });
         $(".close_notification").on('click', function(){$(".alert_message").parent().css('display','none');});
+        $('#genreLegend').click(function(){
+            $('#genreCodes').show();
+        });
+        $('#genreX').click(function(e){
+            e.stopPropagation();
+            $('#genreCodes').hide();
+        });
     </script>
     <script type="text/javascript" src="http://vwecda05.testla.testfrd.directv.com/toolmanager/index.php/packagecompareres"></script>
     <script type="text/javascript" src="version_two/script/class.js"></script>
