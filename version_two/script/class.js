@@ -38,7 +38,7 @@
         
         for (i = 0; i < len; i = i + 1) {
             pkg = pkgs[i];
-            if (pkg.id === id){
+            if ((pkg.id === id) || (pkg.id === String(id))){
                 match_pkg = pkg;
                 break;
             }
@@ -60,7 +60,7 @@
         }        
         
         var match_ch = false,
-        chs = this.data.channels,
+        chs = channels,
         i,
         len = chs.length,
         ch;
