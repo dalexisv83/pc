@@ -79,15 +79,39 @@
 		<echo message="Building build/css" />
 		<mkdir dir="${build.dir}/css" />
 		<echo message="Building build/test-reports" />
-		<mkdir dir="${build.dir}/test-reports" />		
+		<mkdir dir="${build.dir}/test-reports" />
+		<copy todir="${build.dir}">
+			<file file="version_two/index.htm" />
+		</copy>
+		<echo message="Copied index.htm" />
+		<copy todir="${build.dir}">
+			<file file="version_two/index_com.htm" />
+		</copy>
+		<echo message="Copied index_com.htm" />
 	</target>
-	
+	<target name="replace">
+		<replace dir="${build.dir}">
+			<include name="**/*.*"/>
+			<replacetoken>http://agentanswercenter.directv.com/en-us/res/</replacetoken>
+			<replacevalue>%%pub%%</replacevalue>
+		</replace>
+		<replace dir="${build.dir}">
+			<include name="**/*.*"/>
+			<replacetoken>http://agentanswercenterstg.directv.com/en-us/res/</replacetoken>
+			<replacevalue>%%pub%%</replacevalue>
+		</replace>
+		<replace dir="${build.dir}">
+			<include name="**/*.*"/>
+			<replacetoken>http://vwecda05.testla.testfrd.directv.com/toolmanager/index.php/packagecompareres</replacetoken>
+			<replacevalue>version_two/data/packagecompareres.js</replacevalue>
+		</replace>
+	</target>
 	<target name="jslint">
 		<jslint options="white,nomen,regexp" haltOnFailure="true">
 			<predef>screen,_,$$scope,$$,app,data,att_channels,angular,DataStore,UrlFormatter,Utility,document,ToolTip,CommentBtn,jQuery,window,localhost, min_limit, max_limit, dcsMultiTrack</predef>
 			<formatter type="plain" />
 			<formatter type="xml" destfile="${build.dir}/test-reports/jslint.xml" />
-			<fileset dir="version_two" includes="**/*.js" excludes="**/unit_test/tests.js,**/data/*.js" />
+			<fileset dir="version_two" includes="**/*.js" excludes="**/unit_test/tests.js,**/3.0/*.*,**/data/*.js" />
 		</jslint>
 	</target>
 	
@@ -99,7 +123,8 @@
 			fromdir="version_two"
 			todir="${build.dir}"			
 		>   
-			<exclude name="script/unit_test/tests.js" />                       
+			<exclude name="script/unit_test/tests.js" />
+			<exclude name="3.0/**" />                       
 		</yui-compressor>		
 	</target>
 	
@@ -122,5 +147,5 @@
 	<target name="clean">
 	</target>
 	
-	<target name="main" depends="start,jslint,compress,concat,clean" />	
+	<target name="main" depends="start,jslint,compress,concat,replace,clean" />	
 </project>
