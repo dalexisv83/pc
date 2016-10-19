@@ -81,11 +81,11 @@
 		<echo message="Building build/test-reports" />
 		<mkdir dir="${build.dir}/test-reports" />
 		<copy todir="${build.dir}">
-			<file file="version_two/index.htm" />
+			<file file="index.htm" />
 		</copy>
 		<echo message="Copied index.htm" />
 		<copy todir="${build.dir}">
-			<file file="version_two/index_com.htm" />
+			<file file="index_com.htm" />
 		</copy>
 		<echo message="Copied index_com.htm" />
 	</target>
