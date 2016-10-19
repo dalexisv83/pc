@@ -198,8 +198,8 @@
                     <a title="Click to open this package main page." onClick="window.open('{{current_pkg.url}}', '_blank');" href="#">
                         {{current_pkg.name}}
                     </a>
-                    <span ng-show="current_pkg.status == 'Expired'"> - </span>
-                    <a href="/en-us/res/programming/expired_packages.html" target="_blank" class="expired" ng-show="current_pkg.status == 'Expired'">Expired</a>
+                    <span ng-show="current_pkg.status == '0'"> - </span>
+                    <a href="/en-us/res/programming/expired_packages.html" target="_blank" class="expired" ng-show="current_pkg.status == '0'">Expired</a>
                 </div>               
             </div>
             <div class="table-header label double pull-left">
