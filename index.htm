@@ -72,7 +72,7 @@
         <div style="display:table;width:100%;border-spacing:0.2em">
             <div style="display:table-row">
                 <div style="display:table-cell;width:35%" class="current">
-                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' ' + dataStore.getDisplayPrice(current_pkg.price) + ' (' + current_pkg.count + ')') group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
+                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' ' + dataStore.getDisplayPrice(current_pkg.price) + ' (' + current_pkg.count + ')') group by current_pkg.company for current_pkg in current_pkgs | orderBy:'dname'" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
                 </select>
             
 <!--                     <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname) group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
@@ -143,7 +143,7 @@
                 </div>
 
                 <div style="display:table-cell;width:35%;text-align:right" class="requested">
-                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' ' + dataStore.getDisplayPrice(requested_pkg.price) + ' (' + requested_pkg.count + ')') group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
+                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' ' + dataStore.getDisplayPrice(requested_pkg.price) + ' (' + requested_pkg.count + ')') group by requested_pkg.company for requested_pkg in requested_pkgs | orderBy:'dname'" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
                 </select>
             
 <!--                     <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname) group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
@@ -196,7 +196,7 @@
         <div class="pkg-name-holder" style="margin-bottom:0">
             <div class="table-header label pull-left" ng-cloak>
                 <div class="current label-holder" ng-show="show_current_channels">
-                    <a title="Click to open this package main page." onClick="window.open('{{current_pkg.url}}', '_blank');" href="#">
+                    <a title="Click to open this package main page." onClick="window.open('http://agentanswercenter.directv.com/en-us/res/programming/{{current_pkg.url}}', '_blank');" href="#">
                         {{current_pkg.name}}
                     </a>
                     <span ng-show="current_pkg.status == 'Expired'"> - </span>
@@ -214,7 +214,7 @@
             </div>          
             <div class="table-header label pull-left" style="width:26%">
                 <div class="label-holder" ng-cloak ng-show="show_requested_channels" >
-                    <a title="Click to open this package main page." onClick="window.open('{{requested_pkg.url}}', '_blank');" href="#">
+                    <a title="Click to open this package main page." onClick="window.open('http://agentanswercenter.directv.com/en-us/res/programming/{{requested_pkg.url}}', '_blank');" href="#">
                         {{requested_pkg.name}}
                     </a>
                     <span ng-show="requested_pkg.status == 'Expired'"> - </span>
