@@ -196,11 +196,16 @@
         <div class="pkg-name-holder" style="margin-bottom:0">
             <div class="table-header label pull-left" ng-cloak>
                 <div class="current label-holder" ng-show="show_current_channels">
-                    <a title="Click to open this package main page." onClick="window.open('http://agentanswercenter.directv.com/en-us/res/programming/{{current_pkg.url}}', '_blank');" href="#">
+                    <span ng-if="current_pkg.url">
+                        <a title="Click to open this package main page." onClick="window.open('http://agentanswercenter.directv.com/en-us/res/programming/{{current_pkg.url}}', '_blank');" href="#">
                         {{current_pkg.name}}
-                    </a>
-                    <span ng-show="current_pkg.status == 'Expired'"> - </span>
-                    <a href="/en-us/res/programming/expired_packages.html" target="_blank" class="expired" ng-show="current_pkg.status == 'Expired'">Expired</a>
+                        </a>
+                        <span ng-show="current_pkg.status == 'Expired'"> - </span>
+                        <a href="/en-us/res/programming/expired_packages.html" target="_blank" class="expired" ng-show="current_pkg.status == 'Expired'">Expired</a>                        
+                    </span>
+                    <span ng-if="!current_pkg.url">
+                        {{current_pkg.name}}
+                    </span>
                 </div>               
             </div>
             <div class="table-header label double pull-left">
@@ -214,11 +219,16 @@
             </div>          
             <div class="table-header label pull-left" style="width:26%">
                 <div class="label-holder" ng-cloak ng-show="show_requested_channels" >
-                    <a title="Click to open this package main page." onClick="window.open('http://agentanswercenter.directv.com/en-us/res/programming/{{requested_pkg.url}}', '_blank');" href="#">
+                    <span ng-if="requested_pkg.url">
+                        <a title="Click to open this package main page." onClick="window.open('http://agentanswercenter.directv.com/en-us/res/programming/{{requested_pkg.url}}', '_blank');" href="#">
                         {{requested_pkg.name}}
-                    </a>
-                    <span ng-show="requested_pkg.status == 'Expired'"> - </span>
-                    <a href="/en-us/res/programming/expired_packages.html" target="_blank" class="expired" ng-show="requested.status == 'Expired'">Expired</a>
+                        </a>
+                        <span ng-show="requested_pkg.status == 'Expired'"> - </span>
+                        <a href="/en-us/res/programming/expired_packages.html" target="_blank" class="expired" ng-show="requested.status == 'Expired'">Expired</a>
+                    </span>
+                    <span ng-if="!requested_pkg.url">
+                        {{requested_pkg.name}}
+                    </span>
                 </div>                
             </div>
             <div class="clearfix"></div>
