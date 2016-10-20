@@ -164,9 +164,11 @@ app.controller('AppController', ['$scope','growl','$filter',function ($scope, gr
 
         if (($scope.show_current_channels) && ($scope.current_pkg)) {
             $scope.current_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type),$scope.gFilter);
+            $scope.current_count = $scope.current_channels.length;
         }
         if (($scope.show_requested_channels) && ($scope.requested_pkg)) {
             $scope.requested_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.requested_pkg.channels,$scope.requested_pkg.type),$scope.gFilter);
+            $scope.requested_count = $scope.requested_channels.length;
         }
         if (($scope.show_gained_channels) && ($scope.current_pkg) && ($scope.requested_pkg)) {
             diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
