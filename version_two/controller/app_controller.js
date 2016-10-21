@@ -3,9 +3,7 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
     var alert_message = $(".alert_message"),
         refresher = function() {
             var diff,
-                ranDiff,
-                channels_provider_diff,
-                ranProv;
+                channels_provider_diff;
 
             if (($scope.show_current_channels) && ($scope.current_pkg)) {
                 $scope.current_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type),$scope.gFilter);
@@ -13,27 +11,14 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
             if (($scope.show_requested_channels) && ($scope.requested_pkg)) {
                 $scope.requested_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.requested_pkg.channels,$scope.requested_pkg.type),$scope.gFilter);
             }
-            if (($scope.show_gained_channels) && ($scope.current_pkg) && ($scope.requested_pkg)) {
+            if (($scope.current_pkg) && ($scope.requested_pkg)) {
                 diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
-                ranDiff = true;
 
                 if (!$.isEmptyObject(diff)) {
                     $scope.gained_channels_limit = min_limit;
-                    channels_provider_diff = $scope.dataStore.diffChannelsByProvider($scope.current_pkg,$scope.requested_pkg,diff);
-                    ranProv = true;
-                    $scope.gained_channels = $filter('byGenre')(channels_provider_diff.gained_channels, $scope.gFilter);
-                }
-            }
-            if (($scope.show_lost_channels) && ($scope.current_pkg) && ($scope.requested_pkg)) {
-                if (!ranDiff) {
-                    diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
-                }
-
-                if (!$.isEmptyObject(diff)) {
                     $scope.lost_channels_limit = min_limit;
-                    if (!ranProv) {
-                        channels_provider_diff = $scope.dataStore.diffChannelsByProvider($scope.current_pkg,$scope.requested_pkg,diff);
-                    }
+                    channels_provider_diff = $scope.dataStore.diffChannelsByProvider($scope.current_pkg,$scope.requested_pkg,diff);
+                    $scope.gained_channels = $filter('byGenre')(channels_provider_diff.gained_channels, $scope.gFilter);
                     $scope.lost_channels = $filter('byGenre')(channels_provider_diff.lost_channels, $scope.gFilter);
                 }
             }
@@ -84,7 +69,8 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
         "pub": true,
         "snc": true,
         "spa": true,
-        "spt": true
+        "spt": true,
+        "ad": true
     };
 
     
@@ -347,15 +333,15 @@ app.filter('byGenre', function() {
                 trueGens.push(k);
             }
         }
-        // if (trueGens.length == 0) {
-        //     return items;
-        // } else {
+        if (trueGens.length === 0) {
+            matches = items;
+        } else {
             for (i = 0; i < itemLen; i = i+1) {
                 if ((items[i].genre) && (trueGens.indexOf(items[i].genre.toLowerCase()) > -1)) {
                     matches.push(items[i]);
                 }
             }
-            return matches;
-        //}
+        }
+        return matches;
     };
 });
