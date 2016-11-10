@@ -569,6 +569,14 @@ input[type='button'].default {
   box-shadow: #ccc 0px 0px 3px;
 }
 
+input[type="button"].comReset {
+  position: absolute;
+  top: 71px;
+  left: 50%;
+  margin-left: -24px;
+  width: 48px;
+}
+
 .chosen-container .chosen-drop{
   top:89%;
   padding-top:2px;
@@ -628,6 +636,14 @@ font[color='red'], font[color='#FF0000'], .hdsd {
   font-size: 12px;
 }
 
+#genreLegend.comLegend {
+  width: 100px;
+  position: absolute;
+  top: 105px;
+  left: 50%;
+  margin-left: -50px;
+}
+
 #genreCodes {
   cursor: default;
   display: none;
@@ -638,6 +654,7 @@ font[color='red'], font[color='#FF0000'], .hdsd {
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0px 0px 10px #d2d2d2;
+  z-index: 2000;
 }
 
 #genreX {
@@ -645,6 +662,10 @@ font[color='red'], font[color='#FF0000'], .hdsd {
   position: relative;
   right: -105px;
   top: -5px;
+}
+
+.comLegend #genreX {
+  left: 96%;
 }
 
 .code {
