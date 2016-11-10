@@ -5,7 +5,7 @@ body{
 
 .full{
   background-color: black;
-  background-image: url(http://agentanswercenter.directv.com/en-us/res/system/img/tool_bg-09212015.jpg);
+  background-image: url(%%pub%%system/img/tool_bg-09212015.jpg);
   background-repeat: no-repeat; 
   background-position: left -30px;
 }
@@ -19,7 +19,7 @@ body{
 }
 
 select{
-  width:220px;
+  width:240px;
 }
 
 .com select{
@@ -126,7 +126,7 @@ table{
 
 .channels-count-holder{  
   width:915px;
-  background-image: url(http://agentanswercenter.directv.com/en-us/res/system/img/channels_back.png);
+  background-image: url(%%pub%%system/img/channels_back.png);
   background-position: 10px 0;
   background-repeat: no-repeat;  
 }
@@ -280,7 +280,7 @@ table td.channel-number{
 }
 
 .pkg-name-holder{
-  margin-bottom:6px;  
+  /*margin-bottom:6px;  */
 }
 
 .label-holder{
@@ -288,7 +288,7 @@ table td.channel-number{
 }
 
 .show-btn{ 
-  background-image: url(http://agentanswercenter.directv.com/en-us/res/system/img/chan_plus.png);
+  background-image: url(%%pub%%system/img/chan_plus.png);
   background-position: center center;
   background-repeat: no-repeat;  
 }
@@ -303,7 +303,7 @@ table td.channel-number{
 }
 
 .open{
-  background-image: url(http://agentanswercenter.directv.com/en-us/res/system/img/chan_minus.png);
+  background-image: url(%%pub%%system/img/chan_minus.png);
 }
 
 .show-btn-holder .current{
@@ -483,7 +483,7 @@ span.btn-feedback:hover {
     display: block;
     width: 44px;
     height: 16px;
-    background: url(http://agentanswercenter.directv.com/en-us/res/system/img/content_btns.gif) left -192px no-repeat;
+    background: url(%%pub%%system/img/content_btns.gif) left -192px no-repeat;
     text-indent: -9999px;    
 }
 
@@ -569,14 +569,6 @@ input[type='button'].default {
   box-shadow: #ccc 0px 0px 3px;
 }
 
-input[type="button"].comReset {
-  position: absolute;
-  top: 71px;
-  left: 50%;
-  margin-left: -24px;
-  width: 48px;
-}
-
 .chosen-container .chosen-drop{
   top:89%;
   padding-top:2px;
@@ -597,114 +589,4 @@ font[color='red'], font[color='#FF0000'], .hdsd {
 
 .sdonly {
   color: #FF0000;
-}
-
-.headers2{
-  width:100%;
-  display:block;
-  position:relative;
-  vertical-align:middle;
-  margin-top:8px
-}
-
-.alert{
-  margin:0 4px;
-  background: #d0e4f7;
-  background: -ms-linear-gradient(top, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);
-  background: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%);
-  -pie-background: linear-gradient(#87bcea, #0a77d5);
-  text-align: center;
-  font-size: .85em;
-  font-weight: bold;
-  padding: 1px 4px;
-  -webkit-border-radius: 16px;
-  -moz-border-radius: 16px;
-  border-radius: 16px;
-  position:relative;
-  color:white
-}
-
-#genreLegend{
-  position:inherit;
-  margin-left:20px;
-  display:inline-block;
-  color:black;
-  background-repeat: no-repeat;
-  background-position: 49px 1px;
-  height: 20px;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-#genreLegend.comLegend {
-  width: 100px;
-  position: absolute;
-  top: 105px;
-  left: 50%;
-  margin-left: -50px;
-}
-
-#genreCodes {
-  cursor: default;
-  display: none;
-  position: absolute;
-  width: 240px;
-  background-color: white;
-  border: solid 1px #d2d2d2;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0px 0px 10px #d2d2d2;
-  z-index: 2000;
-}
-
-#genreX {
-  cursor: pointer;
-  position: relative;
-  right: -105px;
-  top: -5px;
-}
-
-.comLegend #genreX {
-  left: 96%;
-}
-
-.code {
-  width: 41px;
-  font-weight: bold;
-  margin-right: 15px;
-  position: relative;
-  padding-left: 7px;
-  text-align: left;
-}
-
-.code input {
-  cursor: pointer;
-  position: absolute;
-  text-align: left;
-  left: -14px;
-  bottom: 2px;
-}
-
-.alert_ggp{
-  height:50px;
-  width:100%;
-  vertical-align:middle;
-  border:1px solid #dae3ec;
-  background-color:#e1edf9;
-}
-.alert_gp{
-  color:#495ecb;
-  font-weight:bold;
-  font-size:0.87em;
-  padding:5px;
-  margin-top:7px
-}
-.alert_p{
-  display:inline-block;
-  color:black;
-  background-repeat: no-repeat;
-  background-position: 49px 1px;
-  height: 20px;
-  cursor: pointer;
-  font-size: 12px;
 }

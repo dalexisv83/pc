@@ -1,0 +1,432 @@
+<!doctype html>
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="App">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />   
+    <title>Package Compare</title>
+    <link rel="stylesheet" href="http://agentanswercenter.directv.com/en-us/res/system/css/bootstrap.3.1.1.css">  
+    <link rel="stylesheet" href="http://agentanswercenter.directv.com/en-us/res/system/css/jquery.qtip.min.css"> 
+    <link rel="stylesheet" href="http://agentanswercenter.directv.com/en-us/res/system/css/chosen.css"> 
+    <link rel="stylesheet" href="http://agentanswercenter.directv.com/en-us/res/system/css/growl.css">
+    <link rel="stylesheet" href="version_two/style/style.css?v=01">
+    <!--[if IE]>
+    <script src="http://agentanswercenter.directv.com/en-us/res/system/js/PIE.js"></script>
+    <script src="http://agentanswercenter.directv.com/en-us/res/system/js/es5-shim.min.js"></script>
+    <script src="http://agentanswercenter.directv.com/en-us/res/system/js/es5-sham.min.js"></script>
+    <![endif]-->
+    <!--intentionally placed in the head so ng-cloak will work.... please refer to https://docs.angularjs.org/api/ng/directive/ngCloak-->
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/chosen_jquery.js"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/angular.js"></script>
+    <script>
+        function pop_at_noresize(page,pageWidth,pageHeight,pageName) {
+    if(isNaN(pageWidth) == true){
+        pageWidth = 800;
+    }
+    if(isNaN(pageHeight) == true){
+        pageHeight = 600;
+    }
+    if(isNaN(pageName) == true){
+        var pageName = '_blank';
+    }
+    width = pageWidth;
+    height = pageHeight;
+    newWin = window.open(page,pageName, ",status=no,toolbar=no,menubar=no,location=no,scrollbars=yes,resizable=no width="+width+",height="+height+"");
+    newWin.focus();
+    }
+    </script>
+</head>
+<body class="full" ng-controller="AppController">
+<div class="wrapper">
+    <div class="headers" style="height:70px">
+            <div class="col-md-4" style="margin-top:25px;display:inline-block">
+                <img src="http://agentanswercenter.directv.com/en-us/res/system/img/Logo_DTV_ATT.png">            
+            </div>
+            <div class="col-md-5" style="margin-top:10px;display:inline-block">
+                <h1 class="tool-title" style="font-size:1.5em;">Package Compare Tool</h1>
+            </div>
+
+            <div class="col-md-3" style="float:right;margin-top:50px;text-align:right;position:relative">
+                <input type="button" value="Reset" class="default" ng-click="reset();" style="position:absolute;top:-30px;right:10px" ng-window-pie></input>
+                <a href="javascript:pop_at_noresize('http://agentanswercenter.directv.com/en-us/res/rover_tools/channel_list/channel_list.htm',900,760);" style="font-size:1.2em;color:white;text-decoration:underline">
+                <img src='http://agentanswercenter.directv.com/en-us/res/system/img/external-link-icon.png' width=20 height=15 /> Channel Lineup</a>
+            </div>
+        </div>
+    <div class="border" ng-window-pie style="height:710px">
+        <span style="width:100%;border:2px solid #0a77d5;padding:7px;font-size: 1.2em;display:none;position:relative">
+                <div class="close_notification" style="float:right;cursor:pointer;position:absolute;right:4px;top:0">
+                    <img src="http://agentanswercenter.directv.com/en-us/res/system/img/x.png" width=10 height=10 />
+                </div>
+                <div class="alert_message" style="padding-right:15px"></div>
+        </span>
+        <div class="headers headers2">
+            <div style="display:inline-block;float:left">
+                <h2 style="margin-bottom:5px">Current Package</h2>
+            </div>
+            <div style="display:inline-block;float:right;margin-right: 90px;">
+                <h2 style="margin-bottom:5px">Requested Package</h2>
+            </div>
+        </div>
+    
+        <!--start row for package dropdowns-->
+        <div style="display:table;width:100%;border-spacing:0.2em">
+            <div style="display:table-row">
+                <div style="display:table-cell;width:35%" class="current">
+                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' ' + dataStore.getDisplayPrice(current_pkg.price) + ' (' + current_pkg.count + ')') group by current_pkg.company for current_pkg in current_pkgs | orderBy:'dname'" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
+                </select>
+            
+<!--                     <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname) group by current_pkg.company for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
+                    </select> -->
+                </div>
+                <div style="display:table-cell;width:30%;text-align: center;">
+                    <div id="genreLegend" >Legend/Filter<span class="alert" ng-window-pie>?</span>
+                        <div id="genreCodes">
+                        <img id="genreX" src="http://agentanswercenter.directv.com/en-us/res/system/img/x.png" width=10 height=10 />
+                            <div class="wrapper last">
+                               <div class="pull-left code">*</div>
+                               <div class="pull-left title"><a href="/en-us/res/ace/vod_index.html" target="_blank">DIRECTV On Demand</a></div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper last">
+                               <div class="pull-left code">&#171;</div>
+                               <div class="pull-left title"><a href="/en-us/res/programming/72hr_rewind_restart.html" target="_blank">Rewind &amp; Restart</a></div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <hr />
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.fam" ng-change="update()"/> FAM</div>
+                               <div class="pull-left title">Family</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.int" ng-change="update()"/> INT</div>
+                               <div class="pull-left title">International</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.lif" ng-change="update()"/> LIF</div>
+                               <div class="pull-left title">Lifestyle</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.mov" ng-change="update()"/> MOV</div>
+                               <div class="pull-left title">Movie</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.new" ng-change="update()"/> NEW</div>
+                               <div class="pull-left title">News</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.pub" ng-change="update()"/> PUB</div>
+                               <div class="pull-left title">Public</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.snc" ng-change="update()"/> SNC</div>
+                               <div class="pull-left title">Music</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.spa" ng-change="update()"/> SPA</div>
+                               <div class="pull-left title">Spanish</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper last">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.spt" ng-change="update()"/> SPT</div>
+                               <div class="pull-left title">Sports</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper last">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.ad" ng-change="update()"/> AD</div>
+                               <div class="pull-left title">Advertisment</div>
+                               <div style="clear:both"></div>
+                            </div>
+                        </div><!--end of div#genreCodes-->
+                    </div>
+                </div>
+
+                <div style="display:table-cell;width:35%;text-align:right" class="requested">
+                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' ' + dataStore.getDisplayPrice(requested_pkg.price) + ' (' + requested_pkg.count + ')') group by requested_pkg.company for requested_pkg in requested_pkgs | orderBy:'dname'" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
+                </select>
+            
+<!--                     <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname) group by requested_pkg.company for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
+                    </select> -->
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!--ends row for package dropdowns-->
+       
+        <!--start row for channels count-->
+        <div>
+            <div class="channels-count-holder" ng-cloak ng-show="current_channels || gained_channels || lost_channels || requested_channels">
+                <div class="pull-left">
+                    <div class="current count" ng-click="show_current_channels = Utility.show(show_current_channels)" ng-cloak>{{ (current_channels).length }}</div>
+                </div>
+                <div class="pull-left">
+                    <div class="gained count" ng-click="show_gained_channels = Utility.show(show_gained_channels)" ng-cloak>{{ (gained_channels).length }}</div>
+                </div>
+                <div class="pull-left">
+                    <div class="lost count" ng-click="show_lost_channels = Utility.show(show_lost_channels)" ng-cloak>{{ (lost_channels).length }}</div>
+                </div>
+                <div class="pull-left">
+                    <div class="requested count" ng-click="show_requested_channels = Utility.show(show_requested_channels)" ng-cloak>{{ (requested_channels).length }}</div>
+                </div>
+                <div class="clearfix"></div> 
+            </div>           
+        </div>
+        <!--end row for channels count-->
+        
+        <!--start of row for show-btn-->
+        <div class="show-btn-holder">
+            <div class="current pull-left">
+                <div class="show-btn" ng-click="show_current_channels = Utility.show(show_current_channels)" ng-class="{open: show_current_channels}" ng-show="current_channels" ng-cloak></div>
+            </div>
+            <div class="gained pull-left">
+                <div class="show-btn" ng-click="show_gained_channels = Utility.show(show_gained_channels)" ng-class="{open: show_gained_channels}" ng-show="gained_channels" ng-cloak></div>
+            </div>
+            <div class="lost pull-left">
+                <div class="show-btn" ng-click="show_lost_channels = Utility.show(show_lost_channels)" ng-class="{open: show_lost_channels}" ng-show="lost_channels" ng-cloak></div>
+            </div>
+            <div class="requested pull-left">
+                <div class="show-btn" ng-click="show_requested_channels = Utility.show(show_requested_channels)" ng-class="{open: show_requested_channels}" ng-show="requested_channels" ng-cloak></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!--end of row for show-btn-->
+        
+        <!--start row for package labels-->        
+        <div class="pkg-name-holder" style="margin-bottom:0">
+            <div class="table-header label pull-left" ng-cloak>
+                <div class="current label-holder" ng-show="show_current_channels">
+                    <span ng-if="current_pkg.url">
+                        <a title="Click to open this package main page." onClick="window.open('http://agentanswercenter.directv.com/en-us/res/programming/{{current_pkg.url}}', '_blank');" href="#">
+                        {{current_pkg.name}}
+                        </a>
+                    </span>
+                    <span ng-show="current_pkg.status == '0'"> - </span>
+                    <a href="/en-us/res/programming/expired_packages.html" target="_blank" class="expired" ng-show="current_pkg.status == '0'">Expired</a>
+                    </span>
+                    <span ng-if="!current_pkg.url">
+                        {{current_pkg.name}}
+                    </span>
+                </div>               
+            </div>
+            <div class="table-header label double pull-left">
+                 <div class="label-holder saved-amt" ng-show="saved_amt > 0" ng-cloak>
+                    Customer will save <span class="price">&#36;<span ng-bind-html-unsafe="saved_amt"></span></span>
+                </div>
+                <div class="label-holder pay-more-amt" ng-show="pay_more_amt > 0" ng-cloak>
+                    Customer will pay <span class="price">&#36;<span ng-bind-html-unsafe="pay_more_amt"></span></span> more
+                </div>
+                
+            </div>          
+            <div class="table-header label pull-left" style="width:26%">
+                <div class="label-holder" ng-cloak ng-show="show_requested_channels" >
+                    <span ng-if="requested_pkg.url">
+                        <a title="Click to open this package main page." onClick="window.open('http://agentanswercenter.directv.com/en-us/res/programming/{{requested_pkg.url}}', '_blank');" href="#">
+                        {{requested_pkg.name}}
+                        </a>
+                        <span ng-show="requested_pkg.status == '0'"> - </span>
+                        <a href="/en-us/res/programming/expired_packages.html" target="_blank" class="expired" ng-show="requested.status == '0'">Expired</a>
+                    </span>
+                    <span ng-if="!requested_pkg.url">
+                        {{requested_pkg.name}}
+                    </span>
+                </div>                
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!--end row for package labels-->
+        <div style="display:table;width:100%;border-spacing:0.2em;margin-bottom:5px;">
+            <div style="display:table-row">
+                <div style="display:table-cell;width:25%;height:100%">
+                    <div class="current alert_ggp" ng-if="current_pkg.company == 'U-verse'" ng-cloak>
+                        <div class="label-holder alert_gp" >
+                            <div class="alert_p">
+                                <span class="alert" ng-window-pie><span style="position:relative;z-index:5">!</span></span>
+                            </div>
+                            U-Verse packages assume HD
+                        </div>
+                    </div>
+                </div>
+                <div style="display:table-cell;width:50%" class="current">
+                    <div style="vertical-align:middle;padding:5px;text-align:center">
+                        <div style="color:red" class="label-holder reminder" ng-show="current_pkg || requested_pkg" ng-cloak>**REMINDER: DO NOT discuss exact channel counts with customers.</div>
+                    </div>
+                </div>
+                <div style="display:table-cell;width:25%;height:100%">
+                    <div class="current alert_ggp" ng-if="requested_pkg.company == 'U-verse'" ng-cloak>
+                        <div class="label-holder alert_gp" >
+                            <div class="alert_p">
+                                <span class="alert" ng-window-pie><span style="position:relative;z-index:5">!</span></span>
+                            </div>
+                            U-Verse packages assume HD
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--start row for table headers-->
+        <div ng-cloak ng-show="current_channels || gained_channels  || lost_channels || requested_channels">
+            <div class="table-header current pull-left" style="margin-left: 15px;">
+                <div class="table-header-inner" ng-cloak ng-show="current_channels && show_current_channels">
+                    <div class="channel-number pull-left" >
+                       <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a> 
+                    </div>
+                    <div class="channel-name pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'channelname sort-true', 'sort-false sorted': sorted_column == 'channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelname',reverse)">Channel Name</a>
+                    </div>
+                    <div class="genre pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'genre sort-true', 'sort-false sorted': sorted_column == 'genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('genre',reverse)">Genre</a>
+                    </div>
+                    <div class="clearfix">                        
+                    </div>
+                </div>
+            </div>
+            <div class="table-header gained pull-left" style="margin-left: 15px;">
+                <div class="table-header-inner" ng-cloak ng-show="gained_channels && show_gained_channels">
+                    <div class="channel-number pull-left">
+                       <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a>
+                    </div>
+                    <div class="channel-name pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'channelname sort-true', 'sort-false sorted': sorted_column == 'channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelname',reverse)">Channel Name</a>
+                    </div>
+                    <div class="genre pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'genre sort-true', 'sort-false sorted': sorted_column == 'genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('genre',reverse)">Genre</a>
+                    </div>
+                    <div class="clearfix">                        
+                    </div>
+                </div>
+            </div>
+            <div class="table-header lost pull-left" style="margin-left: 15px;">
+                <div class="table-header-inner" ng-cloak ng-show="lost_channels && show_lost_channels">
+                    <div class="channel-number pull-left">
+                       <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a>
+                    </div>
+                    <div class="channel-name pull-left">
+                       <a ng-class="{'sort-true sorted': sorted_column == 'channelname sort-true', 'sort-false sorted': sorted_column == 'channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelname',reverse)">Channel Name</a>
+                    </div>
+                    <div class="genre pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'genre sort-true', 'sort-false sorted': sorted_column == 'genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('genre',reverse)">Genre</a>
+                    </div>
+                    <div class="clearfix">                        
+                    </div>
+                </div>
+            </div>
+             <div class="table-header requested pull-left" style="margin-left: 15px;">
+                <div class="table-header-inner" ng-cloak ng-show="requested_channels && show_requested_channels">
+                    <div class="channel-number pull-left">
+                       <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a>
+                    </div>
+                    <div class="channel-name pull-left">
+                       <a ng-class="{'sort-true sorted': sorted_column == 'channelname sort-true', 'sort-false sorted': sorted_column == 'channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelname',reverse)">Channel Name</a>
+                    </div>
+                    <div class="genre pull-left">
+                        <a ng-class="{'sort-true sorted': sorted_column == 'genre sort-true', 'sort-false sorted': sorted_column == 'genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('genre',reverse)">Genre</a>
+                    </div>
+                    <div class="clearfix">                        
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!--end row for table headers-->
+
+        <!--start row for channel tables-->
+        <div>
+            <div class="pull-left channels-table-holder current-channels" style="margin-left: 15px;">
+                <div class="table-wrapper" ng-cloak ng-show="current_channels && show_current_channels" scroll-to-top-when="items_changed" when-scrolled="current_pkg_limit = loadMore(current_pkg_limit);">
+                    <table>
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in current_channels | orderBy:sortType:reverse | limitTo:current_pkg_limit">
+                            <td ng-if="current_pkg.company == 'DIRECTV'" class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td ng-if="current_pkg.company == 'U-verse'" class="channel-number" ng-bind-html-unsafe="channel.attNumber" width="24"></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="pull-left channels-table-holder gained-channels" style="margin-left: 15px;">
+                <div class="table-wrapper" ng-cloak  ng-show="gained_channels && show_gained_channels" scroll-to-top-when="items_changed" when-scrolled="gained_channels_limit = loadMore(gained_channels_limit);">
+                    <table>
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in gained_channels | orderBy:sortType:reverse  | limitTo:gained_channels_limit">
+                            <td ng-if="requested_pkg.company == 'DIRECTV'" class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td ng-if="requested_pkg.company == 'U-verse'" class="channel-number" ng-bind-html-unsafe="channel.attNumber" width="24"></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="pull-left channels-table-holder lost-channels" style="margin-left: 15px;">
+                <div class="table-wrapper" ng-cloak  ng-show="lost_channels && show_lost_channels" scroll-to-top-when="items_changed" when-scrolled="lost_channels_limit = loadMore(lost_channels_limit);">
+                    <table>                    
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in lost_channels | orderBy:sortType:reverse  | limitTo:lost_channels_limit">
+                            <td ng-if="current_pkg.company == 'DIRECTV'" class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td ng-if="current_pkg.company == 'U-verse'" class="channel-number" ng-bind-html-unsafe="channel.attNumber" width="24"></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="pull-left channels-table-holder requested-channels" style="margin-left: 15px;">
+                <div class="table-wrapper" ng-cloak  ng-show="requested_channels && show_requested_channels" scroll-to-top-when="items_changed" when-scrolled="requested_pkg_limit = loadMore(requested_pkg_limit);">
+                    <table>                  
+                        <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="channel in requested_channels | orderBy:sortType:reverse | limitTo:requested_pkg_limit">
+                            <td ng-if="requested_pkg.company == 'DIRECTV'" class="channel-number" ng-bind-html-unsafe="channel.channelnumber" width="24"></td>
+                            <td ng-if="requested_pkg.company == 'U-verse'" class="channel-number" ng-bind-html-unsafe="channel.attNumber" width="24"></td>
+                            <td width="60"><a onClick="window.open('{{UrlFormatter.formatUrl(channel.url)}}', '_blank');" href="#"><font ng-bind-html-unsafe="channel.channelname"></font></a></td>
+                            <td class="genre" ng-bind-html-unsafe="channel.genre" width="20"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix"></div> 
+        </div>
+        <!--end row for channel tables-->
+    </div>
+<!--         <div class="label-holder disclaim center-note pricing" ng-show="current_pkg && requested_pkg" ng-cloak>Pricing is not inclusive of any add-ons; refer to the ordering system for accurate pricing with all package components
+        </div>
+ -->    
+    </div>
+    
+    <script src="http://agentanswercenter.directv.com/en-us/res/system/js/webtrends.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/angular-sanitize.js"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/rover_tools/channel_list/version_two/js/unit_test/polyfills.js"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/angular-growl.js"></script>
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/underscore.js"></script>     
+    <script type="text/javascript" src="http://agentanswercenter.directv.com/en-us/res/system/js/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="version_two/script/app.js"></script>
+    <!-- moved here due to Tridion parsing the > symbol incorrectly -->
+    <!-- TODO: moved this back to app.js once the issue in Tridion is fixed -->
+    <script type="text/javascript">
+        app.directive('whenScrolled', function() {
+            'use strict';
+            return function(scope, elm, attr) {
+                var raw = elm[0];
+                elm.bind('scroll', function() {                   
+                    if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+                        scope.$apply(attr.whenScrolled);
+                    }
+                });
+            };
+            
+        });
+        $(".close_notification").on('click', function(){$(".alert_message").parent().css('display','none');});
+        $('#genreLegend').click(function(){
+            $('#genreCodes').show();
+        });
+        $('#genreX').click(function(e){
+            e.stopPropagation();
+            $('#genreCodes').hide();
+        });
+    </script>
+    <script type="text/javascript" src="http://vwecda05.testla.testfrd.directv.com/toolmanager/index.php/packagecompareres"></script>
+    <script type="text/javascript" src="version_two/script/class.js"></script>
+    <script type="text/javascript" src="version_two/controller/app_controller.js"></script>
+</body>
+</html>

@@ -2,29 +2,29 @@
 <html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="App">
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />   
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
     <title>Package Compare</title>
-    <link rel="stylesheet" href="%%pub%%system/css/bootstrap.3.1.1.css">  
-    <link rel="stylesheet" href="%%pub%%system/css/jquery.qtip.min.css"> 
-    <link rel="stylesheet" href="%%pub%%system/css/chosen.css"> 
-    <link rel="stylesheet" href="%%pub%%system/css/growl.css"> 
-    <link rel="stylesheet" href="%%pub%%rover_tools/package_compare/version_two/style/style.css">  
-    <!--[if IE]>
-    <script src="%%pub%%system/js/PIE.js"></script>
+    <link rel="stylesheet" href="http://agentanswercenterstg.directv.com/en-us/com/system/css/bootstrap.3.1.1.css">
+    <link rel="stylesheet" href="http://agentanswercenterstg.directv.com/en-us/com/system/css/jquery.qtip.min.css">
+    <link rel="stylesheet" href="http://agentanswercenterstg.directv.com/en-us/com/system/css/chosen.css">
+    <link rel="stylesheet" href="http://agentanswercenterstg.directv.com/en-us/com/system/css/growl.css">
+    <link rel="stylesheet" href="version_two/style/style.css">
+     <!--[if IE]>
+    <script src="http://agentanswercenterstg.directv.com/en-us/com/system/js/PIE.js"></script>
     <![endif]-->
     <!--intentionally placed in the head so ng-cloak will work.... please refer to https://docs.angularjs.org/api/ng/directive/ngCloak-->
-    <script type="text/javascript" src="%%pub%%system/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="%%pub%%system/js/chosen_jquery.js"></script>
-    <script type="text/javascript" src="%%pub%%system/js/angular.js"></script>
+    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/com/system/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/com/system/js/chosen_jquery.js"></script>
+    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/com/system/js/angular.js"></script>
 </head>
-<body class="full" >
+<body class="full">
    
 <div>
-
-    <div class="wrapper" ng-controller="AppController" ng-init="init()">
-
+    
+    <div class="wrapper" ng-controller="AppController">
+        
         <!--comment button-->
-        <div id="comment_btn" class="pull-right">
+        <div id="comment_btn" class="pull-right" >
         </div>
         <!--comment button-->
 
@@ -35,15 +35,14 @@
 
         <div class="headers">
             <div class="first">
-                <img src="%%pub%%system/img/Logo_DTV_ATT.png">
+                <img src="http://agentanswercenterstg.directv.com/en-us/com/system/img/Logo_DTV_ATT.png">
             </div>
             <div class="second">
                 <h1 class="tool-title">Package Compare Tool</h1>
             </div>
         </div>
 
-    <div class="border" ng-window-pie>
-        
+    <div class="border" style="height: 610px;" ng-window-pie>
         <div class="headers">
             <div class="first">
                 <h2>Current Package</h2>
@@ -52,21 +51,90 @@
                 <h2>Requested Package</h2>
             </div>
         </div>
-    
-        <!--reset button-->       
-        <input type="button" value="Reset" class="default" ng-click="reset();" ng-window-pie></input>
+
+       <!--reset button-->
+        <input type="button" value="Reset" class="default comReset" ng-click="reset();" ng-window-pie></input>
         <!--reset button-->
         
-        <p class="why" id="genreLegend">Legend<span ng-window-pie>?</span></p>
+        <div id="genreLegend" class="comLegend">Legend/Filter<span class="alert" ng-window-pie>?</span>
+                        <div id="genreCodes">
+                        <img id="genreX" src="http://agentanswercenter.directv.com/en-us/res/system/img/x.png" width=10 height=10 />
+                            <div class="wrapper last">
+                               <div class="pull-left code">*</div>
+                               <div class="pull-left title"><a href="/en-us/res/ace/vod_index.html" target="_blank">DIRECTV On Demand</a></div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper last">
+                               <div class="pull-left code">&#171;</div>
+                               <div class="pull-left title"><a href="/en-us/res/programming/72hr_rewind_restart.html" target="_blank">Rewind &amp; Restart</a></div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <hr />
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.fam" ng-change="update()"/> FAM</div>
+                               <div class="pull-left title">Family</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.int" ng-change="update()"/> INT</div>
+                               <div class="pull-left title">International</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.lif" ng-change="update()"/> LIF</div>
+                               <div class="pull-left title">Lifestyle</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.mov" ng-change="update()"/> MOV</div>
+                               <div class="pull-left title">Movie</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.new" ng-change="update()"/> NEW</div>
+                               <div class="pull-left title">News</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.pub" ng-change="update()"/> PUB</div>
+                               <div class="pull-left title">Public</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.snc" ng-change="update()"/> SNC</div>
+                               <div class="pull-left title">Music</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.spa" ng-change="update()"/> SPA</div>
+                               <div class="pull-left title">Spanish</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper last">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.spt" ng-change="update()"/> SPT</div>
+                               <div class="pull-left title">Sports</div>
+                               <div style="clear:both"></div>
+                            </div>
+                            <div class="wrapper last">
+                               <div class="pull-left code"><input type="checkbox" ng-model="gFilter.ad" ng-change="update()"/> AD</div>
+                               <div class="pull-left title">Advertisment</div>
+                               <div style="clear:both"></div>
+                            </div>
+                        </div><!--end of div#genreCodes-->
+                    </div>
+        
+        <select class="volumes" ng-model="volume" ng-options="volume for volume in volumes" name="volume">
+            <option value="">Select EVO:</option>
+        </select>
         
         <!--start row for package dropdowns-->
         <div class="pkgs-holder headers">
-            <div class="pull-left current">
-                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' - $' + current_pkg.price)  for current_pkg in current_pkgs | filter:{company:'directv'} | unique" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
+            <div class="com pull-left current">
+                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="current_pkg" ng-options="current_pkg as (current_pkg.dname + ' ' + dataStore.getDisplayPrice(current_pkg.price,volume))  for current_pkg in current_pkgs" name="current_package" class="convert-from chosen-select" chosen="current_pkgs" required>
                 </select>
             </div>
-            <div class="pull-left requested">
-                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' - $' + requested_pkg.price)  for requested_pkg in requested_pkgs | filter:{company:'directv'} | unique" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
+            <div class="com pull-left requested">
+                <select data-placeholder="Type or Select Package:" tabindex="2" ng-model="requested_pkg" ng-options="requested_pkg as (requested_pkg.dname + ' ' + dataStore.getDisplayPrice(requested_pkg.price,volume))  for requested_pkg in requested_pkgs" name="requested_package" class="convert-from chosen-select" chosen="requested_pkgs" required>
                 </select>
             </div>
             <div class="clearfix"></div>
@@ -147,61 +215,49 @@
         <div ng-cloak ng-show="current_channels.length > 0 || gained_channels.length > 0 || lost_channels.length > 0 || requested_channels.length > 0">
             <div class="table-header current pull-left">
                 <div class="table-header-inner" ng-cloak ng-show="current_channels.length > 0 && show_current_channels">
-                    <div class="channel-number pull-left" >
+                    <div class="com channel-number pull-left" >
                        <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a> 
                     </div>
                     <div class="channel-name pull-left">
                         <a ng-class="{'sort-true sorted': sorted_column == 'channelname sort-true', 'sort-false sorted': sorted_column == 'channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelname',reverse)">Channel Name</a>
-                    </div>
-                    <div class="genre pull-left">
-                        <a ng-class="{'sort-true sorted': sorted_column == 'genre sort-true', 'sort-false sorted': sorted_column == 'genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('genre',reverse)">Genre</a>
-                    </div>
+                    </div>                  
                     <div class="clearfix">                        
                     </div>
                 </div>
             </div>
             <div class="table-header gained pull-left">
                 <div class="table-header-inner" ng-cloak ng-show="gained_channels.length > 0 && show_gained_channels">
-                    <div class="channel-number pull-left">
+                    <div class="com channel-number pull-left">
                        <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a>
                     </div>
                     <div class="channel-name pull-left">
                         <a ng-class="{'sort-true sorted': sorted_column == 'channelname sort-true', 'sort-false sorted': sorted_column == 'channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelname',reverse)">Channel Name</a>
-                    </div>
-                    <div class="genre pull-left">
-                        <a ng-class="{'sort-true sorted': sorted_column == 'genre sort-true', 'sort-false sorted': sorted_column == 'genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('genre',reverse)">Genre</a>
-                    </div>
+                    </div>                    
                     <div class="clearfix">                        
                     </div>
                 </div>
             </div>
             <div class="table-header lost pull-left">
                 <div class="table-header-inner" ng-cloak ng-show="lost_channels.length > 0  && show_lost_channels">
-                    <div class="channel-number pull-left">
+                    <div class="com channel-number pull-left">
                        <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a>
                     </div>
                     <div class="channel-name pull-left">
                        <a ng-class="{'sort-true sorted': sorted_column == 'channelname sort-true', 'sort-false sorted': sorted_column == 'channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelname',reverse)">Channel Name</a>
-                    </div>
-                    <div class="genre pull-left">
-                        <a ng-class="{'sort-true sorted': sorted_column == 'genre sort-true', 'sort-false sorted': sorted_column == 'genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('genre',reverse)">Genre</a>
-                    </div>
+                    </div>                   
                     <div class="clearfix">                        
                     </div>
                 </div>
             </div>
              <div class="table-header requested pull-left">
                 <div class="table-header-inner" ng-cloak ng-show="requested_channels.length > 0  && show_requested_channels">
-                    <div class="channel-number pull-left">
+                    <div class="com channel-number pull-left">
                        <a ng-class="{'sort-true sorted': sorted_column == 'channelnumber sort-true', 'sort-false sorted': sorted_column == 'channelnumber sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelnumber', reverse)">#</a>
                     </div>
                     <div class="channel-name pull-left">
                        <a ng-class="{'sort-true sorted': sorted_column == 'channelname sort-true', 'sort-false sorted': sorted_column == 'channelname sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('channelname',reverse)">Channel Name</a>
                     </div>
-                    <div class="genre pull-left">
-                        <a ng-class="{'sort-true sorted': sorted_column == 'genre sort-true', 'sort-false sorted': sorted_column == 'genre sort-false'}" href="#" title="Click to sort." ng-click="reverse=!reverse;sort('genre',reverse)">Genre</a>
-                    </div>
-                    <div class="clearfix">                        
+                    <div class="clearfix">
                     </div>
                 </div>
             </div>
@@ -258,63 +314,11 @@
             <div class="clearfix"></div> 
         </div>      
         <!--end row for channel tables-->
-        
-        <div id="genreCodes" style="display:none">
-            <div class="wrapper last">
-               <div class="pull-left code">*</div>
-               <div class="pull-left title"><a href="/en-us/res/ace/vod_index.html" target="_blank">DIRECTV On Demand</a></div>
-               <div style="clear:both"></div>
-            </div>
-            <div class="wrapper last">
-               <div class="pull-left code">&#171;</div>
-               <div class="pull-left title"><a href="/en-us/res/programming/72hr_rewind_restart.html" target="_blank">Rewind &amp; Restart</a></div>
-               <div style="clear:both"></div>
-            </div>
-            <hr />
-            <div class="wrapper">
-               <div class="pull-left code">FAM</div>
-               <div class="pull-left title">Family</div>
-               <div style="clear:both"></div>
-            </div>
-            <div class="wrapper">
-               <div class="pull-left code">INT</div>
-               <div class="pull-left title">International</div>
-               <div style="clear:both"></div>
-            </div>
-            <div class="wrapper">
-               <div class="pull-left code">LIF</div>
-               <div class="pull-left title">Lifestyle</div>
-               <div style="clear:both"></div>
-            </div>
-            <div class="wrapper">
-               <div class="pull-left code">MOV</div>
-               <div class="pull-left title">Movie</div>
-               <div style="clear:both"></div>
-            </div>
-            <div class="wrapper">
-               <div class="pull-left code">NEW</div>
-               <div class="pull-left title">News</div>
-               <div style="clear:both"></div>
-            </div>
-            <div class="wrapper">
-               <div class="pull-left code">SNC</div>
-               <div class="pull-left title">Sonic</div>
-               <div style="clear:both"></div>
-            </div>
-            <div class="wrapper">
-               <div class="pull-left code">SPA</div>
-               <div class="pull-left title">Spanish</div>
-               <div style="clear:both"></div>
-            </div>
-            <div class="wrapper last">
-               <div class="pull-left code">SPT</div>
-               <div class="pull-left title">Sports</div>
-               <div style="clear:both"></div>
-            </div>          
-        </div><!--end of div#genreCodes-->
+
     </div>
     </div>
     
+<<<<<<< HEAD:version_two/index_com.htm
     <script src="%%pub%%system/js/webtrends.js" type="text/javascript"></script>
     <script type="text/javascript" src="%%pub%%system/js/angular-sanitize.js"></script>
     <script type="text/javascript" src="%%pub%%rover_tools/channel_list/version_two/js/unit_test/polyfills.js"></script>
@@ -322,11 +326,17 @@
     <script type="text/javascript" src="%%pub%%system/js/underscore.js"></script>     
     <script type="text/javascript" src="%%pub%%system/js/jquery.qtip.min.js"></script>
     <script type="text/javascript" src="%%pub%%rover_tools/package_compare/version_two/script/app.js"></script>
-    <script type="text/javascript" src="%%pub%%rover_tools/channel_list/version_two/data/channels.js"></script>
-    <script type="text/javascript" src="%%pub%%rover_tools/package_compare/version_two/script/class.js"></script>
-    <script type="text/javascript" src="%%pub%%rover_tools/package_compare/version_two/controller/app_controller.js"></script>
     <script type="text/javascript" src="%%pub%%rover_tools/package_compare/version_two/filters/filters.js"></script>
     <script type="text/javascript" src="%%pub%%rover_tools/angular_filters/unique/unique.js"></script>
+=======
+    <script src="http://agentanswercenterstg.directv.com/en-us/com/system/js/webtrends.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/com/system/js/angular-sanitize.js"></script>
+    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/com/rover_tools/channel_list/version_two/js/unit_test/polyfills.js"></script>
+    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/com/system/js/angular-growl.js"></script>
+    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/com/system/js/underscore.js"></script>
+    <script type="text/javascript" src="http://agentanswercenterstg.directv.com/en-us/com/system/js/jquery.qtip.min.js"></script>
+    <script type="text/javascript" src="version_two/script/app.js"></script>
+>>>>>>> new_db:index_com.htm
     <!-- moved here due to Tridion parsing the > symbol incorrectly -->
     <!-- TODO: moved this back to app.js once the issue in Tridion is fixed -->
     <script type="text/javascript">
@@ -342,6 +352,16 @@
             };
             
         });
+        $('#genreLegend').click(function(){
+            $('#genreCodes').show();
+        });
+        $('#genreX').click(function(e){
+            e.stopPropagation();
+            $('#genreCodes').hide();
+        });
     </script>
+    <script type="text/javascript" src="http://vwecda05.testla.testfrd.directv.com/toolmanager/index.php/packagecomparecom"></script>
+    <script type="text/javascript" src="version_two/script/class.js"></script>
+    <script type="text/javascript" src="version_two/controller/app_controller.js"></script>
 </body>
 </html>

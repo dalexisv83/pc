@@ -38,7 +38,7 @@
         
         for (i = 0; i < len; i = i + 1) {
             pkg = pkgs[i];
-            if ((pkg.id === id) || (pkg.id === String(id))){
+            if (pkg.id === id){
                 match_pkg = pkg;
                 break;
             }
@@ -59,20 +59,7 @@
            return false;          
         }        
         
-        var match_ch = false,
-        chs = channels,
-        i,
-        len = chs.length,
-        ch;
-
-        for (i = 0; i < len; i = i + 1) {
-            ch = chs[i];
-            if (ch.id === id){
-                match_ch = ch;
-                break;
-            }
-        }
-        return match_ch;
+        return channels[id - 1];
         
     };
     
@@ -517,8 +504,8 @@
             return 'http://agentanswercenterstg.directv.com/en-us/res/';            
         };
         this.formatUrl = function(url){
-            if (!url){
-                return null;
+            if (typeof url !== 'string'){
+                throw new Error('Enter a valid url.');
             }
             url = url.replace(/\s/g, ''); //remove spaces
             
@@ -580,21 +567,21 @@
     };
 
     
-    // /**
-    // * The Error class
-    // */
-    // var Error = function(message){
-    //     'use strict';
-    //     this.message = message;
-    // };
+    /**
+    * The Error class
+    */
+    var Error = function(message){
+        'use strict';
+        this.message = message;
+    };
     
-    // Error.prototype.toString = function(){
-    //     'use strict';
-    //     return this.message;
-    // };
-    // /**
-    // * End of Error class
-    // */
+    Error.prototype.toString = function(){
+        'use strict';
+        return this.message;
+    };
+    /**
+    * End of Error class
+    */
     
     
     /**

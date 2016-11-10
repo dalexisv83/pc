@@ -1,42 +1,19 @@
-app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
+app.controller('AppController', ['$scope',function ($scope) {
     'use strict';    
-    var alert_message = $(".alert_message"),
-        refresher = function() {
-            var diff,
-                channels_provider_diff;
-
-            if (($scope.show_current_channels) && ($scope.current_pkg)) {
-                $scope.current_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type),$scope.gFilter);
-            }
-            if (($scope.show_requested_channels) && ($scope.requested_pkg)) {
-                $scope.requested_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.requested_pkg.channels,$scope.requested_pkg.type),$scope.gFilter);
-            }
-            if (($scope.current_pkg) && ($scope.requested_pkg)) {
-                diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg);
-
-                if (!$.isEmptyObject(diff)) {
-                    $scope.gained_channels_limit = min_limit;
-                    $scope.lost_channels_limit = min_limit;
-                    channels_provider_diff = $scope.dataStore.diffChannelsByProvider($scope.current_pkg,$scope.requested_pkg,diff);
-                    $scope.gained_channels = $filter('byGenre')(channels_provider_diff.gained_channels, $scope.gFilter);
-                    $scope.lost_channels = $filter('byGenre')(channels_provider_diff.lost_channels, $scope.gFilter);
-                }
-            }
-        };
-
+    var alert_message = $('.alert_message');
     $scope.current_pkg = null; //holds the selected current package object
     $scope.requested_pkg = null; //holds the selected requested package object    
     
     $scope.current_pkgs = []; //holds the collection of packages on the current package dropdown
     $scope.requested_pkgs = []; //holds the collection of packages on the requested package dropdown
     
-    $scope.current_channels = null;  //holds the collection of current packages's channels
-    $scope.requested_channels = null; //holds the collection of requested package's channels
+    $scope.current_channels = [];  //holds the collection of current packages's channels
+    $scope.requested_channels = []; //holds the collection of requested package's channels
     
-    $scope.gained_channels = null; //holds the gained channels
-    $scope.lost_channels = null; //holds the lost channels
+    $scope.gained_channels = []; //holds the gained channels
+    $scope.lost_channels = []; //holds the lost channels
     
-    $scope.dataStore = new DataStore(data); //expose the datasource class to the view
+    $scope.dataStore = new DataStore(data,att_channels); //expose the datasource class to the view
     $scope.UrlFormatter = new UrlFormatter(localhost); //expose the urlformatter class to the view
     $scope.Utility = new Utility(); //expose the utility class to the view
     
@@ -59,20 +36,6 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
     $scope.requested_pkg_limit = min_limit;
     $scope.gained_channels_limit = min_limit;
     $scope.lost_channels_limit = min_limit;
-
-    $scope.gFilter = {
-        "int": true,
-        "fam": true,
-        "lif": true,
-        "mov": true,
-        "new": true,
-        "pub": true,
-        "snc": true,
-        "spa": true,
-        "spt": true,
-        "ad": true
-    };
-
     
     /**
      * Increases the limit initially set for ng-repeat everytime the user scrolls a dynamic channel
@@ -113,16 +76,16 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
      * Call your jquery functionality here 
      */
     angular.element(document).ready(function () {
-        var //tool_tip_btn = $('#genreLegend'),
-        //tooltip = new ToolTip(tool_tip_btn),
-        //genre_codes_container = $('#genreCodes'),
+        var tool_tip_btn = $('#genreLegend'),
+        tooltip = new ToolTip(tool_tip_btn),
+        genre_codes_container = $('#genreCodes'),
         btn = $('#comment_btn'),
         root_url = '%%pub%%',
         class_name = 'comment-btn', //add a class of comment-btn
         comment_btn = new CommentBtn(btn,class_name,root_url);
         
         //initialize tooltip
-        //tooltip.genreToolTip(genre_codes_container);
+        tooltip.genreToolTip(genre_codes_container);
         
         //initiate the comment btn
         comment_btn.init();        
@@ -143,12 +106,8 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
     });
     
     //watch for a change in current package
-    $scope.$watchCollection('current_pkg', function() {
-        return $scope.currentChange();
-    });
-
-    $scope.currentChange = function() {
-        if ($scope.current_pkg) {
+    $scope.$watchCollection('current_pkg', function() {       
+        if ($scope.current_pkg) {    
             
             try{
                dcsMultiTrack("DCSext.tool_package_compare_selected_user_packages","Current package change");
@@ -161,14 +120,14 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
             $scope.pay_more_amt = 0;
             
             //get the current channels out of the selected current package of the customer 
-            $scope.current_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type),$scope.gFilter);
-            $scope.current_count = $scope.current_pkg.count;
-
+            $scope.current_channels = $scope.dataStore.getChannels($scope.current_pkg.channels,$scope.current_pkg.type);
+            
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
             channels_provider_diff,
-            price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);
-    
+            //get the price diff. to determine if customer will save or pay more
+            price_diff = $scope.dataStore.getPriceDiff($scope.current_pkg,$scope.requested_pkg,$scope.volume);            
+            
             if (!$.isEmptyObject(diff)) {                
                 $scope.gained_channels_limit = min_limit;
                 $scope.lost_channels_limit = min_limit;               
@@ -185,19 +144,11 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
             $scope.$broadcast("items_changed");
         }
       
-    };
-
-    $scope.update = function() {
-        return refresher();
-    };
+    });
     
     //watch for a change in requested package
     $scope.$watchCollection('requested_pkg', function() {        
-        return $scope.requestedChange();
-    });
-
-    $scope.requestedChange = function() {
-
+        
         if ($scope.requested_pkg) {
             
             try{
@@ -210,8 +161,7 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
             $scope.pay_more_amt = 0;
             
             //get the requested channels out of the selected requested package of the customer
-            $scope.requested_channels = $filter('byGenre')($scope.dataStore.getChannels($scope.requested_pkg.channels,$scope.requested_pkg.type), $scope.gFilter);
-            $scope.requested_count = $scope.requested_pkg.count;
+            $scope.requested_channels = $scope.dataStore.getChannels($scope.requested_pkg.channels,$scope.requested_pkg.type);
             
             //get the difference between the current and requested package
             var diff = $scope.dataStore.getPackageDiff($scope.current_pkg,$scope.requested_pkg),
@@ -223,8 +173,8 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
                 $scope.gained_channels_limit = min_limit;
                 $scope.lost_channels_limit = min_limit;
                 channels_provider_diff = $scope.dataStore.diffChannelsByProvider($scope.current_pkg,$scope.requested_pkg,diff);
-                $scope.gained_channels = $filter('byGenre')(channels_provider_diff.gained_channels, $scope.gFilter);
-                $scope.lost_channels = $filter('byGenre')(channels_provider_diff.lost_channels, $scope.gFilter);
+                $scope.gained_channels = channels_provider_diff.gained_channels;
+                $scope.lost_channels = channels_provider_diff.lost_channels;   
             }
             
             if (!$.isEmptyObject(price_diff)) {
@@ -236,7 +186,7 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
 
             //show package tip
             if($scope.requested_pkg.tip){
-                alert_message.parent().css('display','block');
+                alert_message.parent().css('display','');
                 alert_message.html($scope.requested_pkg.tip); 
             }
             else{
@@ -244,7 +194,7 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
                 alert_message.html('');  
             }
         }        
-    };
+    });
    
     /**
      * Sort functionality for channels
@@ -269,12 +219,12 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
         $scope.requested_pkg = null;   
     
         //reset the collection of current and requested packages's channels
-        $scope.current_channels = null;  
-        $scope.requested_channels = null; 
+        $scope.current_channels = [];  
+        $scope.requested_channels = []; 
         
         //reset the gained and lost channels
-        $scope.gained_channels = null; 
-        $scope.lost_channels = null; 
+        $scope.gained_channels = []; 
+        $scope.lost_channels = []; 
         
         //reset the sorted column
         $scope.sorted_column = '';
@@ -290,59 +240,15 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
         $scope.pay_more_amt = 0; 
         
         //remove the growl message
-        alert_message.parent().css('display','none');
-        alert_message.html('');
+        alert_message.addInfoMessage('');
         
         //reset volume
         $scope.volume = null;
         
         $scope.sortType = 'channelname';
-
-        $scope.gFilter = {
-            "int": true,
-            "fam": true,
-            "lif": true,
-            "mov": true,
-            "new": true,
-            "pub": true,
-            "snc": true,
-            "spa": true,
-            "spt": true,
-            "ad": true
-        };
         
         $scope.resetLimit();
     };
     
-    $scope.reloadit =  function(){
-        $scope.$watchCollection('current_pkg');
-        $scope.$apply();
-    };
-    
+   
 }]);
-
-app.filter('byGenre', function() {
-    'use strict';
-    return function(items, genreObj) {
-        var k=0,
-            trueGens = [],
-            i=0,
-            matches = [],
-            itemLen = items.length;
-        for (k in genreObj) {
-            if (genreObj[k] === true) {
-                trueGens.push(k);
-            }
-        }
-        if (trueGens.length === 0) {
-            matches = items;
-        } else {
-            for (i = 0; i < itemLen; i = i+1) {
-                if ((items[i].genre) && (trueGens.indexOf(items[i].genre.toLowerCase()) > -1)) {
-                    matches.push(items[i]);
-                }
-            }
-        }
-        return matches;
-    };
-});
