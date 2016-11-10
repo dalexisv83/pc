@@ -307,7 +307,8 @@ app.controller('AppController', ['$scope','$filter',function ($scope, $filter) {
             "pub": true,
             "snc": true,
             "spa": true,
-            "spt": true
+            "spt": true,
+            "ad": true
         };
         
         $scope.resetLimit();
